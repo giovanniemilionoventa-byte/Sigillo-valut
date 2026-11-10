@@ -1,0 +1,26 @@
+---
+tags: [operations, config]
+source: code (apps/server/src/cli.ts, config.ts)
+---
+# Configuration (environment variables)
+
+## Core
+`SIGILLO_DB`, `SIGILLO_SIGNER_SOCKET`, `SIGILLO_HOST` (127.0.0.1), `SIGILLO_PORT` (8080), `SIGILLO_BACKUP_DIR`, `SIGILLO_PUBLIC_URL`, `SIGILLO_TRUST_PROXY`, `SIGILLO_COOKIE_SECURE`, `SIGILLO_ITALIAN`.
+
+## Time and seals
+`TSA_URL`, `TSA_URL_2`, `TSA_USERNAME`, `TSA_PASSWORD(_FILE)`, `SIGILLO_CHECKPOINT_MINUTES` (60), `SIGILLO_TSA_RETRY_MINUTES` (5), `SIGILLO_STALE_AFTER_MINUTES` (1440), `SIGILLO_MAX_ANCHOR_DELAY_MINUTES` (60).
+
+## Access
+`SIGILLO_ADMIN_PASSWORD(_FILE)`, `SIGILLO_ADMIN_CODE_FILE`, `SIGILLO_FIREBASE_API_KEY`, `SIGILLO_FIREBASE_PROJECT_ID`, login and ingest throttles (see [[Limits and throttling]]).
+
+## Gateway
+`SIGILLO_KEYHOLDER_SOCKET`, `SIGILLO_LLM_GATEWAY_KEY_FILE` (legacy), `SIGILLO_KEY_VAULT` (on/off, default off).
+
+## Ingest pause
+`SIGILLO_INGEST_PAUSED`, `SIGILLO_INGEST_PAUSED_EXCEPT`.
+
+## Feature switches (`off | operator | all`)
+Code default `operator`, compose sets `all` (repo rule 11 suspended since 2026-10-20):
+`SIGILLO_LLM_GATEWAY`, `SIGILLO_LLM_TOOL_REQUESTS`, `SIGILLO_AGENT_UPLOAD`, `SIGILLO_CONSOLE_V2`, `SIGILLO_RUNS`, `SIGILLO_EXTRA_KEYS`, `SIGILLO_EXPORT_REGISTER`, `SIGILLO_REPORT_LANGUAGE`, `SIGILLO_PACK_READER`, `SIGILLO_SITE_V2`, `SIGILLO_TRANSFER`, `SIGILLO_PLAIN_AGENTS`, `SIGILLO_SCRIPT_GUARD`, `SIGILLO_AGENT_PROTECTION`.
+
+Secrets are files or Docker secrets, never written in this vault.
