@@ -6,7 +6,7 @@ source: documenti + decisioni di Giovanni (non nel codice, salvo i prezzi del si
 # Modello di business e prezzi
 
 ## Modello [documenti]
-**Nessuna società per ora.** Sigillo è software dato **in licenza a un partner**, che lo rivende in abbonamento (licenziante → partner → clienti). Decisione di Giovanni del 2026-11-09: se le aziende pretendono un fornitore con società (SRL), il modello cambierà; non si apre la società prima. Divisione dei ricavi intorno al 50%, da decidere dopo i piloti. **Un solo prodotto: "la prova"**, non il "controllo".
+**Nessuna società per ora.** Sigillo è software dato **in licenza a un partner**, che lo rivende in abbonamento (licenziante → partner → clienti). Decisione di Giovanni del 2026-11-09: se le aziende pretendono un fornitore con società (SRL), il modello cambierà; non si apre la società prima. La partner è **Polina** (business e vendite, non tecnica, vedi [[Partners and market]]): i guadagni si dividono con lei, intorno al 50%, quota da decidere dopo i piloti. **Un solo prodotto: "la prova"**, non il "controllo".
 
 ## Clienti target [documenti]
 Software house e consulenti che costruiscono agenti AI in Python per finanza, assicurazioni, risorse umane. Prima Italia e Spagna.
