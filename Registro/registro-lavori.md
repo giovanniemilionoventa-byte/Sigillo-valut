@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-10: preparate 3 proposte grafiche (PNG) per ridisegnare la demo interattiva del sito: A «Essenziale» (solo il simulatore, catena di ricevute in orizzontale, un pulsante alla volta), B «Tutorial guidato» (guida passo per passo a sinistra, simulatore a destra), C «Passi a destra + fumetto» (simulatore tipo console, elenco dei passi a destra, fumetto che indica dove cliccare). File in `simulatore-demo/` dei file del progetto. Codice non toccato: Giovanni deve scegliere.
 - 2026-11-10: sincronizzazione del vault sul telefono di Giovanni sistemata (vault ripulito e riclonato, pull automatico ogni minuto, solo lettura dal telefono) e provata con una nota di prova, poi cancellata: funziona sia l'aggiunta che la cancellazione.
 - 2026-11-10: corretto il vault su indicazione di Giovanni: la riunione con Polina è stata domenica 2026-11-08 (non il 15); Polina è la partner che si occupa di business e vendite, non è tecnica (con lei sempre linguaggio semplice), e i guadagni si dividono con lei.
 - 2026-11-10: tolta la mappa `Sigillo.canvas` su richiesta di Giovanni (non gli piaceva); come mappa usa la vista grafo di Obsidian.

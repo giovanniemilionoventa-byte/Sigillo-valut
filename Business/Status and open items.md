@@ -16,6 +16,7 @@ Tappe M1-M9, N1-N6 e fasi pilota 1-11 fatte. 1713 test Node. Formato ricevuta v4
 4. PR #144 (simulatore di chiamata): unire o chiudere.
 5. Licenza nella repo, oppure togliere "open source" dal sito.
 6. Quali difetti di [[Code defects]] correggere.
+7. Nuova demo interattiva del sito: scegliere tra le proposte A (essenziale), B (tutorial a sinistra), C (passi a destra + fumetto), preparate il 2026-11-10. Poi si implementa con una PR.
 
 ## Aperto: solo Giovanni può farlo
 Revocare la chiave di prova dell'agente di audit; SSH solo con chiave; togliere l'aggiornamento automatico come root; copie fuori sede non cancellabili; provare un ripristino del backup; avvocato per DPA e contratto di licenza.
