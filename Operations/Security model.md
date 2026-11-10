@@ -25,3 +25,5 @@ Receipts not changed after signing; none removed, added or reordered; the chain 
 - A compromised server can append false receipts at the end, not rewrite the past.
 
 Words: say "tamper-evident", "independently verifiable"; never "tamper-proof", "compliant", "AI Act ready", "certified".
+
+What an attacker who breaks into the server sees and can do (Italian, 2026-11-10): [[Cosa vede un attaccante sul server]].
