@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-10: tolta la mappa `Sigillo.canvas` su richiesta di Giovanni (non gli piaceva); come mappa usa la vista grafo di Obsidian.
 - 2026-11-10: Giovanni ha deciso che questo vault è la memoria fondante del progetto: ogni cambiamento si scrive qui in automatico, senza chiedere, con push diretto su `main` (repo del codice sempre con PR). Regola scritta in `README.md` e `Business/Working rules.md`.
 - 2026-11-10: revisione completa di Sigillo partendo **solo dal codice** (core, verificatore, firmatario, custode, server, SDK Python e TypeScript, deploy, CI). Documenti della repo del codice corretti dove non corrispondevano: PR #149 (solo documenti: README, API, FORMAT, SECURITY, DEPLOY-PRODUZIONE, DEPLOY, PROVA-LOCALE e altri), **unita su `main` il 2026-11-10**. Codice non toccato.
 - 2026-11-10: vault riscritto: 52 note (concetti, componenti, flussi con diagrammi, operazioni, business), mappa `00 Map`, riassunto `Panoramica`, mappa visiva `Sigillo.canvas`, elenco dei difetti trovati nel codice in `Reports/Code defects.md` (21 punti, nessuno grave). Le 8 note vecchie sono state sostituite.

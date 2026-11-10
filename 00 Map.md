@@ -48,4 +48,4 @@ flowchart TB
 ## Reports and history
 [[Code defects]] · [[registro-lavori]]
 
-Visual map: `Sigillo.canvas`.
+Visual map: Obsidian graph view (Sigillo.canvas was removed on 2026-11-10 at the owner's request).
