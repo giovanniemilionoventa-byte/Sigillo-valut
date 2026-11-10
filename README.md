@@ -15,9 +15,15 @@ Repo del codice: `giovanniemilionoventa-byte/sigillo`. Il codice vince sempre su
 
 Le note tecniche sono state riscritte il 2026-11-10 leggendo **solo il codice**; dove un fatto viene dai documenti è segnato *[docs]* o *[documenti]*. Sui fatti importanti (privacy, dati, prezzi, legale, server) non rispondere a memoria. Nessuna chiave, password o segreto va scritto qui.
 
-## Regola di aggiornamento (obbligatoria)
+## Regola di aggiornamento (obbligatoria, decisa da Giovanni il 2026-11-10)
 
-Ogni volta che con Giovanni si **realizza** qualcosa di concreto (una modifica, una PR unita, una decisione presa, un incontro avvenuto, una cosa messa online), l'AI aggiunge subito una riga in `Registro/registro-lavori.md` e, se cambia un fatto, aggiorna la nota di argomento giusta. Non si segnano i progetti e le idee non realizzate: quelle vanno in `Business/Status and open items.md` come "aperto". Si fa da soli, senza che Giovanni lo chieda.
+Questo vault è la **memoria fondante** di Sigillo, un secondo cervello: ogni AI che lavora sul progetto lo legge prima di rispondere e lo tiene aggiornato.
 
+1. **Si aggiorna sempre, in automatico, senza chiedere a Giovanni.** Ogni cambiamento, aggiunta o novità va qui: una decisione (es. "rendiamo il prodotto open source"), un nuovo cliente o partner, un incontro, un prezzo, una PR unita, una cosa messa online, un fatto che cambia.
+2. **Si modifica la nota giusta**, non si accumula: se un fatto cambia, si corregge dove è scritto (e si toglie quello vecchio). Si crea una nota nuova se l'argomento non esiste (es. una nota per cliente in `Business/Clienti/`), collegata con `[[link]]` alla mappa [[00 Map]].
+3. **Si aggiunge una riga in `Registro/registro-lavori.md`** con ciò che è stato fatto o deciso davvero (non idee).
+4. Le idee non ancora decise vanno in `Business/Status and open items.md` come "aperto".
+5. **Push diretto su `main` di questo repo, senza pull request.** Solo il repo del codice (`sigillo`) usa le pull request.
+6. Mai cancellare il vault in blocco; mai scrivere chiavi, password o segreti.
 
 Ultimo aggiornamento: 2026-11-10.

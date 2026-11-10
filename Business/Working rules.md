@@ -18,4 +18,5 @@ Giovanni Noventa è il proprietario, non tecnico, italiano.
 10. Sospesi, da non riproporre: cassaforte delle chiavi, SDK Rust, caricamento Java/.NET, prodotto self-hosted, marca eIDAS qualificata.
 11. Un solo prodotto: "la prova".
 12. Repo del codice (CLAUDE.md): test prima per il codice crittografico; mai testo in chiaro; mai cambiare il formato della ricevuta senza aumentare `v`; `packages/core` puro; nessuna dipendenza fuori lista; mai push diretto su `main`.
-13. Questo vault: ogni thread aggiorna `Registro/registro-lavori.md` con ciò che è stato **fatto davvero**, in italiano, su `main`.
+13. Questo vault è la memoria fondante: ogni cambiamento, decisione, cliente o novità si scrive qui **in automatico, senza chiedere**, correggendo la nota giusta e aggiungendo una riga al registro. Push diretto su `main`, senza PR (regola del 2026-11-10, vedi [[README]]).
+14. Repo del codice `sigillo`: sempre tramite pull request, mai su `main`.
