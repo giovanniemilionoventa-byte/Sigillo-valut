@@ -10,7 +10,7 @@ Obiettivo (2026-11-09): da prototipo funzionante a prodotto vendibile sul mercat
 Tappe M1-M9, N1-N6 e fasi pilota 1-11 fatte. 1713 test Node. Formato ricevuta v4. Schema DB v10. SDK Python 0.12.0, SDK TypeScript 0.1.0. Revisione completa del codice fatta il 2026-11-10; documenti corretti nella PR #149 (unita il 2026-11-10); difetti in [[Code defects]].
 
 ## Aperto: aspetta una decisione di Giovanni
-1. Porta del modello locale: porta casuale più allarme.
+1. Passaggio obbligato per i modelli (2026-11-11): gateway sempre per il cloud, "scatola Sigillo" (Docker) per i modelli locali, l'agente non viene mai fermato, coda su disco nella porta. Sostituisce "porta casuale più allarme". Proposta in [[Proposta passaggio obbligato]].
 2. Conservazione automatica a 6 o 12 mesi.
 3. Campo codice chiave nella pagina `/verify`.
 4. PR #144 (simulatore di chiamata): unire o chiudere.
