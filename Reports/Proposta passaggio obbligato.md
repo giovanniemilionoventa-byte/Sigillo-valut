@@ -44,6 +44,9 @@ Cosa conta per quel cliente: (1) i dati di banche e assicurazioni non devono pas
 
 Punto debole di C e rimedio: chi amministra il server del cliente controlla il ponte. Rimedi: battito del ponte (se tace, si vede), e confronto con i consumi del fornitore (es. token usati su OpenAI contro ricevute registrate): se non tornano, allarme. Il gateway A resta per chi non ha un server (piccoli clienti, prove).
 
+### 2026-11-12, dopo la domanda di Giovanni ("a cosa serve la C?")
+Giovanni: la A va bene; la C non era chiara; Sigillo è uno strumento di osservabilità, la sicurezza degli agenti non è affar nostro. Spiegato: la C serve solo alla **completezza** del registro (l'agente non può saltarlo) senza che il contenuto passi da noi; richiede un comando in più al cliente. Consiglio dato: per ora solo (1) l'agente non viene mai fermato (allarme al posto dello stop), (2) coda locale delle impronte nell'SDK, (3) gateway A come opzione; C nel cassetto finché un cliente (es. una banca) non la chiede. Aspetta il sì di Giovanni.
+
 ## Sostituisce
 La decisione aperta "porta del modello locale: porta casuale più allarme" ([[Status and open items]] punto 1, [[Code defects]] punto 9).
 
