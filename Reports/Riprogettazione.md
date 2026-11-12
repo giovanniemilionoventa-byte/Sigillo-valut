@@ -36,6 +36,8 @@ Giovanni ha chiesto di restare il più semplice possibile e di ripartire dallo s
 Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 . Si procede un punto alla volta (elenco 1-17 nella lavagna), Giovanni decide e il punto viene aggiunto allo schema.
 - **Punto 1, chiave del cliente: deciso.** Sta nel registratore (SDK), non va mai al server, che riceve solo impronte non leggibili. Si propone: chiave creata dalla pagina "Carica il tuo agente" nel browser e scritta nel file dell'agente (una per agente, automatica, sempre presente). **Aggiunta (2026-11-12, Giovanni ha detto sì):** la stessa chiave timbra ogni evento nel registratore, così il cliente prova che le azioni sono del suo agente e non di estranei (ricevute false in coda). Da fare più avanti: il verificatore deve controllare che i timbri corrispondano alla chiave del cliente. Oggi la chiave serve solo a salare le impronte.
 
+- **Punto 2, pseudonimi: tolto dallo scheletro (2026-11-12, Giovanni conferma).** Oggi il campo "per conto di chi" lo compila a mano il programmatore, quasi nessuno lo usa. Si aggiunge solo se un cliente lo chiede (campo facoltativo, codice calcolato dal registratore con la chiave del cliente).
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
