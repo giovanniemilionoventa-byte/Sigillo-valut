@@ -2,7 +2,7 @@
 tags: [report, security, proposal]
 lang: it
 source: codice letto il 2026-11-11 (sdk-python/src/sigillo/__init__.py, _watchdog.py, door.py, _gateway.py; apps/server/src/http/agent-setup.ts; apps/server/src/gateway/*). Codice non toccato.
-stato: proposta, aspetta la scelta di Giovanni
+stato: in discussione (2026-11-12: ripensare per il cliente tipo, vedi in fondo)
 ---
 # Proposta: ogni chiamata ai modelli passa per forza da Sigillo
 
@@ -28,6 +28,21 @@ Spostare la registrazione **fuori dall'agente**, nel punto da cui l'agente deve 
 ## Cosa resta fuori (da dire sempre)
 - Le **azioni sugli strumenti** (tool) vengono ancora registrate dall'SDK dentro l'agente. Il gateway e la porta però scrivono "il modello ha chiesto lo strumento X" ([[Tool reconciler]]): se l'agente non lo registra, compare un allarme. Da estendere anche alla porta locale.
 - Non dire mai "impossibile da aggirare" a un cliente: dire "l'agente raggiunge il modello solo attraverso Sigillo".
+
+## Aggiornamento 2026-11-12: ripensare in funzione del cliente tipo (ICP)
+Giovanni ha fermato la proposta: il gateway sul nostro server rischia la privacy (le risposte passano da noi), la porta locale da sola non è del tutto sicura. Serve una strada equilibrata, pensata per il cliente tipo: **software house italiane e spagnole che costruiscono agenti in Python per banche, assicurazioni, risorse umane**, installati sui server dei loro clienti.
+
+Cosa conta per quel cliente: (1) i dati di banche e assicurazioni non devono passare da un fornitore in più (ogni passaggio = un altro responsabile del trattamento da approvare, un freno alla vendita); (2) la prova deve reggere: l'agente non deve poter saltare la registrazione; (3) l'agente non deve mai fermarsi; (4) installazione semplice, su server Linux con Docker (normale per loro).
+
+| strada | passaggio obbligato | privacy | fatica per il cliente |
+|---|---|---|---|
+| A. Gateway sul server Sigillo (oggi) | sì | no: il contenuto passa da noi | bassa, ma blocca le banche |
+| B. Solo SDK dentro l'agente (oggi) | no: l'agente può spegnerlo | sì | bassa |
+| C. **"Ponte Sigillo" dal cliente** (proposta) | sì, per l'agente | sì: il contenuto non arriva mai a Sigillo | un contenitore da installare |
+
+**Strada C, in breve:** lo stesso gateway, ma in un contenitore che gira **sul server del cliente**, accanto all'agente, sotto un utente diverso. Tiene lui le chiavi di OpenAI & co. e, nella stessa scatola, il modello locale (che non ha altri indirizzi). L'agente ha solo l'indirizzo del ponte. Il ponte manda a Sigillo **solo impronte e firme**, con coda su disco se la rete cade, e non ferma mai l'agente. Il contenuto va dal cliente al fornitore del modello come farebbe comunque.
+
+Punto debole di C e rimedio: chi amministra il server del cliente controlla il ponte. Rimedi: battito del ponte (se tace, si vede), e confronto con i consumi del fornitore (es. token usati su OpenAI contro ricevute registrate): se non tornano, allarme. Il gateway A resta per chi non ha un server (piccoli clienti, prove).
 
 ## Sostituisce
 La decisione aperta "porta del modello locale: porta casuale più allarme" ([[Status and open items]] punto 1, [[Code defects]] punto 9).
