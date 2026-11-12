@@ -10,7 +10,7 @@ Obiettivo (2026-11-09): da prototipo funzionante a prodotto vendibile sul mercat
 Tappe M1-M9, N1-N6 e fasi pilota 1-11 fatte. 1713 test Node. Formato ricevuta v4. Schema DB v10. SDK Python 0.12.0, SDK TypeScript 0.1.0. Revisione completa del codice fatta il 2026-11-10; documenti corretti nella PR #149 (unita il 2026-11-10); difetti in [[Code defects]].
 
 ## Aperto: aspetta una decisione di Giovanni
-1. Passaggio obbligato per i modelli: il 2026-11-12 Giovanni ha chiesto di ripensarlo per il cliente tipo (privacy del gateway contro sicurezza della porta locale). Proposta in discussione: "ponte Sigillo" installato dal cliente. Vedi [[Proposta passaggio obbligato]].
+1. **Riprogettazione teorica** di Sigillo (2026-11-12): partire dallo scheletro (registratore, notaio, verificatore), poi aggiungere gli strati. Solo teoria finché Giovanni non dice altrimenti; il passaggio obbligato per i modelli si rivede dentro questo lavoro. Vedi [[Riprogettazione]].
 2. Conservazione automatica a 6 o 12 mesi.
 3. Campo codice chiave nella pagina `/verify`.
 4. PR #144 (simulatore di chiamata): unire o chiudere.
