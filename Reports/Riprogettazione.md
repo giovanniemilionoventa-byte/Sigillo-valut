@@ -32,6 +32,10 @@ Giovanni ha chiesto di restare il più semplice possibile e di ripartire dallo s
 - Prodotto: console e account, "Carica il tuo agente", rapporto PDF ed export notturno, backup, sito e demo.
 - Aggiunta nuova: coda su disco nel registratore.
 
+## Lavagna e punti decisi (2026-11-12)
+Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 . Si procede un punto alla volta (elenco 1-17 nella lavagna), Giovanni decide e il punto viene aggiunto allo schema.
+- **Punto 1, chiave del cliente: deciso.** Sta nel registratore (SDK), non va mai al server, che riceve solo impronte non leggibili. Aperto: dove tenerla (nel file dell'agente o a parte) e se resta facoltativa.
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
