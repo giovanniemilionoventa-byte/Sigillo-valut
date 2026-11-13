@@ -1,7 +1,7 @@
 ---
 tags: [report, architecture, redesign]
 lang: it
-stato: SOLO TEORIA (decisione di Giovanni, 2026-11-12): niente codice finché Giovanni non lo dice
+stato: IN IMPLEMENTAZIONE dal 2026-11-13 (Giovanni ha detto di implementare l'architettura di base)
 ---
 # Riprogettazione di Sigillo (teorica)
 
@@ -72,3 +72,11 @@ Semplificato o tolto: console ridotta (crea agente, stato, pacchetto, revoca chi
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
 Schema: file di progetto `architettura/riprogettazione-1-scheletro.png`.
+
+## Implementazione, passo 1 (2026-11-13)
+Giovanni ha chiesto di implementare l'architettura di base (modello scelto per il codice: Opus). PR sigillo #154 (https://github.com/giovanniemilionoventa-byte/sigillo/pull/154), da unire.
+- Tolti dal codice: gateway, custode delle chiavi (3 contenitori invece di 4), cassaforte, controllo strumenti, «Carica il tuo agente», SDK TypeScript, strict, guardiano, porta, pseudonimi nel registratore.
+- Aggiunti al registratore (sdk-python 0.13.0): coda su disco (prima scrive, poi spedisce), chiave del cliente sempre presente e creata da sola in `~/.sigillo/<agente>/customer.key`, `user.id` non esce più.
+- Scoperta: il battito non scriveva già ricevute a ogni minuto (solo collegato, chiuso, silenzio, ritorno): la contraddizione 1 era già risolta nel codice.
+- Passo 2 (PR separata): timbro su ogni evento (nuovo formato), API diretta, impronte dei documenti, parte server degli pseudonimi.
+- Mappa tecnica semplice: https://claude.ai/artifact/C9VvPMpqPTCkYq41v7XXqa (la lavagna grande resta come bozza).
