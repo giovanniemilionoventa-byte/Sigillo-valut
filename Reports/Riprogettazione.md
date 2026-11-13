@@ -66,6 +66,8 @@ Contraddizioni trovate tra i punti già decisi e come si risolvono:
 
 Semplificato o tolto: console ridotta (crea agente, stato, pacchetto, revoca chiavi, elimina account); export notturno in attesa; caricamento del file dalla console in attesa (per sviluppatori basta la riga di codice); regole speciali di sessioni e battiti tolte. Aperti fuori dallo scheletro: pubblicare `sigillo` su PyPI (servono gli account), marca temporale qualificata per le banche, revisione di sicurezza (thread a parte dopo l'implementazione).
 
+- **Punto 16, copie di sicurezza: nello scheletro**, come dice Giovanni (2026-11-13): ogni notte alle 3, file cifrati `.age` su un drive esterno.
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 

@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-13: aggiunta allo schema (lavagna e [[Riprogettazione]]) la copia di sicurezza notturna alle 3, file `.age` cifrati su un drive esterno, come detto da Giovanni.
 - 2026-11-13: lo scheletro è stato portato a versione finale proposta (verifica incrociata, 6 contraddizioni risolte, cosa si garantisce e non, cosa cambia rispetto a oggi); lavagna e [[Riprogettazione]] aggiornate. Aspetta la conferma di Giovanni sui punti 14-17 e sulle correzioni. Teoria, codice non toccato.
 - 2026-11-13: analisi (solo lettura del codice) di come l'agente dichiara le azioni a Sigillo e se può mentire: non è uno strumento nel prompt, il modello non decide niente; registra codice Python agganciato alle librerie dentro il programma dell'agente, che il programmatore può togliere o truccare. Sigillo rileva sempre le modifiche al passato e l'assenza del battito, non la completezza senza gateway o porta. Nota [[L'agente può mentire a Sigillo]]. Codice non toccato.
 - 2026-11-12: creata la lavagna infinita dell'architettura semplice di Sigillo (artefatto); punto 1 (chiave del cliente nell'SDK, mai al server) deciso e aggiunto. Teoria, codice non toccato. Vedi [[Riprogettazione]].

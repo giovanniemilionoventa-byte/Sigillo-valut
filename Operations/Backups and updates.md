@@ -12,6 +12,8 @@ source: code (deploy/*.sh)
 | `update.sh` | `git pull`, build, `up`, restart Caddy, check the CSP hash, `signer check` |
 | `auto-update.sh` | cron every minute, follows `main` only |
 
+**Per Giovanni (2026-11-13):** ogni notte alle 3 parte un backup cifrato (file `.age`) su un drive esterno; l'orario e la frequenza della copia locale oraria scritta qui sopra venivano dai documenti e vanno riconfermati sul server.
+
 The [[Daily exporter]] also writes evidence packs into the backup folder. After each merge on `main`, Giovanni restarts the stack (or auto-update does) [docs].
 
 Open points (only Giovanni): test a restore, off-site copies that cannot be deleted, stop auto-update as root. See [[Status and open items]].
