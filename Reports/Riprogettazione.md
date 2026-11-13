@@ -44,6 +44,9 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 - **Punto 6, porta per il modello locale: in attesa** (Giovanni, 2026-11-13). Il registratore registra le chiamate al modello locale come tutte le altre; la porta (Docker, modello isolato) solo se un cliente con modelli locali chiede la garanzia che nulla sfugga.
 - **Punto 7, altri modi di collegarsi: in attesa** (Giovanni, 2026-11-13). Solo libreria Python e un solo ingresso; TypeScript, OpenTelemetry e API diretta solo se un cliente reale li usa.
 - **Punto 8, gateway per i modelli cloud: in attesa** (Giovanni, 2026-11-13). Perché: per imporre il passaggio il gateway deve tenere la chiave del fornitore e quindi leggere la richiesta in chiaro; cifrare con la chiave del cliente non funziona (il fornitore non la capisce). Strade vere: gateway sul server del cliente (preferita), enclave protetta (costosa, non su Aruba), tunnel cieco (non impone il passaggio). Nello scheletro il registratore registra le chiamate da dentro l'agente.
+- **Punto 9, firmatario separato: deciso**, parte interna del notaio, com'è oggi (chiave fuori dalla VPS: miglioramento successivo).
+- **Punto 10, chiave Sigillo per agente: deciso.** Una per agente, solo per dire al server chi scrive, revocabile dalla console. Chi ha il file dell'agente ha entrambe le chiavi e può mandare eventi a nome dell'agente (con il timbro giusto) ma non cambiare il passato firmato né toccare altri agenti o la chiave di firma: il file va trattato come una password.
+- **Punto 11, controllo strumenti: in attesa (proposto 2026-11-13)**, dipende dal gateway (punto 8).
 
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
