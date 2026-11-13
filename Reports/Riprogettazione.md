@@ -38,6 +38,10 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 
 - **Punto 2, pseudonimi: tolto dallo scheletro (2026-11-12, Giovanni conferma).** Oggi il campo "per conto di chi" lo compila a mano il programmatore, quasi nessuno lo usa. Si aggiunge solo se un cliente lo chiede (campo facoltativo, codice calcolato dal registratore con la chiave del cliente).
 
+- **Punto 3, impronte dei documenti: in attesa** (Giovanni, 2026-11-12): solo se un cliente lo chiede.
+- **Punto 4, battito: deciso.** Evento come gli altri, timbrato, nella catena dallo stesso ingresso; coda su disco se la rete cade, ricarica da sola al ritorno online. Chiusura normale = evento "chiuso"; crash = "battiti interrotti, motivo non noto".
+- **Punto 5, guardiano (processo separato): in attesa** (Giovanni conferma, 2026-11-13). Serve solo a sapere sempre il motivo di un crash; se ne riparla se un cliente lo chiede.
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
