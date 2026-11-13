@@ -49,6 +49,7 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 - **Punto 11, controllo strumenti: in attesa (proposto 2026-11-13)**, dipende dal gateway (punto 8).
 
 **Limite dello scheletro (2026-11-13):** senza gateway e porta il registratore lavora solo da dentro l'agente: prova che il passato non si cambia e quando l'agente era collegato, non che il registro sia completo se il programmatore vuole barare. Vedi [[L'agente può mentire a Sigillo]].
+- **Punto 12, aperture: deciso come proprietà del punto 1** (2026-11-13). Con testo e chiave del cliente si dimostra il contenuto dietro un'impronta; manca solo il comando nel verificatore (da fare insieme al controllo dei timbri).
 
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
