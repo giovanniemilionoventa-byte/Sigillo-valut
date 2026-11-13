@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-13: analisi (solo lettura del codice) di come l'agente dichiara le azioni a Sigillo e se può mentire: non è uno strumento nel prompt, il modello non decide niente; registra codice Python agganciato alle librerie dentro il programma dell'agente, che il programmatore può togliere o truccare. Sigillo rileva sempre le modifiche al passato e l'assenza del battito, non la completezza senza gateway o porta. Nota [[L'agente può mentire a Sigillo]]. Codice non toccato.
 - 2026-11-12: creata la lavagna infinita dell'architettura semplice di Sigillo (artefatto); punto 1 (chiave del cliente nell'SDK, mai al server) deciso e aggiunto. Teoria, codice non toccato. Vedi [[Riprogettazione]].
 - 2026-11-12: Giovanni ha deciso di **riprogettare Sigillo in teoria** (niente codice finché non lo dice), partendo dalle fondamenta e aggiungendo dopo privacy, battito e altre garanzie. Proposto lo scheletro: registratore, notaio, verificatore, 5 regole. Nota [[Riprogettazione]].
 - 2026-11-12: Giovanni ha visto lo schema dell'architettura; preparato il seguito `architettura/Sigillo-problemi.docx` (file di progetto): stesso schema con 9 problemi numerati, tabella (cosa succede, peso per il cliente tipo, cosa lo attenua oggi), tre famiglie (A registrazione completa 1-3, B passaggio obbligato verso i modelli 4-5, C chiavi e server 6-9). Nessuna soluzione decisa. Codice non toccato.

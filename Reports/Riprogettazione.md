@@ -48,6 +48,8 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 - **Punto 10, chiave Sigillo per agente: deciso.** Una per agente, solo per dire al server chi scrive, revocabile dalla console. Chi ha il file dell'agente ha entrambe le chiavi e può mandare eventi a nome dell'agente (con il timbro giusto) ma non cambiare il passato firmato né toccare altri agenti o la chiave di firma: il file va trattato come una password.
 - **Punto 11, controllo strumenti: in attesa (proposto 2026-11-13)**, dipende dal gateway (punto 8).
 
+**Limite dello scheletro (2026-11-13):** senza gateway e porta il registratore lavora solo da dentro l'agente: prova che il passato non si cambia e quando l'agente era collegato, non che il registro sia completo se il programmatore vuole barare. Vedi [[L'agente può mentire a Sigillo]].
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 

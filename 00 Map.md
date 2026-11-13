@@ -46,6 +46,6 @@ flowchart TB
 [[Business model and prices]] · [[Legal and compliance]] · [[Partners and market]] · [[Working rules]] · [[Status and open items]]
 
 ## Reports and history
-[[Code defects]] · [[Cosa vede un attaccante sul server]] · [[Proposta passaggio obbligato]] · [[Riprogettazione]] · [[registro-lavori]]
+[[Code defects]] · [[Cosa vede un attaccante sul server]] · [[L'agente può mentire a Sigillo]] · [[Proposta passaggio obbligato]] · [[Riprogettazione]] · [[registro-lavori]]
 
 Visual map: Obsidian graph view (Sigillo.canvas was removed on 2026-11-10 at the owner's request).
