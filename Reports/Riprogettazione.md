@@ -80,3 +80,10 @@ Giovanni ha chiesto di implementare l'architettura di base (modello scelto per i
 - Scoperta: il battito non scriveva già ricevute a ogni minuto (solo collegato, chiuso, silenzio, ritorno): la contraddizione 1 era già risolta nel codice.
 - Passo 2 (PR separata): timbro su ogni evento (nuovo formato), API diretta, impronte dei documenti, parte server degli pseudonimi.
 - Mappa tecnica semplice: https://claude.ai/artifact/C9VvPMpqPTCkYq41v7XXqa (la lavagna grande resta come bozza).
+
+## Passo 2, spiegato (2026-11-13)
+Passo 1 (PR #154) ha portato il codice all'architettura nuova. Passo 2 sono tre pulizie rimaste, nessuna cambia l'architettura:
+1. **Timbro su ogni evento** (punto 1, deciso): il registratore firma ogni evento con la chiave del cliente, così chi ha la chiave vede se qualcuno ha mandato eventi falsi a nome dell'agente. È l'unica parte che aggiunge sicurezza; cambia il formato delle ricevute (versione nuova).
+2. **API diretta** (`/api/v1/receipts`, punto 7 in attesa): secondo ingresso ancora aperto; toglierlo lascia un solo ingresso.
+3. **Impronte dei documenti** (`sigillo.artifact`, punto 3 in attesa) e parte server degli pseudonimi: toglierle.
+Mappa tecnica aggiornata allo stato del codice dopo il passo 1 (timbro tolto dalla mappa finché non c'è).
