@@ -43,6 +43,7 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 - **Punto 5, guardiano (processo separato): in attesa** (Giovanni conferma, 2026-11-13). Serve solo a sapere sempre il motivo di un crash; se ne riparla se un cliente lo chiede.
 - **Punto 6, porta per il modello locale: in attesa** (Giovanni, 2026-11-13). Il registratore registra le chiamate al modello locale come tutte le altre; la porta (Docker, modello isolato) solo se un cliente con modelli locali chiede la garanzia che nulla sfugga.
 - **Punto 7, altri modi di collegarsi: in attesa** (Giovanni, 2026-11-13). Solo libreria Python e un solo ingresso; TypeScript, OpenTelemetry e API diretta solo se un cliente reale li usa.
+- **Punto 8, gateway per i modelli cloud: in attesa** (Giovanni, 2026-11-13). Perché: per imporre il passaggio il gateway deve tenere la chiave del fornitore e quindi leggere la richiesta in chiaro; cifrare con la chiave del cliente non funziona (il fornitore non la capisce). Strade vere: gateway sul server del cliente (preferita), enclave protetta (costosa, non su Aruba), tunnel cieco (non impone il passaggio). Nello scheletro il registratore registra le chiamate da dentro l'agente.
 
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
