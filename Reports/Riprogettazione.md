@@ -50,6 +50,8 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 
 **Limite dello scheletro (2026-11-13):** senza gateway e porta il registratore lavora solo da dentro l'agente: prova che il passato non si cambia e quando l'agente era collegato, non che il registro sia completo se il programmatore vuole barare. Vedi [[L'agente può mentire a Sigillo]].
 - **Punto 12, aperture: deciso come proprietà del punto 1** (2026-11-13). Con testo e chiave del cliente si dimostra il contenuto dietro un'impronta; manca solo il comando nel verificatore (da fare insieme al controllo dei timbri).
+- **Punto 13, cancellazione GDPR: ridotta a una funzione** (2026-11-13): eliminare l'account di un cliente che se ne va, con ricevute e chiavi. Il resto sparisce perché il server non tiene dati personali (niente pseudonimi, nessuna chiave del cliente).
+- **Punto 14, quote e limiti: proposto** (aspetta il sì): limite al minuto per agente + contatore mensile per account; se il limite scatta l'agente non si ferma (coda su disco).
 
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
