@@ -53,6 +53,19 @@ Lavagna infinita (artefatto): https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 
 - **Punto 13, cancellazione GDPR: ridotta a una funzione** (2026-11-13): eliminare l'account di un cliente che se ne va, con ricevute e chiavi. Il resto sparisce perché il server non tiene dati personali (niente pseudonimi, nessuna chiave del cliente).
 - **Punto 14, quote e limiti: proposto** (aspetta il sì): limite al minuto per agente + contatore mensile per account; se il limite scatta l'agente non si ferma (coda su disco).
 
+## Versione finale dello scheletro (proposta 2026-11-13, per il cliente tipo: software house con agenti Python, poi banche e assicurazioni; KISS)
+Lavagna aggiornata: https://claude.ai/artifact/PcV9vbKJhwu8mrk5mSAkt8 (schema, cosa garantisce, cosa non garantisce, cosa cambia rispetto a oggi).
+
+Contraddizioni trovate tra i punti già decisi e come si risolvono:
+1. **Il battito (4) mangiava la quota (14):** un evento al minuto sono circa 43.000 ricevute al mese per agente, più dei 10.000 gratuiti, e gonfia la catena. Risolto: "sono acceso" solo se l'agente è fermo da 5 minuti (se lavora bastano le azioni); più "chiuso" e "ripartito". Il battito non conta nella quota.
+2. **Quota (14) contro "mai perdere eventi":** bloccare oltre la quota farebbe perdere prove. Risolto: oltre la quota si continua a registrare e si segna l'account (questione commerciale); il limite al minuto risponde "riprova", il registratore riprova dalla coda.
+3. **Promessa di completezza di prima ("la timbratura e il battito rendono visibile il buco"): troppo forte.** Chi ha il file dell'agente ha entrambe le chiavi e può mandare battiti e azioni false. Corretto: la prova è autentica e le interruzioni accidentali si vedono, ma non si prova che l'agente non abbia saltato azioni. Scritto nella lavagna come "cosa non garantisce".
+4. **Timbro che solo il cliente sa controllare (1) contro il revisore esterno:** per verificare il timbro il revisore dovrebbe avere la chiave del cliente. Possibile soluzione: una sola coppia di chiavi (privata dal cliente, pubblica al server e al revisore); richiede una libreria di firma nuova nel Python (non è nella lista approvata): in attesa, serve l'ok di Giovanni.
+5. **Coda su disco (4) negli ambienti senza disco persistente** (container, serverless): la coda si perde al riavvio. Limite da dichiarare; fallback in memoria con avviso.
+6. **Chiave del cliente (1): tre modi di averla** (pagina, registratore, variabile d'ambiente). Regola unica: se c'è, si usa; se manca, il registratore la crea in un file locale e avvisa di farne una copia.
+
+Semplificato o tolto: console ridotta (crea agente, stato, pacchetto, revoca chiavi, elimina account); export notturno in attesa; caricamento del file dalla console in attesa (per sviluppatori basta la riga di codice); regole speciali di sessioni e battiti tolte. Aperti fuori dallo scheletro: pubblicare `sigillo` su PyPI (servono gli account), marca temporale qualificata per le banche, revisione di sicurezza (thread a parte dopo l'implementazione).
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
