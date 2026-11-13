@@ -87,3 +87,6 @@ Passo 1 (PR #154) ha portato il codice all'architettura nuova. Passo 2 sono tre 
 2. **API diretta** (`/api/v1/receipts`, punto 7 in attesa): secondo ingresso ancora aperto; toglierlo lascia un solo ingresso.
 3. **Impronte dei documenti** (`sigillo.artifact`, punto 3 in attesa) e parte server degli pseudonimi: toglierle.
 Mappa tecnica aggiornata allo stato del codice dopo il passo 1 (timbro tolto dalla mappa finché non c'è).
+
+## Avviso "codice modificato" dopo il passo 1 (2026-11-13)
+Resta: il battito (ogni minuto) manda le impronte del file dell agente e della libreria; il server scrive `sigillo.connection.script_changed`. Non ferma mai l agente (strict tolto); il controllo ogni pochi secondi del guardiano non c e piu. Limite: gira sul computer del cliente, quindi chi altera il codice apposta puo falsificare anche l impronta mandata.
