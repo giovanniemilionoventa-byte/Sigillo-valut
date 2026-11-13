@@ -74,7 +74,7 @@ Semplificato o tolto: console ridotta (crea agente, stato, pacchetto, revoca chi
 Schema: file di progetto `architettura/riprogettazione-1-scheletro.png`.
 
 ## Implementazione, passo 1 (2026-11-13)
-Giovanni ha chiesto di implementare l'architettura di base (modello scelto per il codice: Opus). PR sigillo #154 (https://github.com/giovanniemilionoventa-byte/sigillo/pull/154), da unire.
+Giovanni ha chiesto di implementare l'architettura di base (modello scelto per il codice: Opus). PR sigillo #154 (https://github.com/giovanniemilionoventa-byte/sigillo/pull/154), unita il 2026-11-13 (produzione da aggiornare).
 - Tolti dal codice: gateway, custode delle chiavi (3 contenitori invece di 4), cassaforte, controllo strumenti, «Carica il tuo agente», SDK TypeScript, strict, guardiano, porta, pseudonimi nel registratore.
 - Aggiunti al registratore (sdk-python 0.13.0): coda su disco (prima scrive, poi spedisce), chiave del cliente sempre presente e creata da sola in `~/.sigillo/<agente>/customer.key`, `user.id` non esce più.
 - Scoperta: il battito non scriveva già ricevute a ogni minuto (solo collegato, chiuso, silenzio, ritorno): la contraddizione 1 era già risolta nel codice.

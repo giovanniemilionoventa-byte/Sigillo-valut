@@ -27,3 +27,4 @@ Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato:
 - 2026-11-09: PR #147 unita nella repo del codice: zona demo separata con tutorial in 4 passi. PR #146: sezione AI Act sul sito. PR #145 (2026-11-07): correzioni dell'audit di sicurezza. [DOCUMENTI: `docs/SIGILLO-COMPLETO.md`]
 - 2026-11-13: mappa tecnica semplice con i dati in ogni scatola; tabella delle parti tolte con priorità; implementato il passo 1 dell'architettura di base (PR sigillo #154: tolti gateway, custode, caricamento agente, SDK TypeScript, strict, guardiano, porta, pseudonimi; aggiunte coda su disco e chiave del cliente automatica).
 - 2026-11-13: mappa tecnica allineata al codice del passo 1 (coda su disco, chiave creata da sola, niente timbro); passo 2 spiegato a Giovanni.
+- 2026-11-13: PR sigillo #154 (architettura di base, passo 1) unita su main.
