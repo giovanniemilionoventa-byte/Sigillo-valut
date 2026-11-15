@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-15: proposta (solo progettazione, codice fermo, nessuna PR) per la domanda di Giovanni "come sa il revisore che il pacchetto è dell'agente che ha fatto il danno?": oggi si distingue solo dal nome; proposti tre anelli (pacchetto autentico, impronta del programma e timbro per installazione, apertura del risultato). Nota [[Quale agente ha fatto il danno]]; aperto in [[Status and open items]] e punto 18 della [[Riprogettazione]].
 - 2026-11-13: aggiunta allo schema (lavagna e [[Riprogettazione]]) la copia di sicurezza notturna alle 3, file `.age` cifrati su un drive esterno, come detto da Giovanni.
 - 2026-11-13: lo scheletro è stato portato a versione finale proposta (verifica incrociata, 6 contraddizioni risolte, cosa si garantisce e non, cosa cambia rispetto a oggi); lavagna e [[Riprogettazione]] aggiornate. Aspetta la conferma di Giovanni sui punti 14-17 e sulle correzioni. Teoria, codice non toccato.
 - 2026-11-13: analisi (solo lettura del codice) di come l'agente dichiara le azioni a Sigillo e se può mentire: non è uno strumento nel prompt, il modello non decide niente; registra codice Python agganciato alle librerie dentro il programma dell'agente, che il programmatore può togliere o truccare. Sigillo rileva sempre le modifiche al passato e l'assenza del battito, non la completezza senza gateway o porta. Nota [[L'agente può mentire a Sigillo]]. Codice non toccato.

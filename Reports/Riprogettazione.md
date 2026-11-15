@@ -68,6 +68,8 @@ Semplificato o tolto: console ridotta (crea agente, stato, pacchetto, revoca chi
 
 - **Punto 16, copie di sicurezza: nello scheletro**, come dice Giovanni (2026-11-13): ogni notte alle 3, file cifrati `.age` su un drive esterno. Sulla lavagna è **fuori da Sigillo**, in una zona Google Drive a parte. Le zone esterne sono quattro: marca temporale (richiesta via API/Internet, ogni ora), Google Drive (backup notturno), download dal cliente (pacchetto di prove, freccia "download"), computer del revisore (verificatore).
 
+**Punto 18, identità dell'agente: proposto (2026-11-15)**, aspetta Giovanni. Domanda: come sa il revisore che il pacchetto è dell'agente che ha fatto il danno, se ci sono 5 agenti simili e li distingue solo il nome? Proposta in tre anelli: pacchetto autentico (chiave pubblica di Sigillo + link per il revisore), catena di questo agente (impronta del programma nella ricevuta "collegato" + timbro con una chiave per installazione, che è il passo 2), danno dentro la catena (apertura del risultato con la chiave del cliente, riferimento della ricevuta scritto nel risultato). Vedi [[Quale agente ha fatto il danno]].
+
 ## Strati da progettare dopo (in ordine proposto)
 1. Privacy (chiave del cliente, pseudonimi). 2. Completezza (battito, passaggio obbligato verso i modelli). 3. Sicurezza delle chiavi (firma fuori dalla VPS). 4. Prodotto (console, account, export).
 
