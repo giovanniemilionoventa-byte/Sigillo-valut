@@ -67,6 +67,23 @@ Conviene separare il problema in tre anelli. Ognuno ha la sua prova.
 - **Idea in più, molto semplice: il numero di ricevuta nel risultato.** L'agente scrive in fondo a ogni email o documento un riferimento corto, es. "Rif. Sigillo rimborsi-nord #1842". Chi riceve il danno ha già in mano il riferimento: va dritto alla ricevuta giusta, nel pacchetto giusto, senza confusione tra agenti. Facoltativo, deciso dall'azienda.
 - Pro: lega il danno alla catena senza fidarsi dei nomi. Limite: serve che l'azienda conservi la chiave del cliente (se la perde, l'apertura non si fa più).
 
+## Domande di Giovanni (2026-11-15, seguito)
+
+### Come funziona il link per il revisore
+1. Nella console l'azienda apre l'agente (es. "rimborsi-nord"), preme **"Condividi con il revisore"** e sceglie il periodo (es. 1-10 novembre).
+2. Sigillo crea un link con un codice lungo e casuale: **solo lettura, solo quell'agente e quel periodo, scade** (es. 30 giorni), si può revocare.
+3. Il revisore apre il link su get-sigillo.eu e vede una pagina di Sigillo: **nome dell'azienda come registrata nell'account**, nome dell'agente, data in cui l'agente è stato creato, periodo, e il pulsante per **scaricare il pacchetto direttamente da Sigillo**. La pagina mostra anche l'impronta del pacchetto, così una copia arrivata per email si confronta in un attimo.
+4. La creazione del link diventa a sua volta una ricevuta nella catena ("pacchetto condiviso con revisore"): resta traccia di chi ha dato cosa e quando.
+
+Cosa risolve: il revisore non deve fidarsi della copia che gli passa l'azienda; sa che il pacchetto viene da Sigillo e da quell'account. Cosa non risolve: che l'agente scelto sia quello giusto (lo fanno gli anelli 2 e 3).
+
+### Il file Python può contenere dati sensibili: il revisore non deve vederlo
+Giusto: il file può contenere logica riservata, nomi di clienti, persino chiavi. Il revisore **non riceve mai il file**. Riceve solo la sua **impronta** (64 caratteri), da cui non si ricava niente del contenuto.
+- Il registratore avrà un comando, es. `python -m sigillo impronta`, da lanciare **sulla macchina dell'agente**: legge il file lì, stampa solo "impronta del programma: 7a3f...". Il file non si muove.
+- Il revisore confronta quei 64 caratteri con quelli nella ricevuta "collegato" del pacchetto (o li incolla nel verificatore).
+- Chi lancia il comando: l'informatico dell'azienda **davanti al revisore** (anche in videochiamata con schermo condiviso). Così il revisore vede che il comando gira sulla macchina vera, senza vedere il codice.
+- Stessa regola per la chiave per installazione: con **B2** (firma di una frase a caso) non si mostra niente di segreto; con **B1** la chiave va mostrata, quindi B1 solo come ripiego, cambiando la chiave subito dopo.
+
 ## Cosa nessuna soluzione può fare (da dire sempre)
 Se l'azienda **vuole barare** sulla propria macchina (fa girare il codice dell'agente A con la chiave dell'agente B), nessuna prova dall'interno della macchina lo impedisce del tutto. Le soluzioni sopra **eliminano gli errori e le confusioni** e rendono un imbroglio deliberato **difficile e visibile** (bisogna falsificare apposta impronte e chiavi), non impossibile. La difesa vera contro un'azienda disonesta sta fuori: il risultato in mano al danneggiato (anello 3) e le marche temporali.
 
