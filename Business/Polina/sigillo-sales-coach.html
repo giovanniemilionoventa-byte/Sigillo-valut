@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sigillo Sales Coach</title>
+<style>
+:root{
+  --paper:#f7f5f0; --card:#ffffff; --ink:#1c2233; --muted:#5d6475; --line:#e3dfd6;
+  --navy:#1f2d5c; --navy2:#2e4290; --wax:#a8231d; --wax2:#c8372f; --gold:#b8902b;
+  --good:#1d7a46; --goodbg:#e7f5ec; --ok:#9a6a00; --okbg:#fdf3dc; --bad:#b3261e; --badbg:#fbe9e7;
+  --radius:14px; --shadow:0 1px 2px rgba(20,25,40,.06),0 4px 16px rgba(20,25,40,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+a{color:var(--navy2)}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em}
+h1{font-size:1.75rem} h2{font-size:1.35rem} h3{font-size:1.1rem}
+p{margin:0 0 .8em}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+header.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.topin{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:980px;margin:0 auto;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px;cursor:pointer}
+.seal{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d9534b,#9c1f19 70%);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.18)}
+.brand small{display:block;font-weight:400;opacity:.75;font-size:.75rem}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+nav.tabs button{background:transparent;border:0;color:#dfe4f5;padding:7px 11px;border-radius:9px;font-size:.92rem}
+nav.tabs button:hover{background:rgba(255,255,255,.08)}
+nav.tabs button.on{background:#fff;color:var(--navy);font-weight:600}
+.lang{display:flex;border:1px solid rgba(255,255,255,.35);border-radius:9px;overflow:hidden}
+.lang button{background:transparent;border:0;color:#fff;padding:6px 10px;font-size:.85rem;font-weight:600}
+.lang button.on{background:var(--gold);color:#1c1606}
+
+main{padding:22px 0 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.78rem;font-weight:600;background:#eef1fa;color:var(--navy)}
+.pill.wax{background:#f8e5e3;color:var(--wax)}
+.pill.gold{background:#f6eed7;color:#6f5512}
+.pill.good{background:var(--goodbg);color:var(--good)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:11px;padding:11px 18px;font-weight:600;background:var(--navy2);color:#fff;transition:transform .05s,background .15s}
+.btn:hover{background:var(--navy)}
+.btn:active{transform:translateY(1px)}
+.btn.wax{background:var(--wax)} .btn.wax:hover{background:#8c1c17}
+.btn.ghost{background:#fff;color:var(--navy2);border:1.5px solid var(--navy2)}
+.btn.ghost:hover{background:#f1f3fb}
+.btn.sm{padding:7px 12px;font-size:.9rem}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.hidden{display:none!important}
+
+/* home */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#33479a 100%);color:#fff;border-radius:18px;padding:26px 24px;position:relative;overflow:hidden}
+.hero h1{font-size:1.9rem}
+.hero p{opacity:.92;max-width:640px}
+.hero .bigseal{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d9534b,#8f1b16 70%);opacity:.25}
+.path{counter-reset:step;display:grid;gap:10px;margin-top:6px}
+.path .st{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.path .st:hover{border-color:var(--navy2)}
+.path .num{flex:0 0 30px;height:30px;border-radius:50%;background:#eef1fa;color:var(--navy);display:grid;place-items:center;font-weight:700}
+.path .st.done .num{background:var(--good);color:#fff}
+.path .st b{display:block}
+
+/* learn */
+.learnnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.learnnav button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px;font-size:.88rem;color:var(--ink)}
+.learnnav button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.learnnav button.seen::after{content:" ✓";color:var(--good);font-weight:700}
+.learnnav button.on.seen::after{color:#9fe0b8}
+.oneline{background:#f6eed7;border-left:4px solid var(--gold);padding:10px 14px;border-radius:8px;margin:0 0 14px;font-weight:600}
+.say{background:var(--goodbg);border-left:4px solid var(--good);padding:10px 14px;border-radius:8px;margin:10px 0}
+.never{background:var(--badbg);border-left:4px solid var(--bad);padding:10px 14px;border-radius:8px;margin:10px 0}
+.say b,.never b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.say b{color:var(--good)} .never b{color:var(--bad)}
+.steps4{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin:12px 0}
+.steps4 .s{background:#f8f9fd;border:1px solid var(--line);border-radius:12px;padding:12px}
+.steps4 .s .ic{font-size:1.6rem}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.cols2{grid-template-columns:1fr}}
+.yes,.no{border-radius:12px;padding:12px 14px}
+.yes{background:var(--goodbg)} .no{background:var(--badbg)}
+.yes h4{color:var(--good)} .no h4{color:var(--bad)}
+ul.clean{padding-left:18px;margin:6px 0}
+ul.clean li{margin:4px 0}
+table.t{width:100%;border-collapse:collapse;font-size:.93rem}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+table.t th{background:#f3f4f8;font-size:.82rem;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.plans{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:10px 0}
+.plan{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:#fff;position:relative}
+.plan.star{border-color:var(--gold);box-shadow:0 0 0 3px #f6eed7}
+.plan .price{font-size:1.5rem;font-weight:800;color:var(--navy)}
+.plan .price small{font-size:.85rem;font-weight:500;color:var(--muted)}
+.plan .tag{position:absolute;top:-10px;right:12px}
+.note{background:#eef1fa;border-radius:10px;padding:10px 14px;font-size:.92rem;margin:10px 0}
+.note.warn{background:#fff4e0;border:1px solid #f0d9a8}
+.mock{border:1px solid #cfd5e6;border-radius:12px;background:#f5f6f9;padding:14px;margin:12px 0;font-size:.92rem}
+.mock .mcard{background:#fff;border:1px solid #e4e7ef;border-radius:10px;padding:14px;margin-bottom:10px}
+.mock .row{display:flex;gap:10px;margin:3px 0}
+.mock .row span:first-child{color:var(--muted);min-width:140px}
+.mock .mb{display:inline-block;padding:7px 14px;border-radius:8px;font-weight:600;margin-right:8px}
+.mock .mb.p{background:#1d4ed8;color:#fff} .mock .mb.s{border:1.5px solid #1d4ed8;color:#1d4ed8;background:#fff}
+.mock code{font-size:.78rem;word-break:break-all}
+.gloss dt{font-weight:700;margin-top:8px} .gloss dd{margin:2px 0 0 0;color:var(--muted)}
+
+/* practice: persona picker */
+.diff{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 18px}
+.diff button{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;text-align:left;min-width:170px}
+.diff button b{display:block}
+.diff button.on{border-color:var(--navy2);background:#f1f3fb;box-shadow:0 0 0 3px #e2e7f8}
+.persona{display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:border-color .15s,transform .1s}
+.persona:hover{border-color:var(--navy2);transform:translateY(-1px)}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.15rem;flex:0 0 52px}
+.phead{display:flex;gap:12px;align-items:center}
+.phead b{display:block;font-size:1.05rem}
+.stars{color:var(--gold);letter-spacing:1px}
+.res{font-size:.8rem}
+.fear{font-size:.88rem;color:var(--muted)}
+
+/* chat */
+.sim{display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:start}
+@media(max-width:780px){.sim{grid-template-columns:1fr}}
+.side{position:sticky;top:76px}
+@media(max-width:780px){.side{position:static}}
+.meter{margin:10px 0 4px}
+.meterbar{height:14px;border-radius:99px;background:linear-gradient(90deg,#d0453c 0%,#e3a33a 45%,#3a9b5f 75%,#1d7a46 100%);position:relative}
+.meterbar .mask{position:absolute;right:0;top:0;bottom:0;background:#e9e6df;border-radius:0 99px 99px 0;transition:width .6s ease}
+.meterbar .lines{position:absolute;inset:0;display:flex}
+.meterbar .lines i{flex:1;border-right:2px solid rgba(255,255,255,.6)}
+.meterbar .lines i:last-child{border:0}
+.meterlbl{display:grid;grid-template-columns:45fr 30fr 25fr;font-size:.78rem;color:var(--muted);margin-top:4px;text-align:center}
+#anchor{scroll-margin-top:84px}
+@media(max-width:700px){header.top{position:static}.topin{gap:6px;padding:8px 12px}nav.tabs{margin-left:0;order:3;width:100%}nav.tabs button{padding:6px 8px;font-size:.85rem}.lang{margin-left:auto}.sideextra{display:none}.side{padding:14px}#anchor{scroll-margin-top:10px}h1{font-size:1.45rem}.hero h1{font-size:1.5rem}}
+.trustnum{font-size:1.6rem;font-weight:800}
+.mood{font-size:2rem;line-height:1}
+.blind .meterbar{filter:blur(5px) grayscale(1);opacity:.5}
+.chat{display:flex;flex-direction:column;gap:12px;min-height:300px}
+.msg{display:flex;gap:10px;align-items:flex-end;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg .av{width:36px;height:36px;flex:0 0 36px;font-size:.85rem}
+.bubble{background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:10px 14px;max-width:620px;box-shadow:var(--shadow)}
+.msg.me{flex-direction:row-reverse}
+.msg.me .bubble{background:var(--navy2);color:#fff;border-color:var(--navy2);border-radius:16px 16px 4px 16px}
+.msg.me .av{background:var(--gold)}
+.sys{font-size:.9rem;color:var(--muted);background:#efede7;border-radius:10px;padding:10px 14px}
+.tip{background:#f6eed7;border-radius:10px;padding:10px 14px;font-size:.92rem}
+.tip b{color:#6f5512}
+.opts{display:grid;gap:9px}
+.opt{text-align:left;background:#fff;border:1.5px solid #cfd5e6;border-radius:12px;padding:11px 14px;color:var(--ink);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--navy2);background:#f5f7fd}
+.opt .k{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#eef1fa;color:var(--navy);font-weight:700;font-size:.8rem;margin-right:8px}
+.fb{border-radius:12px;padding:12px 14px;animation:pop .25s ease}
+.fb.best{background:var(--goodbg);border:1px solid #bfe3cc}
+.fb.okk{background:var(--okbg);border:1px solid #f0dca8}
+.fb.weak{background:#fdf0e4;border:1px solid #f2d0ae}
+.fb.bad{background:var(--badbg);border:1px solid #f1c3be}
+.fb h4{margin:0 0 4px;font-size:1rem}
+.fb.best h4{color:var(--good)} .fb.okk h4{color:var(--ok)} .fb.weak h4{color:#a4561a} .fb.bad h4{color:var(--bad)}
+.fb .better{margin-top:8px;font-size:.92rem;background:rgba(255,255,255,.7);border-radius:8px;padding:8px 10px}
+.delta{font-weight:800;margin-left:6px}
+.delta.up{color:var(--good)} .delta.down{color:var(--bad)}
+.float{position:fixed;right:24px;top:90px;font-size:1.6rem;font-weight:900;pointer-events:none;animation:flt 1.1s ease forwards;z-index:50}
+@keyframes flt{0%{opacity:0;transform:translateY(10px)}20%{opacity:1}100%{opacity:0;transform:translateY(-40px)}}
+.redflag{display:inline-block;background:var(--bad);color:#fff;border-radius:6px;padding:1px 7px;font-size:.75rem;font-weight:700;margin-left:6px}
+.flags{font-size:.88rem;margin-top:8px}
+
+/* outcome */
+.outcome{text-align:center;padding:26px 20px;border-radius:18px;color:#fff}
+.outcome.sale{background:linear-gradient(135deg,#1d7a46,#2fa565)}
+.outcome.demo{background:linear-gradient(135deg,#9a6a00,#d39a1c)}
+.outcome.lost{background:linear-gradient(135deg,#7d1a15,#b3261e)}
+.outcome .big{font-size:2.6rem}
+.outcome h2{font-size:1.6rem;margin:.2em 0}
+.review{margin-top:16px}
+.review .ri{border-bottom:1px solid var(--line);padding:10px 0}
+.review .ri:last-child{border:0}
+.review .q{font-size:.88rem;color:var(--muted)}
+.spark{width:100%;height:80px;margin:8px 0}
+
+/* quiz */
+.qprog{height:8px;background:#e9e6df;border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.qprog i{display:block;height:100%;background:var(--navy2);transition:width .3s}
+.qopt{display:block;width:100%;text-align:left;margin:8px 0;background:#fff;border:1.5px solid #cfd5e6;border-radius:12px;padding:11px 14px;color:var(--ink)}
+.qopt:hover{border-color:var(--navy2)}
+.qopt.right{border-color:var(--good);background:var(--goodbg)}
+.qopt.wrong{border-color:var(--bad);background:var(--badbg)}
+.qopt:disabled{cursor:default}
+
+/* cheat sheet */
+.cheat table.t td:first-child{font-weight:600;width:24%}
+.cheat table.t td:nth-child(3){color:var(--bad);width:20%}
+.flash{min-height:220px;display:flex;flex-direction:column;justify-content:center;text-align:center;cursor:pointer;user-select:none}
+.flash .fq{font-size:1.3rem;font-weight:700}
+.flash .fa{margin-top:14px;text-align:left}
+.printonly{display:none}
+
+footer{color:var(--muted);font-size:.8rem;text-align:center;padding:20px}
+
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;font-size:10.5pt}
+  header.top,footer,.noprint,nav{display:none!important}
+  main{padding:0}
+  section{display:none!important}
+  section#cheat{display:block!important}
+  .card{box-shadow:none;border:0;padding:0}
+  .printonly{display:block}
+  table.t{font-size:9pt}
+  table.t th,table.t td{padding:4px 6px}
+  tr{page-break-inside:avoid}
+  .plans{grid-template-columns:repeat(4,1fr);gap:6px}
+  .plan{padding:8px}
+  .plan .price{font-size:1.1rem}
+  h2{font-size:13pt;margin-top:10px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="topin">
+    <div class="brand" data-go="home"><div class="seal">S</div><div><span data-i="appname"></span><small data-i="appsub"></small></div></div>
+    <nav class="tabs" id="tabs">
+      <button data-go="home" data-i="nav_home"></button>
+      <button data-go="learn" data-i="nav_learn"></button>
+      <button data-go="practice" data-i="nav_practice"></button>
+      <button data-go="quiz" data-i="nav_quiz"></button>
+      <button data-go="cheat" data-i="nav_cheat"></button>
+    </nav>
+    <div class="lang"><button data-lang="en">EN</button><button data-lang="it">IT</button></div>
+  </div>
+</header>
+<main class="wrap">
+  <section id="home"></section>
+  <section id="learn" class="hidden"></section>
+  <section id="practice" class="hidden"></section>
+  <section id="quiz" class="hidden"></section>
+  <section id="cheat" class="hidden"></section>
+</main>
+<footer><span data-i="footer"></span></footer>
+<script>
+"use strict";
+/* ---------- language helpers ---------- */
+function _(en, it){ return {en:en, it:it}; }
+var LANG = "en";
+function t(x){ if (x && typeof x === "object" && "en" in x) return x[LANG] || x.en; return x; }
+
+/* ---------- interface words ---------- */
+var UI = {
+  appname:_("Sigillo Sales Coach","Sigillo Sales Coach"),
+  appsub:_("Practice selling Sigillo","Allenati a vendere Sigillo"),
+  nav_home:_("Home","Inizio"), nav_learn:_("Learn","Impara"), nav_practice:_("Practice calls","Simula chiamate"),
+  nav_quiz:_("Quiz","Quiz"), nav_cheat:_("Cheat sheet","Scheda obiezioni"),
+  footer:_("Sigillo Sales Coach · works offline · prices = proposal of 15 November 2026, to be agreed with Giovanni · all clients in the calls are invented",
+           "Sigillo Sales Coach · funziona senza internet · prezzi = proposta del 15 novembre 2026, da decidere con Giovanni · tutti i clienti delle chiamate sono inventati"),
+  hello:_("Hi Polina! Ready to practise?","Ciao Polina! Pronta ad allenarti?"),
+  heroP:_("This is your training room for selling Sigillo. You will learn what Sigillo does in simple words, talk to five invented clients based on our real target customers, and learn to answer the hard questions honestly. No real client sees anything here.",
+          "Questa è la tua palestra per vendere Sigillo. Impari cosa fa Sigillo con parole semplici, parli con cinque clienti inventati, costruiti sui nostri clienti tipo reali, e impari a rispondere onestamente alle domande difficili. Nessun cliente vero vede niente di tutto questo."),
+  golden:_("The golden rule: never promise more than Sigillo does. An honest \"no\" builds more trust than a big \"yes\".",
+           "La regola d'oro: mai promettere più di quello che Sigillo fa. Un \"no\" onesto crea più fiducia di un grande \"sì\"."),
+  pathTitle:_("Your training path","Il tuo percorso"),
+  path1:_("Learn Sigillo in 10 minutes","Impara Sigillo in 10 minuti"), path1d:_("9 short chapters, no technical words.","9 capitoli brevi, senza parole tecniche."),
+  path2:_("First call on Easy: Lucía (HR start-up)","Prima chiamata in Facile: Lucía (start-up HR)"), path2d:_("With coach tips before every answer.","Con i consigli del coach prima di ogni risposta."),
+  path3:_("Take the quiz","Fai il quiz"), path3d:_("Aim for 8 out of 10 or more.","Punta ad almeno 8 su 10."),
+  path4:_("All five clients on Normal","Tutti e cinque i clienti in Normale"), path4d:_("Get a sale or a demo with each one.","Ottieni una vendita o una demo con ognuno."),
+  path5:_("Hard mode, and the boss: Stefano (bank)","Modalità Difficile e il capo: Stefano (banca)"), path5d:_("No trust meter, no feedback until the end. Like a real call.","Niente misuratore di fiducia, niente commenti fino alla fine. Come una chiamata vera."),
+  path6:_("Print the cheat sheet","Stampa la scheda obiezioni"), path6d:_("One page to keep next to you during real calls.","Un foglio da tenere accanto durante le chiamate vere."),
+  stats:_("Your results","I tuoi risultati"), reset:_("Reset my progress","Azzera i miei progressi"),
+  resetQ:_("Progress reset.","Progressi azzerati."),
+  start:_("Start","Inizia"),
+  // learn
+  learnTitle:_("Learn Sigillo","Impara Sigillo"), next:_("Next chapter","Capitolo successivo"), prev:_("Previous","Precedente"),
+  learnDone:_("You finished all chapters. Now try a practice call!","Hai finito tutti i capitoli. Ora prova una chiamata!"),
+  goPractice:_("Go to practice calls","Vai alle chiamate"),
+  // practice
+  pickDiff:_("1. Choose the difficulty","1. Scegli la difficoltà"),
+  pickPersona:_("2. Choose who you call","2. Scegli chi chiamare"),
+  easy:_("Easy","Facile"), normal:_("Normal","Normale"), hard:_("Hard","Difficile"),
+  easyD:_("Coach tip before each answer. Mistakes cost less.","Consiglio del coach prima di ogni risposta. Gli errori costano meno."),
+  normalD:_("Trust meter and feedback after each answer.","Misuratore di fiducia e commento dopo ogni risposta."),
+  hardD:_("Harder client, extra questions, no meter, feedback only at the end.","Cliente più duro, domande in più, niente misuratore, commenti solo alla fine."),
+  fears:_("Fears","Paure"), wants:_("Wants","Vuole"), best:_("Best result","Miglior risultato"),
+  target:_("Plan to aim for","Piano a cui puntare"),
+  callWith:_("Call with","Chiamata con"), trust:_("Trust","Fiducia"),
+  trustHidden:_("Hard mode: you can't see their mind. Read their words.","Modalità difficile: non leggi nella loro mente. Ascolta le loro parole."),
+  coach:_("Coach tip","Consiglio del coach"), cont:_("Continue","Continua"), quit:_("Leave the call","Esci dalla chiamata"),
+  you:_("You","Tu"),
+  fbBest:_("Great answer","Ottima risposta"), fbOk:_("OK, but could be better","Va bene, ma si può fare meglio"),
+  fbWeak:_("Weak answer","Risposta debole"), fbBad:_("Dangerous answer","Risposta pericolosa"),
+  betterWas:_("Better answer:","Risposta migliore:"),
+  redflag:_("RED FLAG","CAMPANELLO D'ALLARME"),
+  redflagInfo:_("Red flags: overpromises or false facts. Two red flags and the client is lost.","Campanelli d'allarme: promesse eccessive o fatti falsi. Con due campanelli il cliente è perso."),
+  noted:_("Noted. (Hard mode: feedback at the end.)","Annotato. (Modalità difficile: commenti alla fine.)"),
+  sale:_("Sale!","Vendita!"), demo:_("Demo booked","Demo fissata"), lost:_("Lost","Perso"),
+  finalTrust:_("Final trust","Fiducia finale"),
+  review:_("Review of your answers","Riepilogo delle tue risposte"),
+  yourAns:_("Your answer","La tua risposta"),
+  again:_("Try again","Riprova"), other:_("Choose another client","Scegli un altro cliente"),
+  harder:_("Try it on Hard","Provalo in Difficile"),
+  lesson:_("Lesson of this call","Lezione di questa chiamata"),
+  lostFlags:_("Two red flags: the client stopped trusting you.","Due campanelli d'allarme: il cliente ha smesso di fidarsi di te."),
+  closeTipSoft:_("Trust was high: you could have asked for a firm next step.","La fiducia era alta: potevi chiedere un passo concreto."),
+  closeTipPush:_("Pushing for a signature without enough trust lost the deal.","Spingere per la firma senza abbastanza fiducia ha fatto perdere l'affare."),
+  // quiz
+  quizTitle:_("Quiz","Quiz"), quizIntro:_("10 random questions from 24. Each answer is explained. Try to get 8 or more.","10 domande a caso su 24. Ogni risposta è spiegata. Prova a farne almeno 8."),
+  quizStart:_("Start the quiz","Inizia il quiz"), qOf:_("Question","Domanda"), of:_("of","di"),
+  correct:_("Correct!","Giusto!"), wrong:_("Not quite.","Non proprio."),
+  qNext:_("Next question","Domanda successiva"), qEnd:_("See result","Vedi il risultato"),
+  score:_("Your score","Il tuo punteggio"), qBest:_("Best score","Miglior punteggio"),
+  q10:_("Perfect! You can explain Sigillo to anyone.","Perfetto! Puoi spiegare Sigillo a chiunque."),
+  q8:_("Very good. Read the explanations of the ones you missed.","Molto bene. Rileggi le spiegazioni di quelle sbagliate."),
+  q5:_("Good start. Go back to the Learn chapters and try again.","Buon inizio. Torna ai capitoli di Impara e riprova."),
+  q0:_("Read the Learn section first, then try again.","Leggi prima la parte Impara, poi riprova."),
+  // cheat
+  cheatTitle:_("Objection cheat sheet","Scheda delle obiezioni"),
+  print:_("Print / save as PDF","Stampa / salva in PDF"),
+  flashBtn:_("Practise with flashcards","Allenati con le carte"), tableBtn:_("Back to the table","Torna alla tabella"),
+  colObj:_("They say","Il cliente dice"), colAns:_("You answer","Tu rispondi"), colNever:_("Never say","Non dire mai"),
+  flashTap:_("Think of your answer, then tap the card.","Pensa alla tua risposta, poi tocca la carta."),
+  flashNext:_("Next card","Carta successiva"),
+  pricesTitle:_("Prices (proposal of 15 Nov 2026, confirm with Giovanni before quoting)","Prezzi (proposta del 15 nov 2026, conferma con Giovanni prima di darli)"),
+  wordsTitle:_("Words","Parole"),
+  pitchTitle:_("Sigillo in one sentence","Sigillo in una frase")
+};
+
+/* ---------- plans ---------- */
+var PLANS = [
+  {name:_("Free trial","Prova gratuita"), price:_("€0","0 €"), per:_("no time limit","senza scadenza"),
+   who:_("Anyone trying Sigillo","Chi sta provando Sigillo"),
+   items:[_("1 agent","1 agente"),_("5,000 records a month","5.000 ricevute al mese"),_("Data kept 30 days","Dati tenuti 30 giorni")]},
+  {name:_("Starter","Starter"), price:_("€49","49 €"), per:_("/month · €490/year","/mese · 490 €/anno"),
+   who:_("Freelancer or small team, 1 agent","Freelance o piccolo team, 1 agente"),
+   items:[_("1 agent in production","1 agente in produzione"),_("50,000 records a month","50.000 ricevute al mese"),_("Data kept 12 months","Dati tenuti 12 mesi"),_("Proof file (evidence pack)","Fascicolo delle prove")]},
+  {name:_("Professional","Professionale"), price:_("€149","149 €"), per:_("/month · €1,490/year","/mese · 1.490 €/anno"), star:true,
+   who:_("Software house with several clients","Software house con più clienti"),
+   items:[_("Up to 5 agents (about €30 each)","Fino a 5 agenti (circa 30 € l'uno)"),_("250,000 records a month","250.000 ricevute al mese"),_("Reviewer link","Link per il revisore"),_("Email support","Supporto via email"),_("Extra agent: €25/month","Agente in più: 25 €/mese")]},
+  {name:_("Regulated","Regolato"), price:_("from €390","da 390 €"), per:_("/month, billed yearly (~€4,700/year)","/mese, solo annuale (~4.700 €/anno)"),
+   who:_("Bank, insurer, large end client","Banca, assicurazione, grande cliente finale"),
+   items:[_("Unlimited agents, up to 1 million records a month","Agenti illimitati, fino a 1 milione di ricevute al mese"),_("Dedicated server or key","Server o chiave dedicati"),_("Service agreement (SLA)","Accordo di servizio (SLA)"),_("Signed DPA","DPA firmato"),_("Help during an audit","Aiuto durante un audit")]}
+];
+var PLAN_NOTES = [
+  _("<b>Yearly payment = 2 months free.</b> It is the only standard discount. Any other discount: ask Giovanni first.",
+    "<b>Pagamento annuale = 2 mesi gratis.</b> È l'unico sconto standard. Qualsiasi altro sconto: prima chiedi a Giovanni."),
+  _("<b>eIDAS qualified time stamp in all paid plans: planned, not live yet.</b> Today the hourly stamp comes from outside companies but is not the qualified kind. The plan is one qualified stamp per hour for all clients together. Say \"we plan to include it\", never \"it is included today\", and never promise a date.",
+    "<b>Marca temporale qualificata eIDAS in tutti i piani a pagamento: prevista, non ancora attiva.</b> Oggi la marca oraria viene da aziende esterne ma non è di tipo qualificato. L'idea è una marca qualificata all'ora per tutti i clienti insieme. Di' \"prevediamo di includerla\", mai \"è già inclusa\", e non promettere date."),
+  _("<b>Push Professional.</b> A software house can resell it to its own client: about €30 per agent, easy to put in their price.",
+    "<b>Il piano da spingere è Professionale.</b> Una software house lo può rivendere al suo cliente: circa 30 € ad agente, facile da mettere nel suo prezzo.")
+];
+function plansHTML(){
+  var h = '<div class="plans">';
+  PLANS.forEach(function(p){
+    h += '<div class="plan'+(p.star?' star':'')+'">'+(p.star?'<span class="pill gold tag">'+t(_("Push this one","Da spingere"))+'</span>':'')+
+      '<b>'+t(p.name)+'</b><div class="price">'+t(p.price)+' <small>'+t(p.per)+'</small></div><div class="small muted">'+t(p.who)+'</div><ul class="clean small">';
+    p.items.forEach(function(i){ h += '<li>'+t(i)+'</li>'; });
+    h += '</ul></div>';
+  });
+  return h + '</div>';
+}
+
+/* ---------- words ---------- */
+var SAY_WORDS = [_("tamper-evident (any change shows)","tamper-evident (ogni modifica si vede)"),_("independently verifiable","verificabile in modo indipendente"),_("sealed record / sealed diary","registro sigillato / diario sigillato"),_("proof, evidence","prova, prove"),_("helps with record-keeping","aiuta a tenere le registrazioni")];
+var NEVER_WORDS = [_("tamper-proof","tamper-proof (a prova di manomissione)"),_("compliant / GDPR compliant","compliant / conforme al GDPR"),_("AI Act ready","AI Act ready (pronto per l'AI Act)"),_("certified","certificato"),_("it can never be hacked","non si può mai violare"),_("it stops / blocks the agent","ferma / blocca l'agente"),_("it works with any language","funziona con qualsiasi linguaggio"),_("eIDAS qualified (today)","qualificato eIDAS (oggi)")];
+function wordsHTML(){
+  var s='<div class="cols2"><div class="yes"><h4>'+t(_("Say","Di'"))+'</h4><ul class="clean">';
+  SAY_WORDS.forEach(function(w){ s+='<li>'+t(w)+'</li>'; });
+  s+='</ul></div><div class="no"><h4>'+t(_("Never say","Non dire mai"))+'</h4><ul class="clean">';
+  NEVER_WORDS.forEach(function(w){ s+='<li>'+t(w)+'</li>'; });
+  return s+'</ul></div></div>';
+}
+var PITCH = _("\"Sigillo is a sealed diary of your AI agent: it proves to any auditor what the agent did and when, without us ever reading your data.\"",
+              "\"Sigillo è un diario sigillato del tuo agente AI: dimostra a qualsiasi revisore cosa ha fatto l'agente e quando, senza che noi leggiamo mai i tuoi dati.\"");
+</script>
+<script>
+"use strict";
+/* ---------- LEARN chapters (functions, so prices/words re-render in the right language) ---------- */
+var CHAPTERS = [
+{ id:"what", title:_("1. What Sigillo is","1. Cos'è Sigillo"), body:function(){ return t(_(
+'<div class="oneline">Sigillo is a sealed diary for AI agents.</div>'+
+'<p>An <b>AI agent</b> is a program that uses AI to do jobs by itself: read a CV, answer a customer, prepare a payment, decide on an insurance claim.</p>'+
+'<p>When something goes wrong, people ask: <i>"What exactly did the AI do? When? Can you prove it?"</i> Normally the only answer is the company\'s own records, and an outsider has to trust them.</p>'+
+'<p><b>Sigillo writes down every action of the agent in a diary, and seals every line.</b> If anyone changes or deletes a line later, even us, it shows. An auditor can check the diary alone, with a free program, without trusting the company or us.</p>'+
+'<div class="note"><b>Picture it like this:</b> a notary who stamps every page of a diary as it is written. You can still tear out a page, but everybody will see the missing stamp.</div>'+
+'<div class="say"><b>Say it like this</b>'+PITCH.en+'</div>'+
+'<p class="small muted">Our website: get-sigillo.eu · slogan: "Prove what your AI did. When it matters most."</p>',
+'<div class="oneline">Sigillo è un diario sigillato per gli agenti AI.</div>'+
+'<p>Un <b>agente AI</b> è un programma che usa l\'intelligenza artificiale per fare lavori da solo: leggere un CV, rispondere a un cliente, preparare un pagamento, decidere su un sinistro.</p>'+
+'<p>Quando qualcosa va storto, la gente chiede: <i>"Cosa ha fatto esattamente l\'AI? Quando? Puoi dimostrarlo?"</i> Di solito l\'unica risposta sono i registri dell\'azienda stessa, e chi sta fuori deve fidarsi.</p>'+
+'<p><b>Sigillo scrive in un diario ogni azione dell\'agente e sigilla ogni riga.</b> Se qualcuno dopo cambia o cancella una riga, anche noi, si vede. Un revisore può controllare il diario da solo, con un programma gratuito, senza fidarsi né dell\'azienda né di noi.</p>'+
+'<div class="note"><b>Immaginalo così:</b> un notaio che timbra ogni pagina di un diario mentre viene scritta. Puoi ancora strappare una pagina, ma tutti vedranno il timbro mancante.</div>'+
+'<div class="say"><b>Dillo così</b>'+PITCH.it+'</div>'+
+'<p class="small muted">Il nostro sito: get-sigillo.eu · slogan: "Prove what your AI did. When it matters most."</p>'));}},
+
+{ id:"how", title:_("2. How it works, in 4 steps","2. Come funziona, in 4 passi"), body:function(){ return t(_(
+'<div class="oneline">Connect once, then everything is recorded, sealed and stamped by itself.</div>'+
+'<div class="steps4">'+
+'<div class="s"><div class="ic">🔌</div><b>1. Connect</b><br>The developer adds <b>3 lines</b> to the agent\'s Python program. We do the first connection together in a <b>20-minute call</b>.</div>'+
+'<div class="s"><div class="ic">📝</div><b>2. Record</b><br>Every action becomes a sealed line in the diary. Only a <b>fingerprint</b> of each text leaves the client\'s computer, never the text.</div>'+
+'<div class="s"><div class="ic">⏱️</div><b>3. Stamp</b><br>Every hour an <b>outside company</b> puts a time stamp on the diary. It proves the diary existed like that, at that hour.</div>'+
+'<div class="s"><div class="ic">🔍</div><b>4. Check</b><br>The client shares a <b>reviewer link</b> or downloads a <b>proof file</b>. The auditor checks it with a free program.</div>'+
+'</div>'+
+'<p><b>A fingerprint?</b> It is a short code (64 characters) made from a text. The same text always gives the same code, but you cannot turn the code back into the text. So we can prove a text was used without ever seeing it.</p>'+
+'<p><b>Good things to know:</b></p><ul class="clean">'+
+'<li>If the internet or our server goes down, <b>nothing is lost</b>: the agent keeps working and the diary catches up by itself later.</li>'+
+'<li>Sigillo <b>never stops or slows</b> the agent.</li>'+
+'<li>The AI model (ChatGPT, Claude, Mistral…) <b>does not know Sigillo exists</b>. Sigillo is code inside the program, not a sentence in the prompt. So the AI cannot switch it off.</li>'+
+'<li>Today Sigillo works with agents written in <b>Python</b> (the most common language for AI agents). Not other languages yet.</li>'+
+'<li>Our server is in <b>Italy</b> (EU).</li></ul>',
+'<div class="oneline">Si collega una volta, poi tutto viene registrato, sigillato e timbrato da solo.</div>'+
+'<div class="steps4">'+
+'<div class="s"><div class="ic">🔌</div><b>1. Collegare</b><br>Lo sviluppatore aggiunge <b>3 righe</b> al programma Python dell\'agente. Il primo collegamento lo facciamo insieme in una <b>chiamata di 20 minuti</b>.</div>'+
+'<div class="s"><div class="ic">📝</div><b>2. Registrare</b><br>Ogni azione diventa una riga sigillata del diario. Dal computer del cliente esce solo l\'<b>impronta</b> di ogni testo, mai il testo.</div>'+
+'<div class="s"><div class="ic">⏱️</div><b>3. Timbrare</b><br>Ogni ora un\'<b>azienda esterna</b> mette una marca temporale sul diario. Prova che il diario era così, a quell\'ora.</div>'+
+'<div class="s"><div class="ic">🔍</div><b>4. Controllare</b><br>Il cliente condivide un <b>link per il revisore</b> o scarica un <b>fascicolo delle prove</b>. Il revisore lo controlla con un programma gratuito.</div>'+
+'</div>'+
+'<p><b>Un\'impronta?</b> È un codice corto (64 caratteri) ricavato da un testo. Lo stesso testo dà sempre lo stesso codice, ma dal codice non si torna al testo. Così possiamo dimostrare che un testo è stato usato senza mai vederlo.</p>'+
+'<p><b>Cose utili da sapere:</b></p><ul class="clean">'+
+'<li>Se cade internet o il nostro server, <b>non si perde niente</b>: l\'agente continua a lavorare e il diario si rimette in pari da solo dopo.</li>'+
+'<li>Sigillo <b>non ferma e non rallenta mai</b> l\'agente.</li>'+
+'<li>Il modello AI (ChatGPT, Claude, Mistral…) <b>non sa che Sigillo esiste</b>. Sigillo è codice dentro il programma, non una frase nel prompt. Quindi l\'AI non può spegnerlo.</li>'+
+'<li>Oggi Sigillo funziona con agenti scritti in <b>Python</b> (il linguaggio più usato per gli agenti AI). Non ancora con altri linguaggi.</li>'+
+'<li>Il nostro server è in <b>Italia</b> (UE).</li></ul>'));}},
+
+{ id:"limits", title:_("3. What it proves, and what it doesn't","3. Cosa prova e cosa no"), body:function(){ return t(_(
+'<div class="oneline">Knowing the limits is your superpower: clients trust the seller who says them first.</div>'+
+'<div class="cols2"><div class="yes"><h4>✅ Sigillo proves</h4><ul class="clean">'+
+'<li><b>What</b> the agent did: each question to the AI, each tool it used, each decision recorded.</li>'+
+'<li><b>When</b> it existed: hourly time stamp from an outside company.</li>'+
+'<li>That <b>nobody changed it afterwards</b>, not the client, not us.</li>'+
+'<li><b>Which version of the agent program</b> wrote the diary (program fingerprint).</li>'+
+'<li>That a given text (an email, a letter) is <b>exactly</b> the one the agent produced, if the client uses its key.</li>'+
+'<li>When the agent <b>went silent</b>, and when its <b>code changed</b>.</li></ul></div>'+
+'<div class="no"><h4>❌ Sigillo does NOT</h4><ul class="clean">'+
+'<li><b>Stop or block</b> the agent. It records; it does not control.</li>'+
+'<li>Check if the AI\'s answer was <b>true or fair</b>.</li>'+
+'<li>Prove the agent recorded <b>everything</b> if a programmer removes Sigillo on purpose (but the silence shows).</li>'+
+'<li>Make anyone <b>"compliant"</b> with the AI Act or GDPR. It gives <b>evidence</b> that helps.</li>'+
+'<li>Give a <b>qualified eIDAS</b> time stamp <b>today</b> (planned for paid plans).</li>'+
+'<li>Work with agents in languages other than <b>Python</b>, today.</li></ul></div></div>'+
+'<div class="note warn"><b>Why this matters:</b> clients in finance, insurance and HR are careful. If you promise something and they find out it is not true, you lose them and they tell others. If you say a limit first, they believe everything else you say.</div>',
+'<div class="oneline">Conoscere i limiti è il tuo superpotere: i clienti si fidano di chi li dice per primo.</div>'+
+'<div class="cols2"><div class="yes"><h4>✅ Sigillo prova</h4><ul class="clean">'+
+'<li><b>Cosa</b> ha fatto l\'agente: ogni domanda all\'AI, ogni strumento usato, ogni decisione registrata.</li>'+
+'<li><b>Quando</b> esisteva: marca temporale oraria di un\'azienda esterna.</li>'+
+'<li>Che <b>nessuno l\'ha cambiato dopo</b>, né il cliente né noi.</li>'+
+'<li><b>Quale versione del programma</b> dell\'agente ha scritto il diario (impronta del programma).</li>'+
+'<li>Che un certo testo (un\'email, una lettera) è <b>esattamente</b> quello prodotto dall\'agente, se il cliente usa la sua chiave.</li>'+
+'<li>Quando l\'agente <b>si è zittito</b> e quando il suo <b>codice è cambiato</b>.</li></ul></div>'+
+'<div class="no"><h4>❌ Sigillo NON</h4><ul class="clean">'+
+'<li><b>Ferma né blocca</b> l\'agente. Registra, non controlla.</li>'+
+'<li>Controlla se la risposta dell\'AI era <b>vera o giusta</b>.</li>'+
+'<li>Prova che l\'agente ha registrato <b>tutto</b> se un programmatore toglie Sigillo apposta (ma il silenzio si vede).</li>'+
+'<li>Rende nessuno <b>"conforme"</b> all\'AI Act o al GDPR. Dà <b>prove</b> che aiutano.</li>'+
+'<li>Dà <b>oggi</b> una marca temporale <b>qualificata eIDAS</b> (prevista nei piani a pagamento).</li>'+
+'<li>Funziona, oggi, con agenti in linguaggi diversi da <b>Python</b>.</li></ul></div></div>'+
+'<div class="note warn"><b>Perché conta:</b> i clienti di finanza, assicurazioni e risorse umane sono prudenti. Se prometti qualcosa e scoprono che non è vero, li perdi e lo raccontano ad altri. Se dici tu per primo un limite, credono a tutto il resto.</div>'));}},
+
+{ id:"reviewer", title:_("4. New: reviewer link and program fingerprint","4. Novità: link per il revisore e impronta del programma"), body:function(){ return t(_(
+'<div class="oneline">The auditor gets the proof straight from Sigillo, and can check it is from the right agent.</div>'+
+'<h3>The problem</h3><p>A company has 5 similar agents. One makes a mistake. The auditor receives a proof file. How do they know it comes from Sigillo, and from <i>that</i> agent, not another one?</p>'+
+'<h3>1. The reviewer link</h3><ol class="clean"><li>In the Sigillo console the client presses <b>"Share with reviewer"</b> and picks the agent and the dates.</li>'+
+'<li>Sigillo makes a link: <b>read-only</b>, only that agent and those dates, <b>expires after 30 days</b>, can be cancelled at any time.</li>'+
+'<li>The auditor opens a Sigillo page with two buttons: <b>"Verify here"</b> (checks the proof right in the browser) and <b>"Download"</b> (the proof file, to check on their own computer with the free verifier).</li>'+
+'<li>Sharing the link is itself written in the diary: there is a trace of who shared what, and when.</li></ol>'+
+'<div class="mock"><div class="mcard"><b style="font-size:1.1rem">Evidence of an AI agent</b><div class="row"><span>Company</span><b>Example Insurance S.p.A.</b></div><div class="row"><span>Agent</span><b>claims-north</b></div><div class="row"><span>Link expires on</span><b>15 Dec</b></div><div style="margin-top:10px"><span class="mb p">Verify here</span><span class="mb s">Download</span></div></div>'+
+'<div class="mcard"><b style="color:#1d7a46">The pack is intact</b><div class="small">Agent programs recorded: <code>7a3f9c…</code> from 15 Nov 18:43</div><div class="small" style="color:#1d7a46;margin-top:6px">It matches: it is the program recorded from 15 Nov 18:43.</div></div></div>'+
+'<p class="small muted">Simplified picture of the real reviewer page (in Italian the buttons are "Verifica qui" and "Scarica").</p>'+
+'<h3>2. The program fingerprint</h3><p>Every time the agent starts, and every time its code changes, the <b>fingerprint of its program</b> goes into the diary. On the agent\'s computer, one short command prints that fingerprint (64 characters) and <b>nothing of the code</b>. The auditor compares it with the one in the proof: if they match, this is the program that wrote the diary, from that date.</p>'+
+'<div class="say"><b>Say it like this</b>"The auditor gets the proof directly from Sigillo, and can check which version of your agent wrote it, without ever seeing your code."</div>'+
+'<div class="never"><b>Be honest about the limits</b>Two agents with exactly the same code have the same fingerprint. A company that really wants to cheat on its own computer could fake it: the fingerprint stops mistakes and confusion and makes cheating hard and visible, not impossible.</div>'+
+'<div class="note warn"><b>Status:</b> both are built (15 November 2026). The reviewer link will be on the live website after the next server update: check with Giovanni before showing it live to a client.</div>',
+'<div class="oneline">Il revisore riceve la prova direttamente da Sigillo e può controllare che sia dell\'agente giusto.</div>'+
+'<h3>Il problema</h3><p>Un\'azienda ha 5 agenti simili. Uno sbaglia. Il revisore riceve un fascicolo delle prove. Come fa a sapere che viene da Sigillo, e da <i>quell\'</i>agente, non da un altro?</p>'+
+'<h3>1. Il link per il revisore</h3><ol class="clean"><li>Nella console di Sigillo il cliente preme <b>"Condividi con il revisore"</b> e sceglie l\'agente e le date.</li>'+
+'<li>Sigillo crea un link: <b>solo lettura</b>, solo quell\'agente e quelle date, <b>scade dopo 30 giorni</b>, si può annullare quando si vuole.</li>'+
+'<li>Il revisore apre una pagina di Sigillo con due pulsanti: <b>"Verifica qui"</b> (controlla la prova direttamente nel browser) e <b>"Scarica"</b> (il fascicolo, da controllare sul suo computer con il verificatore gratuito).</li>'+
+'<li>La condivisione stessa viene scritta nel diario: resta traccia di chi ha condiviso cosa e quando.</li></ol>'+
+'<div class="mock"><div class="mcard"><b style="font-size:1.1rem">Prove di un agente AI</b><div class="row"><span>Azienda</span><b>Esempio Assicurazioni S.p.A.</b></div><div class="row"><span>Agente</span><b>sinistri-nord</b></div><div class="row"><span>Il link scade il</span><b>15 dic</b></div><div style="margin-top:10px"><span class="mb p">Verifica qui</span><span class="mb s">Scarica</span></div></div>'+
+'<div class="mcard"><b style="color:#1d7a46">Il pacchetto è intatto</b><div class="small">Programmi dell\'agente registrati: <code>7a3f9c…</code> dal 15 nov 18:43</div><div class="small" style="color:#1d7a46;margin-top:6px">Combacia: è il programma registrato dal 15 nov 18:43.</div></div></div>'+
+'<p class="small muted">Immagine semplificata della pagina vera per il revisore.</p>'+
+'<h3>2. L\'impronta del programma</h3><p>Ogni volta che l\'agente parte, e ogni volta che il suo codice cambia, l\'<b>impronta del suo programma</b> entra nel diario. Sul computer dell\'agente un breve comando stampa quell\'impronta (64 caratteri) e <b>niente del codice</b>. Il revisore la confronta con quella nella prova: se combaciano, è il programma che ha scritto il diario, da quella data.</p>'+
+'<div class="say"><b>Dillo così</b>"Il revisore riceve la prova direttamente da Sigillo e può controllare quale versione del vostro agente l\'ha scritta, senza mai vedere il vostro codice."</div>'+
+'<div class="never"><b>Sii onesta sui limiti</b>Due agenti con esattamente lo stesso codice hanno la stessa impronta. Un\'azienda che vuole proprio barare sul suo computer potrebbe falsificarla: l\'impronta elimina errori e confusioni e rende l\'imbroglio difficile e visibile, non impossibile.</div>'+
+'<div class="note warn"><b>Stato:</b> tutti e due sono costruiti (15 novembre 2026). Il link per il revisore sarà sul sito vero dopo il prossimo aggiornamento del server: chiedi a Giovanni prima di mostrarlo dal vivo a un cliente.</div>'));}},
+
+{ id:"who", title:_("5. Who buys Sigillo","5. Chi compra Sigillo"), body:function(){ return t(_(
+'<div class="oneline">First: software companies that build AI agents in Python for finance, insurance and HR, in Italy and Spain.</div>'+
+'<table class="t"><tr><th>Who</th><th>What worries them</th><th>Plan</th></tr>'+
+'<tr><td><b>Software house</b> (10-50 people) building agents for insurers, banks, HR</td><td>Extra work for developers; their clients asking "can you prove what the AI did?"; winning tenders</td><td>Professional €149</td></tr>'+
+'<tr><td><b>Small AI start-up</b> (e.g. CV screening, HR)</td><td>AI Act (HR is a "high-risk" use); candidates\' personal data; money</td><td>Free trial → Starter €49</td></tr>'+
+'<tr><td><b>Freelance AI developer</b> with one client</td><td>Time; complexity; "my client didn\'t ask for it"</td><td>Free trial → Starter €49</td></tr>'+
+'<tr><td><b>Compliance at an insurer</b> (end client)</td><td>Legal value; trusting a small supplier; audits; data in the EU; DPA</td><td>Regulated from €390/month</td></tr>'+
+'<tr><td><b>Bank</b> (later, hardest)</td><td>Regulator; reputation; being sold hype</td><td>Regulated from €390/month</td></tr></table>'+
+'<p style="margin-top:12px"><b>The best first door is the software house.</b> One software house can bring Sigillo to many end clients, and can resell it inside its own price ("every action of our agent is sealed and checkable by your auditor").</p>'+
+'<p>Market size (estimate): about <b>250-500</b> fitting companies in Italy and Spain, <b>2,000-4,000</b> in the whole EU.</p>'+
+'<p class="small muted">Other companies offering signed receipts for agents: Elydora, Agnys, Sigill.ai. Never speak badly about them.</p>',
+'<div class="oneline">Prima: software house che costruiscono agenti AI in Python per finanza, assicurazioni e risorse umane, in Italia e Spagna.</div>'+
+'<table class="t"><tr><th>Chi</th><th>Cosa li preoccupa</th><th>Piano</th></tr>'+
+'<tr><td><b>Software house</b> (10-50 persone) che costruisce agenti per assicurazioni, banche, HR</td><td>Lavoro in più per gli sviluppatori; i loro clienti che chiedono "potete provare cosa ha fatto l\'AI?"; vincere le gare</td><td>Professionale 149 €</td></tr>'+
+'<tr><td><b>Piccola start-up AI</b> (es. selezione CV, HR)</td><td>AI Act (l\'HR è un uso "ad alto rischio"); dati personali dei candidati; soldi</td><td>Prova gratuita → Starter 49 €</td></tr>'+
+'<tr><td><b>Sviluppatore AI freelance</b> con un cliente</td><td>Tempo; complicazioni; "il mio cliente non l\'ha chiesto"</td><td>Prova gratuita → Starter 49 €</td></tr>'+
+'<tr><td><b>Ufficio conformità di un\'assicurazione</b> (cliente finale)</td><td>Valore legale; fidarsi di un fornitore piccolo; audit; dati nell\'UE; DPA</td><td>Regolato da 390 €/mese</td></tr>'+
+'<tr><td><b>Banca</b> (più avanti, la più difficile)</td><td>Autorità di vigilanza; reputazione; paura delle mode</td><td>Regolato da 390 €/mese</td></tr></table>'+
+'<p style="margin-top:12px"><b>La porta migliore è la software house.</b> Una software house porta Sigillo a molti clienti finali e può rivenderlo dentro il suo prezzo ("ogni azione del nostro agente è sigillata e controllabile dal vostro revisore").</p>'+
+'<p>Dimensione del mercato (stima): circa <b>250-500</b> aziende adatte in Italia e Spagna, <b>2.000-4.000</b> in tutta l\'UE.</p>'+
+'<p class="small muted">Altre aziende con ricevute firmate per agenti: Elydora, Agnys, Sigill.ai. Non parlarne mai male.</p>'));}},
+
+{ id:"prices", title:_("6. Prices","6. Prezzi"), body:function(){
+  var h = '<div class="oneline">'+t(_("Start free, sell Professional, Regulated for banks and insurers.","Si parte gratis, si vende il Professionale, il Regolato per banche e assicurazioni."))+'</div>'+
+   '<div class="note warn">'+t(_("These prices are Giovanni's proposal of 15 November 2026. Agree them together before you give them to a client.","Questi prezzi sono la proposta di Giovanni del 15 novembre 2026. Decidetele insieme prima di darle a un cliente."))+'</div>'+ plansHTML();
+  PLAN_NOTES.forEach(function(n){ h += '<div class="note">'+t(n)+'</div>'; });
+  h += t(_('<h3>How to talk about price</h3><ul class="clean"><li><b>Match the plan to the client.</b> 1 agent → Starter. Up to 5 agents → Professional. Bank or insurer → Regulated.</li><li><b>Give the number.</b> Hiding prices makes them sound expensive.</li><li><b>Compare with the risk:</b> one bad audit or one complaint costs more than a year of Sigillo.</li><li><b>Per agent:</b> Professional is about €30 per agent per month, easy to include in the software house\'s price.</li><li><b>Never invent discounts.</b> Yearly = 2 months free. Anything else: "Let me check with Giovanni."</li><li><b>Careful:</b> Regulated is from €390 <u>a month</u>, billed yearly. Not €390 a year.</li></ul>',
+   '<h3>Come parlare del prezzo</h3><ul class="clean"><li><b>Scegli il piano giusto per il cliente.</b> 1 agente → Starter. Fino a 5 agenti → Professionale. Banca o assicurazione → Regolato.</li><li><b>Di\' il numero.</b> Nascondere i prezzi li fa sembrare cari.</li><li><b>Confronta con il rischio:</b> un audit andato male o un reclamo costano più di un anno di Sigillo.</li><li><b>Per agente:</b> il Professionale costa circa 30 € ad agente al mese, facile da mettere nel prezzo della software house.</li><li><b>Mai inventare sconti.</b> Annuale = 2 mesi gratis. Altro: "Verifico con Giovanni."</li><li><b>Attenzione:</b> il Regolato è da 390 € <u>al mese</u>, pagato all\'anno. Non 390 € all\'anno.</li></ul>'));
+  return h; }},
+
+{ id:"laws", title:_("7. AI Act and eIDAS, simply","7. AI Act ed eIDAS, in parole semplici"), body:function(){ return t(_(
+'<div class="oneline">Sigillo gives evidence for the law. It never makes anyone "compliant".</div>'+
+'<h3>The AI Act</h3><p>The European law on AI. For "high-risk" uses (for example choosing job candidates, credit decisions, some insurance uses) it asks companies to <b>keep records</b> of what the AI does (Article 12) and to have <b>human oversight</b> (Article 14). Users of these systems have duties too (Article 26). Fines can reach €15 million or 3% of yearly turnover.</p>'+
+'<p><b>Sigillo gives evidence</b> that helps with these records. Being compliant is a whole process of the client and its lawyers.</p>'+
+'<div class="say"><b>Say it like this</b>"Sigillo doesn\'t make you compliant, no tool can. It gives you real evidence of what your agent did, which helps with the record-keeping the AI Act asks for."</div>'+
+'<p class="small muted">Exact dates of the AI Act rules are changing; don\'t quote dates. If asked: "Your lawyer will know the dates for your case."</p>'+
+'<h3>eIDAS and the time stamp</h3><p>eIDAS is the European law on electronic signatures and time stamps. A <b>"qualified"</b> time stamp, from an officially approved company, gets a legal presumption in the whole EU: a judge assumes the date and the content are correct unless someone proves the opposite.</p>'+
+'<ul class="clean"><li><b>Today:</b> Sigillo\'s hourly time stamp comes from outside companies, but it is <b>not qualified</b>. It is still valid evidence, but a judge weighs it freely.</li>'+
+'<li><b>Planned:</b> a qualified eIDAS stamp included in all paid plans (one per hour for all clients together). Not live yet. No date promised.</li></ul>'+
+'<div class="say"><b>Say it like this</b>"Today our time stamp is from an outside company but not the qualified eIDAS kind; it is still evidence, but a judge weighs it. We plan to include the qualified one in the paid plans. I\'ll confirm the timing with our technical lead."</div>',
+'<div class="oneline">Sigillo dà prove utili per la legge. Non rende mai nessuno "conforme".</div>'+
+'<h3>L\'AI Act</h3><p>La legge europea sull\'intelligenza artificiale. Per gli usi "ad alto rischio" (per esempio scegliere candidati per un lavoro, decisioni di credito, alcuni usi assicurativi) chiede alle aziende di <b>tenere registrazioni</b> di quello che fa l\'AI (articolo 12) e di avere una <b>sorveglianza umana</b> (articolo 14). Anche chi usa questi sistemi ha dei doveri (articolo 26). Le multe arrivano a 15 milioni di euro o al 3% del fatturato annuo.</p>'+
+'<p><b>Sigillo dà prove</b> che aiutano con queste registrazioni. Essere conformi è un percorso intero del cliente e dei suoi avvocati.</p>'+
+'<div class="say"><b>Dillo così</b>"Sigillo non vi rende conformi, nessuno strumento può farlo. Vi dà prove vere di quello che ha fatto il vostro agente, che aiutano con le registrazioni che l\'AI Act chiede."</div>'+
+'<p class="small muted">Le date esatte delle regole dell\'AI Act stanno cambiando; non citare date. Se te lo chiedono: "Il vostro avvocato saprà le date per il vostro caso."</p>'+
+'<h3>eIDAS e la marca temporale</h3><p>eIDAS è la legge europea su firme e marche temporali elettroniche. Una marca <b>"qualificata"</b>, di un\'azienda approvata ufficialmente, ha una presunzione legale in tutta l\'UE: il giudice considera giusti data e contenuto, salvo prova contraria.</p>'+
+'<ul class="clean"><li><b>Oggi:</b> la marca oraria di Sigillo viene da aziende esterne, ma <b>non è qualificata</b>. È comunque una prova valida, che il giudice valuta liberamente.</li>'+
+'<li><b>Previsto:</b> una marca qualificata eIDAS inclusa in tutti i piani a pagamento (una all\'ora per tutti i clienti insieme). Non ancora attiva. Nessuna data promessa.</li></ul>'+
+'<div class="say"><b>Dillo così</b>"Oggi la nostra marca temporale viene da un\'azienda esterna ma non è di tipo qualificato eIDAS; è comunque una prova, che il giudice valuta. Prevediamo di includere quella qualificata nei piani a pagamento. Confermo i tempi con il nostro responsabile tecnico."</div>'));}},
+
+{ id:"words", title:_("8. Words, and when to say \"I'll check\"","8. Parole, e quando dire \"verifico\""), body:function(){
+  return '<div class="oneline">'+t(_("Some words are forbidden, because they promise too much.","Alcune parole sono vietate, perché promettono troppo."))+'</div>'+ wordsHTML() + t(_(
+'<h3 style="margin-top:16px">When you don\'t know</h3><p>You are not expected to know everything. Say: <b>"Good question. I\'ll check with our technical lead and get back to you by tomorrow."</b> Then write it down and ask Giovanni.</p>'+
+'<p><b>Always pass to Giovanni:</b></p><ul class="clean"><li>Contract terms, DPA details, legal questions</li><li>Any discount other than "yearly = 2 months free"</li><li>Dates for new features (qualified eIDAS stamp, other languages)</li><li>Deep technical questions (security tests, installation on their own servers)</li><li>Anything you are not sure about</li></ul>'+
+'<div class="never"><b>Never</b>Invent an answer to look smart. One invented answer can cost the whole client.</div>',
+'<h3 style="margin-top:16px">Quando non sai</h3><p>Nessuno si aspetta che tu sappia tutto. Di\': <b>"Bella domanda. Verifico con il nostro responsabile tecnico e vi rispondo entro domani."</b> Poi segnatelo e chiedi a Giovanni.</p>'+
+'<p><b>Passa sempre a Giovanni:</b></p><ul class="clean"><li>Condizioni del contratto, dettagli del DPA, domande legali</li><li>Qualsiasi sconto diverso da "annuale = 2 mesi gratis"</li><li>Date di nuove funzioni (marca qualificata eIDAS, altri linguaggi)</li><li>Domande tecniche profonde (test di sicurezza, installazione sui loro server)</li><li>Tutto ciò di cui non sei sicura</li></ul>'+
+'<div class="never"><b>Mai</b>Inventare una risposta per sembrare brava. Una risposta inventata può costare tutto il cliente.</div>'));}},
+
+{ id:"call", title:_("9. A good sales call in 5 steps","9. Una buona chiamata in 5 passi"), body:function(){ return t(_(
+'<div class="oneline">Listen first, explain simply, say the limits, propose one small next step.</div>'+
+'<ol class="clean"><li><b>Open (1 min).</b> Thank them, say who you are, ask how much time they have.</li>'+
+'<li><b>Ask (5 min).</b> "What do your agents do? For which clients? Has anyone ever asked you to prove what the AI did?" Listen for their fear.</li>'+
+'<li><b>Explain (3 min).</b> The one sentence, then the 4 steps. Connect it to their fear.</li>'+
+'<li><b>Answer objections (5 min).</b> Agree with what is true, say the limit, then the value. Use the cheat sheet.</li>'+
+'<li><b>Next step (1 min).</b> Ask for <b>one small, concrete step with a date</b>: start the free trial and a 20-minute connection call; or a pilot of 2-3 months for insurers and banks.</li></ol>'+
+'<div class="say"><b>Good closing sentences</b>"Shall we start the free trial on one agent this week? We connect it together in 20 minutes."<br>"For an insurer, I suggest a 3-month pilot on one agent. At the end, your auditor tries the proof."</div>'+
+'<div class="never"><b>Avoid</b>Pressure ("sign today or the price goes up"), invented urgency, big discounts on the first call, "I\'ll send material" without a date.</div>'+
+'<h3>Glossary</h3><dl class="gloss"><dt>Agent</dt><dd>A program that uses AI to do jobs by itself.</dd><dt>Record / receipt</dt><dd>One sealed line of the diary: one action of the agent.</dd><dt>Fingerprint</dt><dd>A 64-character code made from a text or file. Proves it without showing it.</dd><dt>Time stamp</dt><dd>An outside company\'s proof that something existed at a given hour.</dd><dt>Proof file (evidence pack)</dt><dd>A downloadable file with the records, seals and a PDF report.</dd><dt>Verifier</dt><dd>The free program the auditor uses to check the proof file, without trusting us.</dd><dt>Auditor / reviewer</dt><dd>The outside person who checks: an auditor, a regulator, a lawyer, an expert.</dd><dt>DPA</dt><dd>Data Processing Agreement: the GDPR contract about personal data.</dd><dt>SLA</dt><dd>Service Level Agreement: promises about availability and support.</dd></dl>',
+'<div class="oneline">Prima ascolta, spiega semplice, di\' i limiti, proponi un piccolo passo concreto.</div>'+
+'<ol class="clean"><li><b>Apertura (1 min).</b> Ringrazia, di\' chi sei, chiedi quanto tempo hanno.</li>'+
+'<li><b>Domande (5 min).</b> "Cosa fanno i vostri agenti? Per quali clienti? Qualcuno vi ha mai chiesto di provare cosa ha fatto l\'AI?" Ascolta la loro paura.</li>'+
+'<li><b>Spiegazione (3 min).</b> La frase unica, poi i 4 passi. Collegali alla loro paura.</li>'+
+'<li><b>Obiezioni (5 min).</b> Dai ragione su ciò che è vero, di\' il limite, poi il valore. Usa la scheda obiezioni.</li>'+
+'<li><b>Passo successivo (1 min).</b> Chiedi <b>un passo piccolo e concreto, con una data</b>: iniziare la prova gratuita con una chiamata di collegamento di 20 minuti; o un progetto pilota di 2-3 mesi per assicurazioni e banche.</li></ol>'+
+'<div class="say"><b>Buone frasi di chiusura</b>"Iniziamo la prova gratuita su un agente questa settimana? Lo colleghiamo insieme in 20 minuti."<br>"Per un\'assicurazione propongo un pilota di 3 mesi su un agente. Alla fine il vostro revisore prova la prova."</div>'+
+'<div class="never"><b>Evita</b>La pressione ("firmate oggi o il prezzo sale"), l\'urgenza inventata, sconti grandi alla prima chiamata, "vi mando del materiale" senza una data.</div>'+
+'<h3>Glossario</h3><dl class="gloss"><dt>Agente</dt><dd>Un programma che usa l\'AI per fare lavori da solo.</dd><dt>Ricevuta</dt><dd>Una riga sigillata del diario: un\'azione dell\'agente.</dd><dt>Impronta</dt><dd>Un codice di 64 caratteri ricavato da un testo o da un file. Lo prova senza mostrarlo.</dd><dt>Marca temporale</dt><dd>La prova di un\'azienda esterna che qualcosa esisteva a una certa ora.</dd><dt>Fascicolo delle prove</dt><dd>Un file da scaricare con le ricevute, i sigilli e un rapporto PDF.</dd><dt>Verificatore</dt><dd>Il programma gratuito con cui il revisore controlla il fascicolo, senza fidarsi di noi.</dd><dt>Revisore</dt><dd>La persona esterna che controlla: un auditor, un\'autorità, un avvocato, un perito.</dd><dt>DPA</dt><dd>Accordo sul trattamento dei dati: il contratto GDPR sui dati personali.</dd><dt>SLA</dt><dd>Accordo sul livello di servizio: promesse su disponibilità e assistenza.</dd></dl>'));}}
+];
+
+/* ---------- OBJECTIONS (cheat sheet + flashcards) ---------- */
+var OBJ = [
+ {q:_("\"We already have logs.\"","\"Abbiamo già i log.\""),
+  a:_("Logs are great for your team. But whoever runs the server can edit them, so an auditor has to trust you. Sigillo seals every line and an outside company stamps it every hour: the auditor checks it alone.","I log vanno benissimo per il vostro team. Ma chi gestisce il server li può modificare, quindi un revisore deve fidarsi di voi. Sigillo sigilla ogni riga e un'azienda esterna la timbra ogni ora: il revisore controlla da solo."),
+  n:_("\"Logs are old / useless.\"","\"I log sono vecchi / inutili.\"")},
+ {q:_("\"Who guarantees you don't cheat?\"","\"Chi garantisce che non barate voi?\""),
+  a:_("You don't have to trust us. Every hour an outside company stamps the diary, and the auditor checks the proof with a free, independent program. If we changed anything, the check would fail.","Non dovete fidarvi di noi. Ogni ora un'azienda esterna timbra il diario e il revisore controlla la prova con un programma gratuito e indipendente. Se cambiassimo qualcosa, il controllo fallirebbe."),
+  n:_("\"Trust us, we're honest.\"","\"Fidatevi, siamo onesti.\"")},
+ {q:_("\"It's too expensive.\"","\"Costa troppo.\""),
+  a:_("Start free. Professional is about €30 per agent a month, easy to include in your price to your client. One bad audit or complaint costs more than a year of Sigillo. Yearly: 2 months free.","Si parte gratis. Il Professionale è circa 30 € ad agente al mese, facile da mettere nel prezzo per il vostro cliente. Un audit andato male o un reclamo costano più di un anno di Sigillo. Annuale: 2 mesi gratis."),
+  n:_("Invented discounts: \"50% off if you sign today.\"","Sconti inventati: \"50% se firmate oggi.\"")},
+ {q:_("\"What if the AI lies?\"","\"E se l'AI mente?\""),
+  a:_("Sigillo doesn't check if the AI is right. It proves what the AI said and did, sealed. The AI can't switch off the recording: it doesn't even know Sigillo is there.","Sigillo non controlla se l'AI ha ragione. Prova cosa ha detto e fatto, sigillato. L'AI non può spegnere la registrazione: non sa nemmeno che Sigillo c'è."),
+  n:_("\"Sigillo detects lies.\"","\"Sigillo scopre le bugie.\"")},
+ {q:_("\"Is it valid in court? Is it eIDAS?\"","\"Vale in tribunale? È eIDAS?\""),
+  a:_("Today the hourly stamp is from outside companies, not the qualified eIDAS kind: valid evidence, weighed freely by a judge. A qualified stamp in paid plans is planned; I'll confirm timing.","Oggi la marca oraria viene da aziende esterne, non è qualificata eIDAS: è una prova valida, valutata liberamente dal giudice. Una marca qualificata nei piani a pagamento è prevista; confermo i tempi."),
+  n:_("\"It's eIDAS qualified\" / \"valid in every court.\"","\"È qualificata eIDAS\" / \"vale in ogni tribunale.\"")},
+ {q:_("\"Does it make us AI Act compliant?\"","\"Ci rende conformi all'AI Act?\""),
+  a:_("No tool can. Sigillo gives real evidence of what your agent did, which helps with record-keeping (Art. 12) and human oversight (Art. 14). Your lawyer does the rest.","Nessuno strumento può. Sigillo dà prove vere di cosa ha fatto l'agente, che aiutano con le registrazioni (art. 12) e la sorveglianza umana (art. 14). Il resto lo fa il vostro avvocato."),
+  n:_("\"Compliant\", \"AI Act ready\", \"certified\".","\"Conforme\", \"AI Act ready\", \"certificato\".")},
+ {q:_("\"Can it stop the agent doing something wrong?\"","\"Può fermare l'agente se sbaglia?\""),
+  a:_("No. Sigillo records, it doesn't control, and it never slows the agent. It gives proof afterwards: what, when, which version.","No. Sigillo registra, non controlla, e non rallenta mai l'agente. Dà la prova dopo: cosa, quando, quale versione."),
+  n:_("\"It blocks bad decisions.\"","\"Blocca le decisioni sbagliate.\"")},
+ {q:_("\"What if a developer removes Sigillo?\"","\"E se uno sviluppatore toglie Sigillo?\""),
+  a:_("Then later actions are missing; Sigillo can't force recording. But it doesn't happen silently: we see when the agent goes quiet, and code changes leave a new program fingerprint. Everything before stays proven.","Allora le azioni dopo mancano; Sigillo non può obbligare a registrare. Ma non succede di nascosto: vediamo quando l'agente tace e ogni cambio di codice lascia una nuova impronta. Tutto quello di prima resta provato."),
+  n:_("\"It's impossible to remove.\"","\"È impossibile toglierlo.\"")},
+ {q:_("\"Do you see our data?\"","\"Vedete i nostri dati?\""),
+  a:_("No. Only a fingerprint of each text leaves your computer, never the text. The key stays with you. Server in Italy, EU. Signed DPA in the Regulated plan.","No. Dal vostro computer esce solo l'impronta di ogni testo, mai il testo. La chiave resta a voi. Server in Italia, UE. DPA firmato nel piano Regolato."),
+  n:_("\"We store it encrypted\" / \"GDPR compliant.\"","\"Li salviamo cifrati\" / \"conforme al GDPR.\"")},
+ {q:_("\"How much work to set up?\"","\"Quanto lavoro serve per installarlo?\""),
+  a:_("Three lines at the top of a Python agent. We connect the first one together in a 20-minute call.","Tre righe in cima a un agente Python. Il primo lo colleghiamo insieme in una chiamata di 20 minuti."),
+  n:_("\"Works with any language, zero setup.\"","\"Funziona con qualsiasi linguaggio, zero installazione.\"")},
+ {q:_("\"What if your server goes down?\"","\"E se il vostro server si ferma?\""),
+  a:_("The agent keeps working and nothing is lost: the diary catches up by itself when the connection is back.","L'agente continua a lavorare e non si perde niente: il diario si rimette in pari da solo quando torna la connessione."),
+  n:_("\"Our server never goes down.\"","\"Il nostro server non si ferma mai.\"")},
+ {q:_("\"How does the auditor know it's the right agent?\"","\"Come sa il revisore che è l'agente giusto?\""),
+  a:_("The program fingerprint is in the diary; a short command on the agent's computer prints it without showing the code. The reviewer link gives the proof straight from Sigillo, with \"Verify here\" and \"Download\".","L'impronta del programma è nel diario; un breve comando sul computer dell'agente la stampa senza mostrare il codice. Il link per il revisore dà la prova direttamente da Sigillo, con \"Verifica qui\" e \"Scarica\"."),
+  n:_("\"It's impossible to fake.\"","\"È impossibile da falsificare.\"")},
+ {q:_("\"We can build this ourselves.\"","\"Possiamo farlo da soli.\""),
+  a:_("You could build part of it. But proof made by yourself must be trusted; proof sealed by a third party and checked with an independent tool doesn't. And it saves weeks of work.","Potreste farne una parte. Ma una prova fatta da voi va creduta sulla fiducia; una sigillata da un terzo e controllata con uno strumento indipendente no. E risparmiate settimane di lavoro."),
+  n:_("\"It's too hard for you.\"","\"È troppo difficile per voi.\"")},
+ {q:_("\"You're small. What if you disappear?\"","\"Siete piccoli. E se sparite?\""),
+  a:_("Fair question. Proof files you've downloaded stay checkable with the free verifier, without our server. That's how it's designed.","Domanda giusta. I fascicoli che avete scaricato restano controllabili con il verificatore gratuito, senza il nostro server. È fatto apposta così."),
+  n:_("\"We'll be here forever.\"","\"Ci saremo per sempre.\"")},
+ {q:_("\"My client didn't ask for it.\"","\"Il mio cliente non l'ha chiesto.\""),
+  a:_("Use it as a selling point: \"every action of our agent is sealed and checkable by your auditor\". Many add €30-50 a month to their price.","Usatelo come argomento di vendita: \"ogni azione del nostro agente è sigillata e controllabile dal vostro revisore\". Molti aggiungono 30-50 € al mese al loro prezzo."),
+  n:_("\"Everyone already uses it.\"","\"Lo usano già tutti.\"")},
+ {q:_("\"Others do signed receipts too.\"","\"Anche altri fanno ricevute firmate.\""),
+  a:_("Yes. Ours: records your agent as it is in 3 lines; the agent never holds the signing key; free independent verifier; European, server in Italy. Compare us in a pilot.","Sì. Noi: registriamo l'agente così com'è con 3 righe; l'agente non tiene mai la chiave di firma; verificatore gratuito e indipendente; europei, server in Italia. Confrontateci in un pilota."),
+  n:_("\"They're bad copies of us.\"","\"Sono brutte copie di noi.\"")}
+];
+
+/* ---------- QUIZ ---------- */
+var QUIZ = [
+ {q:_("Which is the best one-sentence description of Sigillo?","Qual è la migliore descrizione di Sigillo in una frase?"),
+  o:[_("A sealed diary of your AI agent that any auditor can check, without us reading your data.","Un diario sigillato del tuo agente AI che qualsiasi revisore può controllare, senza che noi leggiamo i tuoi dati."),_("A platform that makes AI agents compliant.","Una piattaforma che rende conformi gli agenti AI."),_("A tool that stops AI agents from making mistakes.","Uno strumento che impedisce agli agenti AI di sbagliare."),_("A backup service for AI logs.","Un servizio di backup per i log dell'AI.")], a:0,
+  e:_("Sigillo records and seals; it doesn't control and doesn't make anyone compliant.","Sigillo registra e sigilla; non controlla e non rende nessuno conforme.")},
+ {q:_("Which word must you NEVER use?","Quale parola NON devi mai usare?"),
+  o:[_("Tamper-evident","Tamper-evident"),_("Tamper-proof","Tamper-proof"),_("Independently verifiable","Verificabile in modo indipendente"),_("Sealed","Sigillato")], a:1,
+  e:_("\"Tamper-proof\" means nothing can be changed. Sigillo is \"tamper-evident\": any change shows.","\"Tamper-proof\" vuol dire che niente si può cambiare. Sigillo è \"tamper-evident\": ogni modifica si vede.")},
+ {q:_("Does Sigillo make a company AI Act compliant?","Sigillo rende un'azienda conforme all'AI Act?"),
+  o:[_("Yes, completely","Sì, del tutto"),_("Yes, for high-risk uses","Sì, per gli usi ad alto rischio"),_("No: it gives evidence that helps with record-keeping","No: dà prove che aiutano con le registrazioni"),_("Only with the Regulated plan","Solo con il piano Regolato")], a:2,
+  e:_("No tool makes anyone compliant. Sigillo gives evidence (Art. 12 record-keeping, Art. 14 human oversight).","Nessuno strumento rende conformi. Sigillo dà prove (art. 12 registrazioni, art. 14 sorveglianza umana).")},
+ {q:_("What does Sigillo keep about the texts of the agent (prompts, answers)?","Cosa tiene Sigillo dei testi dell'agente (domande, risposte)?"),
+  o:[_("The full texts, encrypted","I testi interi, cifrati"),_("Only a fingerprint of each text","Solo un'impronta di ogni testo"),_("Texts for 30 days, then deleted","I testi per 30 giorni, poi li cancella"),_("Nothing at all","Proprio niente")], a:1,
+  e:_("Only fingerprints leave the client's computer. You can prove a text without showing it.","Dal computer del cliente escono solo impronte. Si può provare un testo senza mostrarlo.")},
+ {q:_("Sigillo's server goes down for an hour. What happens to the agent?","Il server di Sigillo si ferma per un'ora. Cosa succede all'agente?"),
+  o:[_("It stops until Sigillo is back","Si ferma finché Sigillo non torna"),_("It keeps working; records catch up later, nothing lost","Continua a lavorare; le ricevute si rimettono in pari dopo, niente perso"),_("It keeps working, but that hour is lost","Continua a lavorare, ma quell'ora è persa"),_("It slows down","Rallenta")], a:1,
+  e:_("Sigillo never stops the agent, and records are kept on the client's computer until they can be sent.","Sigillo non ferma mai l'agente, e le ricevute restano sul computer del cliente finché si possono mandare.")},
+ {q:_("What does the free trial include?","Cosa include la prova gratuita?"),
+  o:[_("1 agent, 5,000 records a month, no time limit","1 agente, 5.000 ricevute al mese, senza scadenza"),_("5 agents for 30 days","5 agenti per 30 giorni"),_("Unlimited for 14 days","Illimitata per 14 giorni"),_("1 agent, 50,000 records","1 agente, 50.000 ricevute")], a:0,
+  e:_("Free trial: 1 agent, 5,000 records a month, data kept 30 days, no expiry.","Prova gratuita: 1 agente, 5.000 ricevute al mese, dati tenuti 30 giorni, senza scadenza.")},
+ {q:_("A software house runs 5 agents for clients. Which plan?","Una software house ha 5 agenti per i clienti. Quale piano?"),
+  o:[_("Starter €49","Starter 49 €"),_("Professional €149","Professionale 149 €"),_("Regulated from €390","Regolato da 390 €"),_("Five Starter plans","Cinque piani Starter")], a:1,
+  e:_("Professional covers up to 5 agents: about €30 per agent, easy to resell.","Il Professionale copre fino a 5 agenti: circa 30 € ad agente, facile da rivendere.")},
+ {q:_("How much is the Regulated plan?","Quanto costa il piano Regolato?"),
+  o:[_("€390 a year","390 € all'anno"),_("From €390 a month, billed yearly","Da 390 € al mese, pagato all'anno"),_("€149 a month","149 € al mese"),_("Free for banks","Gratis per le banche")], a:1,
+  e:_("From €390 a MONTH, yearly billing only (about €4,700 a year).","Da 390 € al MESE, solo pagamento annuale (circa 4.700 € all'anno).")},
+ {q:_("What do clients get when they pay yearly?","Cosa ottengono i clienti se pagano all'anno?"),
+  o:[_("50% off","50% di sconto"),_("2 months free","2 mesi gratis"),_("A free extra agent","Un agente in più gratis"),_("Nothing","Niente")], a:1,
+  e:_("Yearly = 2 months free. It's the only standard discount.","Annuale = 2 mesi gratis. È l'unico sconto standard.")},
+ {q:_("Is Sigillo's time stamp eIDAS qualified today?","La marca temporale di Sigillo oggi è qualificata eIDAS?"),
+  o:[_("Yes, in all plans","Sì, in tutti i piani"),_("Yes, only in Regulated","Sì, solo nel Regolato"),_("No: it's from outside companies but not qualified; qualified is planned for paid plans","No: viene da aziende esterne ma non è qualificata; quella qualificata è prevista nei piani a pagamento"),_("There is no time stamp","Non c'è nessuna marca temporale")], a:2,
+  e:_("Honest answer: not qualified today, planned. Never promise a date.","Risposta onesta: oggi non qualificata, prevista. Mai promettere una data.")},
+ {q:_("Can Sigillo stop an agent from making a bad payment?","Sigillo può impedire a un agente di fare un pagamento sbagliato?"),
+  o:[_("Yes, it blocks risky actions","Sì, blocca le azioni rischiose"),_("Only in Regulated","Solo nel Regolato"),_("No: it records, it doesn't control","No: registra, non controlla"),_("Yes, if the AI asks","Sì, se l'AI lo chiede")], a:2,
+  e:_("Sigillo is \"the proof\", not \"the control\". It never stops the agent.","Sigillo è \"la prova\", non \"il controllo\". Non ferma mai l'agente.")},
+ {q:_("Can the AI model (e.g. ChatGPT) switch off Sigillo?","Il modello AI (es. ChatGPT) può spegnere Sigillo?"),
+  o:[_("Yes, if it wants to hide something","Sì, se vuole nascondere qualcosa"),_("No: Sigillo is code in the program, not in the prompt; the AI doesn't even know it's there","No: Sigillo è codice nel programma, non nel prompt; l'AI non sa nemmeno che c'è"),_("Only Claude can","Solo Claude può"),_("Yes, by lying","Sì, mentendo")], a:1,
+  e:_("The AI can't. A programmer who controls the code could remove it, but then the silence and code change show.","L'AI no. Un programmatore che controlla il codice potrebbe toglierlo, ma poi il silenzio e il cambio di codice si vedono.")},
+ {q:_("What does the \"Verify here\" button on the reviewer page do?","Cosa fa il pulsante \"Verifica qui\" nella pagina del revisore?"),
+  o:[_("Checks the proof right in the browser","Controlla la prova direttamente nel browser"),_("Opens the client's account","Apre l'account del cliente"),_("Sends an email to Sigillo","Manda un'email a Sigillo"),_("Shows all the agent's texts","Mostra tutti i testi dell'agente")], a:0,
+  e:_("\"Verify here\" checks in the browser; \"Download\" gives the proof file to check with the free verifier.","\"Verifica qui\" controlla nel browser; \"Scarica\" dà il fascicolo da controllare con il verificatore gratuito.")},
+ {q:_("What is the program fingerprint?","Cos'è l'impronta del programma?"),
+  o:[_("A copy of the agent's code sent to the auditor","Una copia del codice dell'agente mandata al revisore"),_("A 64-character code from the agent's program file; the file never leaves","Un codice di 64 caratteri ricavato dal file del programma; il file non esce mai"),_("The developer's fingerprint","L'impronta digitale dello sviluppatore"),_("A password","Una password")], a:1,
+  e:_("It proves which program wrote the diary, without showing the code.","Prova quale programma ha scritto il diario, senza mostrare il codice.")},
+ {q:_("Which is TRUE about the reviewer link?","Cosa è VERO del link per il revisore?"),
+  o:[_("It gives the auditor full access to the account","Dà al revisore accesso completo all'account"),_("It never expires","Non scade mai"),_("Read-only, one agent and period, expires after 30 days, can be cancelled","Solo lettura, un agente e un periodo, scade dopo 30 giorni, si può annullare"),_("It shows the prompts in clear text","Mostra le domande in chiaro")], a:2,
+  e:_("And sharing it is written in the diary too.","E anche la condivisione viene scritta nel diario.")},
+ {q:_("A client asks a deep technical question you don't know. You say:","Un cliente fa una domanda tecnica profonda che non sai. Dici:"),
+  o:[_("Whatever sounds right","Quello che suona giusto"),_("\"Good question. I'll check with our technical lead and get back to you by tomorrow.\"","\"Bella domanda. Verifico con il nostro responsabile tecnico e vi rispondo entro domani.\""),_("\"That's not important.\"","\"Non è importante.\""),_("\"Yes.\"","\"Sì.\"")], a:1,
+  e:_("Honest and professional. Then ask Giovanni.","Onesto e professionale. Poi chiedi a Giovanni.")},
+ {q:_("How long does it take to connect an agent?","Quanto ci vuole per collegare un agente?"),
+  o:[_("3 lines of Python and a 20-minute call","3 righe di Python e una chiamata di 20 minuti"),_("2-3 weeks of development","2-3 settimane di sviluppo"),_("No setup at all","Nessuna installazione"),_("A full day on site","Una giornata intera dal cliente")], a:0,
+  e:_("Concrete numbers remove the fear of extra work.","Numeri concreti tolgono la paura del lavoro in più.")},
+ {q:_("Which agents can Sigillo record today?","Quali agenti può registrare Sigillo oggi?"),
+  o:[_("Any language","Qualsiasi linguaggio"),_("Python agents","Agenti in Python"),_("Only Java","Solo Java"),_("Only ChatGPT","Solo ChatGPT")], a:1,
+  e:_("Python, the most common language for AI agents. Don't promise others.","Python, il linguaggio più usato per gli agenti AI. Non promettere gli altri.")},
+ {q:_("Who is the best first client for Sigillo?","Qual è il miglior primo cliente per Sigillo?"),
+  o:[_("Big tech companies in the US","Grandi aziende tech americane"),_("Software houses building AI agents for finance, insurance, HR in Italy and Spain","Software house che costruiscono agenti AI per finanza, assicurazioni, HR in Italia e Spagna"),_("Private people","Privati"),_("Schools","Scuole")], a:1,
+  e:_("One software house can bring Sigillo to many end clients.","Una software house può portare Sigillo a molti clienti finali.")},
+ {q:_("\"Who guarantees you don't cheat?\" Best answer:","\"Chi garantisce che non barate?\" Risposta migliore:"),
+  o:[_("\"We're honest people.\"","\"Siamo persone oneste.\""),_("\"You don't need to trust us: outside hourly stamps and a free independent verifier.\"","\"Non dovete fidarvi: marche orarie esterne e un verificatore gratuito e indipendente.\""),_("\"Nobody can cheat, it's tamper-proof.\"","\"Nessuno può barare, è tamper-proof.\""),_("\"Our lawyers guarantee it.\"","\"Lo garantiscono i nostri avvocati.\"")], a:1,
+  e:_("The core of Sigillo: check us, don't trust us.","Il cuore di Sigillo: controllateci, non fidatevi.")},
+ {q:_("Can Sigillo prove the AI's answer was true?","Sigillo può provare che la risposta dell'AI era vera?"),
+  o:[_("Yes","Sì"),_("No: it proves what was said and when, not if it was true","No: prova cosa è stato detto e quando, non se era vero"),_("Only for important answers","Solo per le risposte importanti"),_("Yes, with the eIDAS stamp","Sì, con la marca eIDAS")], a:1,
+  e:_("Truth is for people to judge. Sigillo proves what happened.","La verità la giudicano le persone. Sigillo prova cosa è successo.")},
+ {q:_("On Professional, how much is an extra (6th) agent?","Nel Professionale, quanto costa un agente in più (il sesto)?"),
+  o:[_("€25 a month","25 € al mese"),_("€49 a month","49 € al mese"),_("Free","Gratis"),_("€149 a month","149 € al mese")], a:0,
+  e:_("Extra agent on Professional: €25 a month.","Agente in più nel Professionale: 25 € al mese.")},
+ {q:_("A client asks for 30% off. You:","Un cliente chiede il 30% di sconto. Tu:"),
+  o:[_("Say yes to close the deal","Dici sì per chiudere"),_("Offer the yearly plan (2 months free) and check anything else with Giovanni","Offri il piano annuale (2 mesi gratis) e verifichi il resto con Giovanni"),_("Say no and end the call","Dici no e chiudi la chiamata"),_("Offer 50%","Offri il 50%")], a:1,
+  e:_("Never invent discounts; the yearly plan is the standard one.","Mai inventare sconti; quello standard è il piano annuale.")},
+ {q:_("Where is Sigillo's server?","Dov'è il server di Sigillo?"),
+  o:[_("USA","USA"),_("Italy (EU)","Italia (UE)"),_("Nobody knows","Nessuno lo sa"),_("On the client's phone","Sul telefono del cliente")], a:1,
+  e:_("In Italy, in the EU: important for GDPR-minded clients.","In Italia, nell'UE: importante per i clienti attenti al GDPR.")}
+];
+</script>
+<script>
+"use strict";
+/* ---------- PERSONAS (all invented; built on the real target customers) ---------- */
+/* option helper: text, trust change, feedback, client's reaction, extras {red, next, c} */
+function O(ten, tit, d, fen, fit, ren, rit, x){
+  var o = {t:_(ten,tit), d:d, f:_(fen,fit), r:(ren?_(ren,rit):null)};
+  if (x) for (var k in x) o[k] = x[k];
+  return o;
+}
+var PERSONAS = [
+/* ======================= LUCÍA ======================= */
+{ id:"lucia", name:"Lucía Romero", initials:"LR", color:"#c2185b", stars:1, adj:5, flag:"🇪🇸",
+  role:_("Founder & CEO, TalentoAI (4 people), Madrid","Fondatrice e CEO, TalentoAI (4 persone), Madrid"),
+  icp:_("Small AI start-up · HR (CV screening)","Piccola start-up AI · HR (selezione CV)"),
+  plan:_("Free trial → Starter €49","Prova gratuita → Starter 49 €"),
+  personality:_("Friendly, enthusiastic, talks fast. A bit anxious.","Simpatica, entusiasta, parla veloce. Un po' ansiosa."),
+  fears:_("AI Act fines (CV screening is \"high-risk\"), candidates' personal data, spending money.","Multe dell'AI Act (la selezione dei CV è \"ad alto rischio\"), dati personali dei candidati, spendere soldi."),
+  wants:_("Something to reassure her HR clients and win deals.","Qualcosa per rassicurare i suoi clienti HR e vincere contratti."),
+  intro:_("Lucía found the Sigillo website and asked for a call. Her company has an AI agent that reads CVs and suggests the best candidates to HR departments. Yesterday a big client asked her about the AI Act.",
+          "Lucía ha trovato il sito di Sigillo e ha chiesto una chiamata. La sua azienda ha un agente AI che legge i CV e suggerisce i candidati migliori agli uffici del personale. Ieri un grosso cliente le ha chiesto dell'AI Act."),
+  outcomes:{ sale:_("Lucía starts the free trial today, and plans Starter (€49/month) when her agent goes live.","Lucía inizia la prova gratuita oggi e prevede lo Starter (49 €/mese) quando l'agente va in produzione."),
+             demo:_("Lucía wants to see a demo first. Follow up within a week.","Lucía vuole prima vedere una demo. Ricontattala entro una settimana."),
+             lost:_("Lucía says she'll \"think about it\". She doesn't answer your next email.","Lucía dice che \"ci pensa\". Non risponde alla tua email successiva.") },
+  lesson:_("With an anxious client, honesty about the law calms her more than big promises. Lead with the free trial when money is tight.","Con una cliente ansiosa, l'onestà sulla legge la calma più delle grandi promesse. Quando i soldi sono pochi, parti dalla prova gratuita."),
+  nodes:[
+  { say:_("Hi! So, a client asked us: \"Is your CV screening AI Act compliant?\" and I panicked. Can Sigillo make us compliant?","Ciao! Allora, un cliente ci ha chiesto: \"La vostra selezione dei CV è conforme all'AI Act?\" e sono andata nel panico. Sigillo ci può rendere conformi?"),
+    tip:_("Never say \"compliant\". Sigillo gives evidence that helps with record-keeping; it doesn't make anyone compliant.","Non dire mai \"conforme\". Sigillo dà prove che aiutano con le registrazioni; non rende nessuno conforme."),
+    opts:[
+      O("Honestly, no tool can make you compliant by itself. Sigillo gives you proof: a sealed record of what your agent did, which helps with the record-keeping the AI Act asks for. Your lawyer does the rest.",
+        "Sinceramente nessuno strumento vi rende conformi da solo. Sigillo vi dà una prova: un registro sigillato di cosa ha fatto il vostro agente, che aiuta con le registrazioni che l'AI Act chiede. Il resto lo fa il vostro avvocato.",
+        14,"Honest and still useful. She can repeat this to her client without lying.","Onesta e comunque utile. Lei può ripeterlo al suo cliente senza mentire.",
+        "Oh. OK, that's actually more reassuring than a big promise.","Ah. Ok, in realtà mi rassicura più di una grande promessa."),
+      O("Yes! With Sigillo you are AI Act compliant.","Sì! Con Sigillo siete conformi all'AI Act.",
+        -14,"Forbidden word, and false. If her client's lawyer checks, both of you look bad.","Parola vietata, e falsa. Se l'avvocato del suo cliente controlla, fate brutta figura tutte e due.",
+        "Really? That's amazing!","Davvero? Fantastico!", {red:true, next:"lucia_fine"}),
+      O("The AI Act is complicated, I'm not a lawyer.","L'AI Act è complicato, non sono un avvocato.",
+        4,"True, but you can say more: Sigillo gives evidence that helps with record-keeping.","Vero, ma puoi dire di più: Sigillo dà prove che aiutano con le registrazioni.",
+        "Hm, OK… but can it help or not?","Mmh, ok… ma aiuta o no?"),
+      O("Don't worry about the AI Act, nobody is checking yet.","Non preoccuparti dell'AI Act, nessuno controlla ancora.",
+        -7,"Bad advice, and you don't know that. CV screening is a high-risk use: don't make her relax wrongly.","Cattivo consiglio, e non lo sai. La selezione dei CV è un uso ad alto rischio: non farla rilassare a torto.",
+        "My client seems to think differently…","Il mio cliente sembra pensarla diversamente…")
+    ]},
+  { id:"lucia_fine", branch:true,
+    say:_("Great! So if we get a fine, you'll cover it, right? Can we write \"AI Act compliant\" in our contract?","Ottimo! Quindi se prendiamo una multa la coprite voi, giusto? Possiamo scrivere \"conforme all'AI Act\" nel contratto?"),
+    tip:_("You made a mistake. Correct it now: clients forgive mistakes, not lies.","Hai sbagliato. Correggiti subito: i clienti perdonano gli errori, non le bugie."),
+    opts:[
+      O("Wait, I need to correct myself, I said it wrong. Sigillo doesn't make you compliant and we can't write that. It gives you evidence that helps. Better I tell you now.",
+        "Aspetta, devo correggermi, l'ho detto male. Sigillo non vi rende conformi e non possiamo scriverlo. Vi dà prove che aiutano. Meglio dirtelo adesso.",
+        12,"Correcting a mistake fast saves trust.","Correggere subito un errore salva la fiducia.",
+        "Ah, OK. Thanks for being straight with me.","Ah, ok. Grazie per la sincerità."),
+      O("Sure, we'll write it in the contract.","Certo, lo scriviamo nel contratto.",
+        -15,"Now it's in a contract. This could become a legal problem for you and Giovanni.","Ora è in un contratto. Può diventare un problema legale per te e per Giovanni.",
+        "Perfect, send it over!","Perfetto, mandamelo!", {red:true}),
+      O("Let me check with the team.","Verifico con il team.",
+        -5,"You already know the answer: no. Correct yourself now.","Sai già la risposta: no. Correggiti adesso.",
+        "OK… but it's a yes, right?","Ok… però è un sì, vero?")
+    ]},
+  { say:_("Our agent reads CVs. Those are personal data! Do you see the CVs? Where is the data?","Il nostro agente legge i CV. Sono dati personali! Voi vedete i CV? Dove sono i dati?"),
+    tip:_("Only fingerprints, never texts. Key stays with the client. Server in Italy.","Solo impronte, mai testi. La chiave resta al cliente. Server in Italia."),
+    opts:[
+      O("We never see the CVs. The diary keeps only a fingerprint of each text, a short code that can't be turned back into the text. The key stays on your computer, and our server is in Italy, in the EU.",
+        "Non vediamo mai i CV. Il diario tiene solo un'impronta di ogni testo, un codice corto da cui non si torna al testo. La chiave resta sul vostro computer, e il nostro server è in Italia, nell'UE.",
+        13,"Clear and simple, and the EU server matters for GDPR.","Chiara e semplice, e il server nell'UE conta per il GDPR.",
+        "So if someone hacks you, there are no CVs to steal? I love that.","Quindi se qualcuno vi attacca, non ci sono CV da rubare? Mi piace."),
+      O("We store them encrypted, so they're safe.","Li salviamo cifrati, quindi sono al sicuro.",
+        -6,"Wrong: Sigillo doesn't store texts at all. \"Encrypted\" suggests we keep them.","Sbagliato: Sigillo non salva proprio i testi. \"Cifrati\" fa pensare che li teniamo.",
+        "So you do have them…","Quindi li avete…"),
+      O("Don't worry, we're GDPR compliant.","Tranquilla, siamo conformi al GDPR.",
+        3,"Avoid \"compliant\". Say what we do: no texts stored, only fingerprints, server in the EU.","Evita \"conforme\". Di' cosa facciamo: niente testi salvati, solo impronte, server nell'UE.",
+        "OK… what does that mean in practice?","Ok… in pratica cosa vuol dire?"),
+      O("Only our engineers can see them.","Solo i nostri ingegneri possono vederli.",
+        -12,"False and scary. Nobody at Sigillo sees the texts.","Falso e spaventoso. Nessuno in Sigillo vede i testi.",
+        "Wait, your engineers read our candidates' CVs?","Aspetta, i vostri ingegneri leggono i CV dei nostri candidati?", {red:true})
+    ]},
+  { say:_("We are 4 people. We really can't spend much. How much is it?","Siamo in 4. Non possiamo spendere molto. Quanto costa?"),
+    tip:_("Small budget: start with the free trial, then Starter.","Budget piccolo: parti dalla prova gratuita, poi lo Starter."),
+    opts:[
+      O("You can start free: 1 agent, 5,000 records a month, no time limit. When you go live, Starter is €49 a month, or €490 a year, which is 2 months free.",
+        "Potete partire gratis: 1 agente, 5.000 ricevute al mese, senza scadenza. Quando andate in produzione, lo Starter costa 49 € al mese, o 490 € all'anno, cioè 2 mesi gratis.",
+        12,"Lead with the free trial for a small client, then the clear next step.","Con una cliente piccola, parti dalla prova gratuita, poi il passo successivo chiaro.",
+        "Free to start? OK, that I can do.","Si parte gratis? Ok, questo lo posso fare."),
+      O("HR companies usually take the Regulated plan, from €390 a month.","Le aziende HR di solito prendono il Regolato, da 390 € al mese.",
+        -7,"Wrong plan: Regulated is for banks and insurers with contracts and SLA. She'd leave.","Piano sbagliato: il Regolato è per banche e assicurazioni con contratti e SLA. Se ne andrebbe.",
+        "€390 a month? That's more than our office rent!","390 € al mese? È più del nostro affitto!"),
+      O("It's cheap, don't worry.","Costa poco, tranquilla.",
+        3,"Give the numbers. \"Cheap\" means different things to different people.","Di' i numeri. \"Poco\" vuol dire cose diverse per persone diverse.",
+        "Cheap how much?","Poco quanto?"),
+      O("Normally €149, but for you I'll do €20.","Normalmente 149 €, ma per te faccio 20 €.",
+        -9,"Invented discount, and wrong plan. Special deals only with Giovanni's OK.","Sconto inventato, e piano sbagliato. Offerte speciali solo con l'OK di Giovanni.",
+        "Oh… why so much less? Is something wrong with it?","Ah… perché così tanto meno? C'è qualcosa che non va?")
+    ]},
+  { say:_("And if the AI makes a wrong decision about a candidate? Does Sigillo stop it?","E se l'AI prende una decisione sbagliata su un candidato? Sigillo la ferma?"),
+    tip:_("Sigillo records, it doesn't control. Value: proof when someone complains.","Sigillo registra, non controlla. Il valore: la prova quando qualcuno si lamenta."),
+    opts:[
+      O("No, Sigillo doesn't stop or judge the agent. It records what happened. If a candidate complains, you can show exactly what the agent did and when, and prove the record wasn't changed afterwards.",
+        "No, Sigillo non ferma e non giudica l'agente. Registra quello che è successo. Se un candidato si lamenta, potete mostrare esattamente cosa ha fatto l'agente e quando, e provare che il registro non è stato cambiato dopo.",
+        13,"The honest limit, plus the real value: answering a complaint with proof.","Il limite onesto, più il valore vero: rispondere a un reclamo con una prova.",
+        "Right. A complaint is exactly what scares my clients.","Giusto. Un reclamo è proprio ciò che spaventa i miei clienti."),
+      O("Yes, Sigillo blocks wrong decisions.","Sì, Sigillo blocca le decisioni sbagliate.",
+        -14,"False. Sigillo records; it doesn't control. Promising control is the most dangerous overpromise.","Falso. Sigillo registra, non controlla. Promettere il controllo è la promessa eccessiva più pericolosa.",
+        "Wow, how does it know what's wrong?","Wow, e come fa a sapere cos'è sbagliato?", {red:true}),
+      O("That's your developers' job, not ours.","Questo è compito dei vostri sviluppatori, non nostro.",
+        3,"True but cold. Turn it into value: when something goes wrong, Sigillo gives proof.","Vero ma freddo. Trasformalo in valore: quando qualcosa va storto, Sigillo dà la prova.",
+        "OK… so what do you do then?","Ok… e voi allora cosa fate?"),
+      O("A well-built AI doesn't make wrong decisions.","Un'AI fatta bene non sbaglia.",
+        -6,"Every AI makes mistakes. Don't defend the AI; sell the proof.","Ogni AI sbaglia. Non difendere l'AI; vendi la prova.",
+        "Mine does sometimes, believe me.","La mia a volte sbaglia, credimi.")
+    ]},
+  { say:_("My clients might not want to pay extra for this. Why should they care?","I miei clienti potrebbero non voler pagare di più per questo. Perché dovrebbe interessargli?"),
+    tip:_("Help her sell to HER clients: a selling point in her offer.","Aiutala a vendere ai SUOI clienti: un argomento in più nella sua offerta."),
+    opts:[
+      O("Make it a plus in your offer: \"every decision of our agent is recorded and can be checked by your auditor.\" HR buyers worry about complaints and audits. Some companies add €30-50 a month to their price for it.",
+        "Fatene un punto forte dell'offerta: \"ogni decisione del nostro agente è registrata e controllabile dal vostro revisore.\" Chi compra per l'HR teme reclami e audit. Alcune aziende aggiungono 30-50 € al mese al loro prezzo.",
+        12,"You help her sell to her own clients: the strongest reason to buy.","La aiuti a vendere ai suoi clienti: il motivo più forte per comprare.",
+        "Ooh, that's a good line for my next pitch.","Ooh, è una bella frase per la mia prossima presentazione."),
+      O("They'll care when the regulator knocks on the door.","Gli interesserà quando arriva l'autorità a bussare.",
+        3,"A bit of fear-selling. Better to show a positive: a selling point for her offer.","Un po' di vendita con la paura. Meglio un lato positivo: un argomento per la sua offerta.",
+        "Hm, maybe.","Mmh, può darsi."),
+      O("You don't need to tell them about it.","Non serve che glielo diciate.",
+        -6,"Misses the point: the record is valuable because her client can check it.","Non hai capito il punto: il registro vale perché il suo cliente lo può controllare.",
+        "Then what's the point?","E allora a cosa serve?")
+    ]},
+  { hardOnly:true,
+    say:_("One more. A candidate says our AI lied about why they were rejected. Can Sigillo prove what the AI really said?","Un'altra cosa. Un candidato dice che la nostra AI ha mentito sul perché è stato scartato. Sigillo può provare cosa ha detto davvero l'AI?"),
+    tip:_("It proves WHAT was said, not whether it was true.","Prova COSA è stato detto, non se era vero."),
+    opts:[
+      O("Sigillo proves what the agent said and when: the fingerprint of the answer is in the sealed diary, and with your key you can show a text is exactly the one the agent produced. It doesn't judge if the answer was true or fair; people do that.",
+        "Sigillo prova cosa ha detto l'agente e quando: l'impronta della risposta è nel diario sigillato, e con la vostra chiave potete mostrare che un testo è proprio quello prodotto dall'agente. Non giudica se la risposta era vera o giusta; quello lo fanno le persone.",
+        12,"Precise: it proves what was said, not whether it was true.","Precisa: prova cosa è stato detto, non se era vero.",
+        "That's exactly what I'd need in a dispute.","È proprio quello che mi servirebbe in una contestazione."),
+      O("Yes, Sigillo proves the AI told the truth.","Sì, Sigillo prova che l'AI ha detto la verità.",
+        -13,"Sigillo never checks truth. It proves what was said, not if it was right.","Sigillo non controlla mai la verità. Prova cosa è stato detto, non se era giusto.",
+        "Really? How?","Davvero? Come?", {red:true}),
+      O("Sigillo keeps all the texts, so yes.","Sigillo tiene tutti i testi, quindi sì.",
+        -5,"Careful: it keeps fingerprints, not texts. With her key she can match a text to its fingerprint.","Attenzione: tiene impronte, non testi. Con la sua chiave può abbinare un testo alla sua impronta.",
+        "Wait, you said you don't keep texts…","Aspetta, avevi detto che non tenete i testi…")
+    ]},
+  { closing:true,
+    say:_("OK, I like it! What now?","Ok, mi piace! E adesso?"),
+    tip:_("She's ready. Propose a free, concrete first step with a date.","È pronta. Proponi un primo passo gratuito e concreto, con una data."),
+    opts:[
+      O("Start the free trial today: I'll send you the link, and we connect your agent together in a 20-minute call this week.","Inizia la prova gratuita oggi: ti mando il link e colleghiamo il tuo agente insieme in una chiamata di 20 minuti questa settimana.",
+        8,"She's ready; a free, immediate start with a date.","È pronta; un inizio gratuito e immediato, con una data.",
+        "Deal! Send me the link.","Affare fatto! Mandami il link.", {c:"ask"}),
+      O("Pay the yearly Starter now, €490, and you're covered.","Paga ora lo Starter annuale, 490 €, e sei a posto.",
+        -8,"She just said money is tight. Let her try first.","Ha appena detto che i soldi sono pochi. Lasciala provare prima.",
+        "Hm, I'd rather not pay before trying.","Mmh, preferirei non pagare prima di provare.", {c:"push"}),
+      O("Think about it and write to me.","Pensaci e scrivimi.",
+        2,"She said \"I like it\". Don't make her do the work: propose the trial.","Ha detto \"mi piace\". Non farle fare il lavoro: proponi la prova.",
+        "OK… I'll let you know.","Ok… ti faccio sapere.", {c:"soft"}),
+      O("Let me show you a demo next week.","Ti faccio vedere una demo la settimana prossima.",
+        5,"Fine, but slower than needed: she's ready for the trial.","Va bene, ma più lento del necessario: è pronta per la prova.",
+        "Sure, next week.","Certo, la settimana prossima.", {c:"soft"})
+    ]}
+  ]},
+
+/* ======================= MARCO ======================= */
+{ id:"marco", name:"Marco Bellini", initials:"MB", color:"#1565c0", stars:2, adj:0, flag:"🇮🇹",
+  role:_("CTO, Nexa Software (25 people), Milan","CTO, Nexa Software (25 persone), Milano"),
+  icp:_("Software house · agents for insurers","Software house · agenti per assicurazioni"),
+  plan:_("Professional €149 (5 agents)","Professionale 149 € (5 agenti)"),
+  personality:_("Practical, busy, a bit technical. Hates hype and buzzwords.","Pratico, sempre di corsa, un po' tecnico. Odia le mode e le parole vuote."),
+  fears:_("Extra work for his developers, slowing down the agents, one more tool to maintain.","Lavoro in più per gli sviluppatori, agenti più lenti, un altro strumento da mantenere."),
+  wants:_("Something his insurer clients will value, and an argument to win tenders.","Qualcosa che i suoi clienti assicurativi apprezzino, e un argomento per vincere le gare."),
+  intro:_("Marco accepted a 20-minute video call after your LinkedIn message. His company builds AI agents that help insurers handle claims. Coffee in hand, he keeps looking at the clock.",
+          "Marco ha accettato una videochiamata di 20 minuti dopo il tuo messaggio su LinkedIn. La sua azienda costruisce agenti AI che aiutano le assicurazioni a gestire i sinistri. Caffè in mano, guarda spesso l'orologio."),
+  outcomes:{ sale:_("Marco starts the free trial on one agent and plans Professional (€149/month) for all five.","Marco inizia la prova gratuita su un agente e prevede il Professionale (149 €/mese) per tutti e cinque."),
+             demo:_("Marco agrees to a demo next week, but hasn't committed.","Marco accetta una demo la settimana prossima, ma non si è impegnato."),
+             lost:_("Marco says \"not now\" and ends the call five minutes early.","Marco dice \"non adesso\" e chiude la chiamata cinque minuti prima.") },
+  lesson:_("Busy technical people want concrete numbers (3 lines, 20 minutes, €30 per agent) and respect for the tools they already use.","Le persone tecniche e di fretta vogliono numeri concreti (3 righe, 20 minuti, 30 € ad agente) e rispetto per gli strumenti che già usano."),
+  nodes:[
+  { say:_("OK, I have 20 minutes. What is Sigillo, in simple words?","Ok, ho 20 minuti. Cos'è Sigillo, in parole semplici?"),
+    tip:_("Use the one-sentence pitch. Short, concrete, no buzzwords.","Usa la frase unica. Breve, concreta, senza parole vuote."),
+    opts:[
+      O("Sigillo is a sealed diary for your AI agents. It records what each agent does, and any auditor can check that nobody changed it, not even us. Your insurer clients get proof, without us ever reading their data.",
+        "Sigillo è un diario sigillato per i vostri agenti AI. Registra cosa fa ogni agente, e qualsiasi revisore può controllare che nessuno l'abbia cambiato, nemmeno noi. I vostri clienti assicurativi hanno una prova, senza che noi leggiamo mai i loro dati.",
+        12,"Short, concrete, and it names the benefit for HIS clients.","Breve, concreta, e nomina il vantaggio per i SUOI clienti.",
+        "Hm. A sealed diary. OK, go on.","Mmh. Un diario sigillato. Ok, vai avanti."),
+      O("We're an AI governance and trust platform using cryptographic hash chains and Merkle trees.","Siamo una piattaforma di governance e fiducia per l'AI con catene di hash crittografiche e alberi di Merkle.",
+        -6,"Buzzwords. Marco hates hype, and you can't explain Merkle trees if he asks.","Parole vuote. Marco odia le mode, e non sapresti spiegare gli alberi di Merkle se te lo chiede.",
+        "That sounds like every startup deck I get.","Sembra ogni presentazione di start-up che ricevo."),
+      O("Sigillo makes your agents AI Act compliant and tamper-proof.","Sigillo rende i vostri agenti conformi all'AI Act e tamper-proof.",
+        -14,"Two forbidden words: \"compliant\" and \"tamper-proof\". Sigillo gives evidence; it shows changes, it doesn't prevent them.","Due parole vietate: \"conforme\" e \"tamper-proof\". Sigillo dà prove; mostra le modifiche, non le impedisce.",
+        "Compliant? Nobody can promise that.","Conformi? Nessuno può prometterlo.", {red:true}),
+      O("It's a tool that keeps a record of what AI agents do, for audits.","È uno strumento che tiene un registro di cosa fanno gli agenti AI, per gli audit.",
+        5,"Correct but flat. Add the key point: nobody can change it secretly, and an auditor can check without trusting you.","Giusto ma piatto. Aggiungi il punto chiave: nessuno lo può cambiare di nascosto, e un revisore controlla senza fidarsi.",
+        "Like a log? We have logs.","Come un log? I log li abbiamo.")
+    ]},
+  { say:_("We already have logs. Datadog, our database, everything. Why would I pay for this?","Abbiamo già i log. Datadog, il nostro database, tutto. Perché dovrei pagare per questo?"),
+    tip:_("Logs can be edited by whoever runs the server. Sigillo's diary shows any change, and outsiders can check it.","I log li può modificare chi gestisce il server. Il diario di Sigillo mostra ogni modifica, e chi sta fuori lo può controllare."),
+    opts:[
+      O("Your logs are great for your team. But an auditor has to trust you, because whoever runs the server can edit them. With Sigillo every line is sealed and time-stamped by an outside company, so the auditor can check it alone, without trusting you or us.",
+        "I vostri log vanno benissimo per il team. Ma un revisore deve fidarsi di voi, perché chi gestisce il server li può modificare. Con Sigillo ogni riga è sigillata e timbrata da un'azienda esterna, quindi il revisore controlla da solo, senza fidarsi né di voi né di noi.",
+        13,"You respect his tools and explain the one difference that matters: proof for someone outside.","Rispetti i suoi strumenti e spieghi l'unica differenza che conta: la prova per chi sta fuori.",
+        "So the point is the auditor, not my team. OK, fair.","Quindi il punto è il revisore, non il mio team. Ok, giusto."),
+      O("Logs are old technology. Sigillo is much better.","I log sono tecnologia vecchia. Sigillo è molto meglio.",
+        -6,"Never attack what the client uses. Logs are for debugging; Sigillo is for proof. Different jobs.","Non attaccare mai quello che usa il cliente. I log servono a trovare errori; Sigillo serve a provare. Lavori diversi.",
+        "Our logs work fine, thanks.","I nostri log funzionano benissimo, grazie."),
+      O("Logs can be hacked easily. Sigillo can never be hacked.","I log si violano facilmente. Sigillo non si può mai violare.",
+        -14,"\"Never hacked\" is an overpromise. Sigillo shows changes; it doesn't promise nothing can ever go wrong.","\"Mai violato\" è una promessa eccessiva. Sigillo mostra le modifiche; non promette che niente possa mai andare storto.",
+        "Never? Every security person knows that's not true.","Mai? Chiunque si occupi di sicurezza sa che non è vero.", {red:true}),
+      O("Logs don't have a time stamp from an outside company.","I log non hanno una marca temporale di un'azienda esterna.",
+        4,"True, but half the story. Say who benefits: the auditor or the insurer can check alone.","Vero, ma è metà della storia. Di' chi ci guadagna: il revisore o l'assicurazione controllano da soli.",
+        "And why would I need that?","E perché mi servirebbe?")
+    ]},
+  { say:_("How much work is it for my developers? They're already overloaded.","Quanto lavoro è per i miei sviluppatori? Sono già sommersi."),
+    tip:_("3 lines of Python, 20-minute call together. Python only, today.","3 righe di Python, chiamata di 20 minuti insieme. Oggi solo Python."),
+    opts:[
+      O("For a Python agent it's three lines at the top of the file. We do the first connection together in a 20-minute call. After that it runs by itself.",
+        "Per un agente Python sono tre righe in cima al file. Il primo collegamento lo facciamo insieme in una chiamata di 20 minuti. Poi va da solo.",
+        12,"Concrete numbers kill the fear of extra work.","I numeri concreti tolgono la paura del lavoro in più.",
+        "Three lines I can live with. We're all Python anyway.","Tre righe le posso accettare. Tanto usiamo tutti Python."),
+      O("Very little, it's easy.","Pochissimo, è facile.",
+        3,"Too vague. Give the number: three lines, 20-minute call.","Troppo vago. Di' il numero: tre righe, chiamata di 20 minuti.",
+        "Everyone says that.","Lo dicono tutti."),
+      O("Zero work: it works automatically with any agent in any language.","Zero lavoro: funziona da solo con qualsiasi agente in qualsiasi linguaggio.",
+        -12,"Not true: today it's for Python agents. When he finds out, you lose him for good.","Non è vero: oggi è per agenti Python. Quando lo scopre, lo perdi per sempre.",
+        "Any language? Our Java team will be happy…","Qualsiasi linguaggio? Il nostro team Java sarà contento…", {red:true}),
+      O("I'm not technical, I don't know.","Non sono tecnica, non lo so.",
+        -4,"Honesty is good, but you know this one: three lines of Python. Save \"I'll check\" for really technical questions.","L'onestà va bene, ma questa la sai: tre righe di Python. Tieni il \"verifico\" per le domande davvero tecniche.",
+        "Hm. Who should I talk to, then?","Mmh. Con chi devo parlare, allora?")
+    ]},
+  { say:_("Will it slow down the agents? And if your server goes down, do my agents stop?","Rallenta gli agenti? E se il vostro server si ferma, i miei agenti si bloccano?"),
+    tip:_("Never stops the agent. Records catch up after an outage, nothing lost.","Non ferma mai l'agente. Dopo un'interruzione le ricevute si rimettono in pari, niente perso."),
+    opts:[
+      O("No. Sigillo never stops your agent. If the internet or our server goes down, the agent keeps working and the diary catches up by itself when the connection is back. Nothing is lost.",
+        "No. Sigillo non ferma mai il vostro agente. Se cade internet o il nostro server, l'agente continua a lavorare e il diario si rimette in pari da solo quando torna la connessione. Non si perde niente.",
+        12,"Exactly what the product does, in his language.","Esattamente quello che fa il prodotto, nella sua lingua.",
+        "Good. That was my main worry.","Bene. Era la mia preoccupazione principale."),
+      O("Our server never goes down.","Il nostro server non si ferma mai.",
+        -7,"No one can promise that. The strong honest answer: even if it does, nothing is lost and the agent keeps running.","Nessuno può prometterlo. La risposta onesta e forte: anche se succede, non si perde niente e l'agente continua.",
+        "Every server goes down sometimes.","Ogni server prima o poi si ferma."),
+      O("It's very fast, don't worry.","È velocissimo, tranquillo.",
+        3,"\"Don't worry\" doesn't answer. Explain: the agent is never stopped, records catch up after an outage.","\"Tranquillo\" non è una risposta. Spiega: l'agente non si ferma mai, le ricevute si rimettono in pari.",
+        "And if you're down?","E se siete giù?"),
+      O("If our server is down, the agent pauses to keep the record complete.","Se il nostro server è giù, l'agente si mette in pausa per tenere il registro completo.",
+        -11,"False. Sigillo never stops the agent. Wrong facts scare clients away for no reason.","Falso. Sigillo non ferma mai l'agente. I fatti sbagliati fanno scappare i clienti senza motivo.",
+        "Pauses? Then no way.","In pausa? Allora no.")
+    ]},
+  { say:_("My client is an insurer. If something goes wrong with a claim, how does their auditor actually see the proof?","Il mio cliente è un'assicurazione. Se qualcosa va storto su un sinistro, il loro revisore come vede la prova?"),
+    tip:_("Reviewer link: \"Verify here\" and \"Download\". Program fingerprint without showing code.","Link per il revisore: \"Verifica qui\" e \"Scarica\". Impronta del programma senza mostrare il codice."),
+    opts:[
+      O("You press \"Share with reviewer\", pick the agent and the dates, and send a link. The auditor opens a Sigillo page: \"Verify here\" checks it in the browser, \"Download\" gives the proof file for our free verifier. It also shows which version of the agent program wrote the diary, with a fingerprint, without showing your code.",
+        "Premete \"Condividi con il revisore\", scegliete agente e date, e mandate un link. Il revisore apre una pagina di Sigillo: \"Verifica qui\" controlla nel browser, \"Scarica\" dà il fascicolo per il nostro verificatore gratuito. Mostra anche quale versione del programma ha scritto il diario, con un'impronta, senza mostrare il vostro codice.",
+        14,"A concrete story of what the auditor sees. The fingerprint answers \"which agent\" without exposing his code.","Una storia concreta di cosa vede il revisore. L'impronta risponde a \"quale agente\" senza esporre il suo codice.",
+        "Without showing our code… that's important. Our code is our value.","Senza mostrare il nostro codice… questo è importante. Il codice è il nostro valore."),
+      O("They get a zip file with a PDF report.","Ricevono un file zip con un rapporto PDF.",
+        5,"True (the proof file), but the reviewer link is stronger: the auditor gets the proof straight from Sigillo.","Vero (il fascicolo), ma il link per il revisore è più forte: il revisore riceve la prova direttamente da Sigillo.",
+        "OK. And they trust a zip I send them?","Ok. E si fidano di uno zip che mando io?"),
+      O("They log into your account and look around.","Entrano nel vostro account e guardano.",
+        -6,"No. The auditor never gets account access. The link is read-only, one agent, one period, expires in 30 days.","No. Il revisore non entra mai nell'account. Il link è solo lettura, un agente, un periodo, scade in 30 giorni.",
+        "Into my account? No thanks.","Nel mio account? No grazie."),
+      O("The auditor can read every prompt and answer of the agent.","Il revisore può leggere ogni domanda e risposta dell'agente.",
+        -12,"Wrong and dangerous: Sigillo never stores texts, only fingerprints.","Sbagliato e pericoloso: Sigillo non salva mai i testi, solo le impronte.",
+        "So you DO store our clients' texts?","Quindi i testi dei clienti li salvate?", {red:true})
+    ]},
+  { say:_("OK. What does it cost? We have about 5 agents running for clients.","Ok. Quanto costa? Abbiamo circa 5 agenti attivi per i clienti."),
+    tip:_("5 agents → Professional €149, about €30 per agent. Yearly: 2 months free.","5 agenti → Professionale 149 €, circa 30 € ad agente. Annuale: 2 mesi gratis."),
+    opts:[
+      O("Professional fits you: €149 a month for up to 5 agents, about €30 per agent, easy to include in your price to the insurer. Yearly, you get 2 months free. And you can start with the free trial on one agent.",
+        "Per voi va il Professionale: 149 € al mese fino a 5 agenti, circa 30 € ad agente, facile da mettere nel prezzo all'assicurazione. Annuale, 2 mesi gratis. E potete partire con la prova gratuita su un agente.",
+        12,"Right plan, per-agent math, and the idea of passing the cost to his client.","Piano giusto, conto per agente, e l'idea di girare il costo al suo cliente.",
+        "€30 per agent… I can put that in the next offer.","30 € ad agente… lo posso mettere nella prossima offerta."),
+      O("It depends, let me send you a quote.","Dipende, ti mando un preventivo.",
+        -5,"Prices are simple and public. Hiding them sounds expensive.","I prezzi sono semplici e pubblici. Nasconderli fa sembrare tutto caro.",
+        "Uh-oh, \"it depends\" usually means expensive.","Uh, \"dipende\" di solito vuol dire caro."),
+      O("Starter is €49 a month.","Lo Starter costa 49 € al mese.",
+        4,"Starter covers 1 agent. He has 5: Professional is right. Wrong plan → surprise later.","Lo Starter copre 1 agente. Lui ne ha 5: è giusto il Professionale. Piano sbagliato → sorpresa dopo.",
+        "For all five?","Per tutti e cinque?"),
+      O("For you, 50% off forever if you sign today.","Per voi, 50% di sconto per sempre se firmate oggi.",
+        -10,"No big discounts on a first call, no pressure. Yearly (2 months free) is the only standard discount; anything else, ask Giovanni.","Niente sconti grandi alla prima chiamata, niente pressione. L'annuale (2 mesi gratis) è l'unico sconto standard; altro, chiedi a Giovanni.",
+        "Sign today? I haven't even tried it.","Firmare oggi? Non l'ho nemmeno provato.")
+    ]},
+  { hardOnly:true,
+    say:_("Last thing. If one of my developers removes your three lines, does Sigillo notice?","Ultima cosa. Se uno dei miei sviluppatori toglie le vostre tre righe, Sigillo se ne accorge?"),
+    tip:_("Say the limit first, then what we DO see: silence and code changes.","Prima il limite, poi cosa vediamo: il silenzio e i cambi di codice."),
+    opts:[
+      O("Sigillo can't force anyone to keep recording, and I won't pretend it can. But we see when an agent goes silent, and every time the program changes, its new fingerprint goes in the diary. So a gap is visible, not hidden.",
+        "Sigillo non può obbligare nessuno a registrare, e non farò finta che possa. Ma vediamo quando un agente tace, e ogni volta che il programma cambia, la nuova impronta entra nel diario. Quindi un buco si vede, non resta nascosto.",
+        13,"Honest limit + what you DO see. Hard clients trust you more when you say the limit first.","Limite onesto + cosa vedi. I clienti duri si fidano di più quando dici prima il limite.",
+        "Fair answer. Most vendors would just say \"impossible\".","Risposta onesta. Quasi tutti direbbero \"impossibile\"."),
+      O("No, it's impossible to remove.","No, è impossibile toglierlo.",
+        -15,"False. Anyone who controls the code can remove it. If he tests it, you're finished.","Falso. Chiunque controlli il codice lo può togliere. Se lo prova, sei finita.",
+        "Impossible? It's three lines in MY code.","Impossibile? Sono tre righe nel MIO codice.", {red:true}),
+      O("Why would they do that?","Perché dovrebbero farlo?",
+        3,"Dodges the question. Answer it.","Eviti la domanda. Rispondi.",
+        "Humour me.","Fammi contento."),
+      O("I'll ask our tech team.","Chiedo al nostro team tecnico.",
+        -4,"You know this: we see when an agent goes silent and when its code changes.","Questa la sai: vediamo quando un agente tace e quando il suo codice cambia.",
+        "OK.","Ok.")
+    ]},
+  { closing:true,
+    say:_("Alright. What do you suggest as a next step?","Va bene. Cosa proponi come passo successivo?"),
+    tip:_("A small, concrete step with a date: free trial on one agent + 20-minute call.","Un passo piccolo e concreto con una data: prova gratuita su un agente + chiamata di 20 minuti."),
+    opts:[
+      O("Let's start the free trial on one of your agents this week; we connect it together in a 20-minute call. If your team likes it, you move to Professional for all five.",
+        "Partiamo con la prova gratuita su uno dei vostri agenti questa settimana; lo colleghiamo insieme in 20 minuti. Se al team piace, passate al Professionale per tutti e cinque.",
+        8,"Small, concrete, low-risk, with a clear path to the paid plan.","Piccolo, concreto, a basso rischio, con una strada chiara verso il piano a pagamento.",
+        "OK. Thursday at 10?","Ok. Giovedì alle 10?", {c:"ask"}),
+      O("Sign the yearly Professional plan today, so you get the discount.","Firmate oggi il Professionale annuale, così avete lo sconto.",
+        -10,"Too fast. He hasn't tried it. Pressure makes careful buyers walk away.","Troppo presto. Non l'ha provato. La pressione fa scappare i clienti prudenti.",
+        "Today? No.","Oggi? No.", {c:"push"}),
+      O("I'll send you some material, have a look when you have time.","Ti mando del materiale, guardalo quando hai tempo.",
+        2,"Polite but no next step. Material without a date usually means no answer.","Gentile ma senza passo successivo. Materiale senza data di solito vuol dire nessuna risposta.",
+        "Sure, send it.","Certo, mandalo.", {c:"soft"}),
+      O("Let's book a demo with our technical lead next week.","Fissiamo una demo con il nostro responsabile tecnico la settimana prossima.",
+        5,"Good step, but he may be ready for the trial already. Ask for it.","Buon passo, ma forse è già pronto per la prova. Chiedila.",
+        "OK, send me a slot.","Ok, mandami un orario.", {c:"soft"})
+    ]}
+  ]},
+
+/* ======================= JAVIER ======================= */
+{ id:"javier", name:"Javier Ortega", initials:"JO", color:"#ef6c00", stars:2, adj:0, flag:"🇪🇸",
+  role:_("Freelance AI developer, Valencia","Sviluppatore AI freelance, Valencia"),
+  icp:_("Freelancer · finance agent for one accounting firm","Freelance · agente per la finanza per uno studio di commercialisti"),
+  plan:_("Free trial → Starter €49","Prova gratuita → Starter 49 €"),
+  personality:_("Relaxed, curious, jokes a lot. Very technical.","Rilassato, curioso, scherza molto. Molto tecnico."),
+  fears:_("Losing time, complexity, paying for something his client never asked for.","Perdere tempo, complicazioni, pagare qualcosa che il suo cliente non ha mai chiesto."),
+  wants:_("A selling point to charge his client more.","Un argomento per farsi pagare di più dal cliente."),
+  intro:_("Javier works alone. He built an AI assistant for a small accounting firm: it reads invoices and prepares tax entries. You met him at a meetup and he said \"call me\".",
+          "Javier lavora da solo. Ha costruito un assistente AI per un piccolo studio di commercialisti: legge le fatture e prepara le registrazioni fiscali. L'hai conosciuto a un incontro e ti ha detto \"chiamami\"."),
+  outcomes:{ sale:_("Javier signs up for the free trial and connects his agent the same day. He'll move to Starter when his client goes live.","Javier si iscrive alla prova gratuita e collega l'agente lo stesso giorno. Passerà allo Starter quando il suo cliente va in produzione."),
+             demo:_("Javier says he'll try \"when he has time\". Send a reminder next week.","Javier dice che proverà \"quando ha tempo\". Mandagli un promemoria la settimana prossima."),
+             lost:_("Javier decides to build his own \"quick version\".","Javier decide di farsi una sua \"versione veloce\".") },
+  lesson:_("Developers respect honesty about technical limits and hate being told what they can't do. Show them how Sigillo makes them money.","Gli sviluppatori rispettano l'onestà sui limiti tecnici e odiano sentirsi dire cosa non sanno fare. Mostra come Sigillo li fa guadagnare."),
+  nodes:[
+  { say:_("¡Hola! I'm a one-man shop. Honestly, my client never asked for anything like this. Why should I care?","¡Hola! Lavoro da solo. Sinceramente il mio cliente non mi ha mai chiesto niente del genere. Perché dovrebbe interessarmi?"),
+    tip:_("For a freelancer, Sigillo is a selling point and extra revenue.","Per un freelance, Sigillo è un argomento di vendita e un guadagno in più."),
+    opts:[
+      O("Because you can sell it. Your client is an accountant: if the agent ever gets a number wrong, they'll want to know exactly what happened. Add \"every action of the agent is sealed and checkable\" to your offer, and charge for it.",
+        "Perché lo puoi vendere. Il tuo cliente è un commercialista: se l'agente sbaglia un numero, vorrà sapere esattamente cos'è successo. Aggiungi \"ogni azione dell'agente è sigillata e controllabile\" alla tua offerta, e fattela pagare.",
+        12,"For a freelancer, Sigillo is a selling point and extra revenue. Speak to that.","Per un freelance Sigillo è un argomento di vendita e un guadagno. Parla di questo.",
+        "Ha, now you speak my language: money.","Ah, ora parli la mia lingua: i soldi."),
+      O("Because the AI Act will fine you.","Perché l'AI Act ti farà la multa.",
+        -5,"Fear without facts. You can't tell him exactly how the AI Act applies to his case.","Paura senza fatti. Non sai dirgli esattamente come si applica l'AI Act al suo caso.",
+        "Will it? To me? Explain.","Davvero? A me? Spiegami."),
+      O("It's good practice to record what AI agents do.","È buona pratica registrare cosa fanno gli agenti AI.",
+        4,"True but weak. Show how it makes him money.","Vero ma debole. Mostra come lo fa guadagnare.",
+        "Sure, so is flossing.","Certo, anche usare il filo interdentale."),
+      O("Every serious developer already uses it.","Tutti gli sviluppatori seri lo usano già.",
+        -10,"Not true, and he'll know it. Never invent popularity.","Non è vero, e lo sa. Non inventare mai la popolarità.",
+        "Really? I've never heard of it.","Davvero? Non l'ho mai sentito.", {red:true})
+    ]},
+  { say:_("How long does it take to set up? I bill by the hour, ha.","Quanto ci vuole per installarlo? Io mi faccio pagare a ore, ah."),
+    tip:_("3 lines of Python + 20-minute call. Python only today.","3 righe di Python + chiamata di 20 minuti. Oggi solo Python."),
+    opts:[
+      O("Three lines of Python at the top of the agent. We connect the first one together in 20 minutes. Then it works by itself.","Tre righe di Python in cima all'agente. Il primo lo colleghiamo insieme in 20 minuti. Poi va da solo.",
+        12,"Concrete and true.","Concreta e vera.",
+        "Three lines. Even I can do that before lunch.","Tre righe. Ce la faccio anche prima di pranzo."),
+      O("A few days, maybe.","Qualche giorno, forse.",
+        -5,"Wrong, it's much less. You just made it sound expensive.","Sbagliato, è molto meno. L'hai fatto sembrare costoso.",
+        "Days? Hmm.","Giorni? Mmh."),
+      O("It's quick, there's a guide.","È veloce, c'è una guida.",
+        4,"OK, but the numbers (three lines, 20 minutes) sell.","Va bene, ma i numeri (tre righe, 20 minuti) vendono.",
+        "How quick?","Quanto veloce?"),
+      O("No setup at all, it works with any agent in any language.","Nessuna installazione, funziona con qualsiasi agente in qualsiasi linguaggio.",
+        -11,"Python only, today. He's a developer: he'll find out in minutes.","Oggi solo Python. È uno sviluppatore: lo scopre in pochi minuti.",
+        "Any language without setup? That's… magic. I don't believe in magic.","Qualsiasi linguaggio senza installazione? È… magia. Io non credo alla magia.", {red:true})
+    ]},
+  { say:_("My agent sometimes makes things up. If the AI lies, can Sigillo tell?","Il mio agente a volte si inventa le cose. Se l'AI mente, Sigillo se ne accorge?"),
+    tip:_("Sigillo doesn't check truth. It proves what was said; the AI can't switch it off.","Sigillo non controlla la verità. Prova cosa è stato detto; l'AI non può spegnerlo."),
+    opts:[
+      O("No, Sigillo doesn't check if the AI is right. It records what the AI said and did, sealed. And the AI can't switch it off: Sigillo isn't in the prompt, it's code in your program. So if the AI says something wrong, the proof of what it said is there.",
+        "No, Sigillo non controlla se l'AI ha ragione. Registra cosa ha detto e fatto, sigillato. E l'AI non lo può spegnere: Sigillo non è nel prompt, è codice nel tuo programma. Quindi se l'AI dice una cosa sbagliata, la prova di cosa ha detto c'è.",
+        13,"Clear limit, then the value: the AI can't hide its own mistakes.","Limite chiaro, poi il valore: l'AI non può nascondere i suoi errori.",
+        "Makes sense. It's a black box recorder, not a lie detector.","Ha senso. È una scatola nera, non una macchina della verità."),
+      O("Yes, Sigillo detects when the AI lies.","Sì, Sigillo scopre quando l'AI mente.",
+        -14,"False. Sigillo proves what was said, not whether it was true.","Falso. Sigillo prova cosa è stato detto, non se era vero.",
+        "If you can detect AI lies, you should sell that to OpenAI.","Se sapete scoprire le bugie dell'AI, vendetelo a OpenAI.", {red:true}),
+      O("That's a problem of the model, not ours.","È un problema del modello, non nostro.",
+        3,"True but unhelpful. Explain that the AI cannot hide what it said.","Vero ma poco utile. Spiega che l'AI non può nascondere cosa ha detto.",
+        "OK, but then what do you give me?","Ok, ma allora cosa mi date?"),
+      O("Just use a better model.","Usa un modello migliore.",
+        -5,"Not your job, and it dodges his question.","Non è il tuo lavoro, ed eviti la sua domanda.",
+        "Thanks, very helpful.","Grazie, utilissimo.")
+    ]},
+  { say:_("Can't I just build this myself? Hash the logs, done.","Non posso farmelo da solo? Faccio l'hash dei log, fatto."),
+    tip:_("Respect his skill. The point is independence: proof from a third party.","Rispetta la sua bravura. Il punto è l'indipendenza: la prova di un terzo."),
+    opts:[
+      O("You could build part of it. But then the proof comes from you, and the accountant's auditor has to trust you. With Sigillo it's sealed by a third party, stamped every hour by an outside company, and checked with an independent verifier. And you save weeks for €49 a month.",
+        "Una parte potresti farla. Ma allora la prova viene da te, e il revisore del commercialista deve fidarsi di te. Con Sigillo è sigillata da un terzo, timbrata ogni ora da un'azienda esterna e controllata con un verificatore indipendente. E risparmi settimane per 49 € al mese.",
+        12,"You respect his skill; the point is independence (and his time).","Rispetti la sua bravura; il punto è l'indipendenza (e il suo tempo).",
+        "True… proof from myself about myself isn't worth much.","Vero… una prova fatta da me su me stesso vale poco."),
+      O("No, it's too hard for you.","No, è troppo difficile per te.",
+        -7,"Never question a developer's skills. You lose him.","Non mettere mai in dubbio la bravura di uno sviluppatore. Lo perdi.",
+        "Excuse me?","Prego?"),
+      O("Sure, but it takes time.","Certo, ma ci vuole tempo.",
+        4,"Partly right. The bigger reason: proof from a third party is worth more than proof from yourself.","In parte giusto. Il motivo più grande: la prova di un terzo vale più della propria.",
+        "I have weekends.","Ho i fine settimana.")
+    ]},
+  { say:_("What's the price for a tiny guy like me?","Che prezzo fate a uno piccolo come me?"),
+    tip:_("Free trial, then Starter €49. He can resell it.","Prova gratuita, poi Starter 49 €. Lo può rivendere."),
+    opts:[
+      O("Free to start: 1 agent, 5,000 records a month. When your client's agent is live, Starter is €49 a month, or €490 a year. You can add it to your client's price.","Si parte gratis: 1 agente, 5.000 ricevute al mese. Quando l'agente del cliente è in produzione, Starter a 49 € al mese, o 490 € all'anno. Puoi metterlo nel prezzo al cliente.",
+        12,"Free start, clear next step, resale idea.","Inizio gratis, passo successivo chiaro, idea di rivendita.",
+        "Free, then my client pays. I like this plan.","Gratis, poi paga il cliente. Mi piace."),
+      O("Professional, €149 a month.","Il Professionale, 149 € al mese.",
+        -6,"Too big for one agent. Match the plan to the client.","Troppo per un agente. Scegli il piano giusto per il cliente.",
+        "For one agent? Too much.","Per un agente? Troppo."),
+      O("It depends on usage.","Dipende dall'uso.",
+        3,"Give the numbers; they're simple.","Di' i numeri; sono semplici.",
+        "Give me a number.","Dammi un numero.")
+    ]},
+  { hardOnly:true,
+    say:_("And if my client wants to show the record to their auditor? Do I give them access to my server?","E se il mio cliente vuole mostrare il registro al suo revisore? Gli do l'accesso al mio server?"),
+    tip:_("Reviewer link: read-only, one agent and period, 30 days, Verify here / Download.","Link per il revisore: solo lettura, un agente e un periodo, 30 giorni, Verifica qui / Scarica."),
+    opts:[
+      O("No. You press \"Share with reviewer\" and send a link. The auditor clicks \"Verify here\" to check in the browser, or \"Download\" to check with the free verifier. Read-only, only that agent and those dates, expires after 30 days.",
+        "No. Premi \"Condividi con il revisore\" e mandi un link. Il revisore preme \"Verifica qui\" per controllare nel browser, o \"Scarica\" per controllare con il verificatore gratuito. Solo lettura, solo quell'agente e quelle date, scade dopo 30 giorni.",
+        12,"The reviewer link, exactly.","Il link per il revisore, esattamente.",
+        "Nice, no passwords flying around.","Bene, niente password in giro."),
+      O("Just give them your Sigillo password.","Dagli la tua password di Sigillo.",
+        -8,"Never. The reviewer link exists so nobody shares passwords.","Mai. Il link per il revisore esiste proprio per non condividere password.",
+        "My password? Seriously?","La mia password? Sul serio?"),
+      O("They download a zip file.","Scaricano un file zip.",
+        3,"True, but the link is simpler and stronger.","Vero, ma il link è più semplice e più forte.",
+        "From where?","Da dove?")
+    ]},
+  { closing:true,
+    say:_("OK, I'm curious. What do I do?","Ok, sono curioso. Cosa faccio?"),
+    tip:_("Free trial today, three lines, optional 20-minute call.","Prova gratuita oggi, tre righe, chiamata di 20 minuti se vuole."),
+    opts:[
+      O("Sign up for the free trial today and put the three lines in your agent. If you like, I'll book 20 minutes with our tech lead to connect it together.","Iscriviti oggi alla prova gratuita e metti le tre righe nell'agente. Se vuoi, fisso 20 minuti con il nostro responsabile tecnico per collegarlo insieme.",
+        8,"Free, immediate, concrete.","Gratis, immediato, concreto.",
+        "Doing it tonight.","Lo faccio stasera.", {c:"ask"}),
+      O("Pay for the year now, you save 2 months.","Paga l'anno adesso, risparmi 2 mesi.",
+        -8,"He hasn't even tried. Free trial first.","Non l'ha nemmeno provato. Prima la prova gratuita.",
+        "Slow down, amigo.","Piano, amiga.", {c:"push"}),
+      O("Follow us on LinkedIn.","Seguici su LinkedIn.",
+        1,"Not a next step.","Non è un passo successivo.",
+        "Sure…","Certo…", {c:"soft"})
+    ]}
+  ]},
+
+/* ======================= ELENA ======================= */
+{ id:"elena", name:"Dott.ssa Elena Ferri", initials:"EF", color:"#6a1b9a", stars:4, adj:-5, flag:"🇮🇹",
+  role:_("Head of Compliance, Assicurazioni Lario (insurer), Como","Responsabile Conformità, Assicurazioni Lario, Como"),
+  icp:_("End client · insurer","Cliente finale · assicurazione"),
+  plan:_("Regulated, from €390/month (pilot first)","Regolato, da 390 €/mese (prima un pilota)"),
+  personality:_("Formal, skeptical, slow. Writes everything down.","Formale, scettica, lenta. Scrive tutto."),
+  fears:_("Legal value of the proof, trusting a small supplier, audits by the regulator, data outside the EU.","Valore legale della prova, fidarsi di un fornitore piccolo, controlli dell'autorità, dati fuori dall'UE."),
+  wants:_("Evidence that holds up, a contract, a DPA, someone to call during an audit.","Prove che reggono, un contratto, un DPA, qualcuno da chiamare durante un audit."),
+  intro:_("The software house that builds the insurer's claims agent gave her your name. She is polite but cold, with a notebook and a list of questions.",
+          "La software house che costruisce l'agente per i sinistri dell'assicurazione le ha dato il tuo nome. È cortese ma fredda, con un quaderno e una lista di domande."),
+  outcomes:{ sale:_("Dott.ssa Ferri agrees to a 3-month pilot with her supplier and asks for the DPA. A big win with an insurer.","La Dott.ssa Ferri accetta un pilota di 3 mesi con il suo fornitore e chiede il DPA. Una grande vittoria con un'assicurazione."),
+             demo:_("She asks for a technical demo with her supplier first. Slow, but alive.","Chiede prima una demo tecnica con il suo fornitore. Lento, ma ancora vivo."),
+             lost:_("She thanks you politely. You never hear from her again.","Ti ringrazia con cortesia. Non la senti più.") },
+  lesson:_("Compliance people buy honesty about limits, documents (DPA, contract) and a defined pilot. Any overpromise ends the conversation.","Chi si occupa di conformità compra onestà sui limiti, documenti (DPA, contratto) e un pilota definito. Ogni promessa eccessiva chiude la conversazione."),
+  nodes:[
+  { say:_("Good morning. Our supplier uses AI agents on our claims. Why should I, in compliance, care about your product?","Buongiorno. Il nostro fornitore usa agenti AI sui nostri sinistri. Perché io, dalla conformità, dovrei interessarmi al vostro prodotto?"),
+    tip:_("Start from her risk (a questioned decision), then the proof.","Parti dal suo rischio (una decisione contestata), poi la prova."),
+    opts:[
+      O("Because when a claim decision is questioned, by a customer or by the regulator, you'll need to show what the agent did and when. Sigillo keeps a sealed record of every agent action, time-stamped every hour by an outside company, and your auditors can check it themselves without trusting us.",
+        "Perché quando una decisione su un sinistro viene contestata, da un cliente o dall'autorità, dovrete mostrare cosa ha fatto l'agente e quando. Sigillo tiene un registro sigillato di ogni azione dell'agente, timbrato ogni ora da un'azienda esterna, e i vostri revisori lo controllano da soli senza fidarsi di noi.",
+        12,"Starts from her risk, then the proof. Her language.","Parte dal suo rischio, poi la prova. La sua lingua.",
+        "Go on. (She writes something down.)","Prosegua. (Scrive qualcosa.)"),
+      O("Because AI is the future and you need to be ready.","Perché l'AI è il futuro e dovete essere pronti.",
+        -6,"Generic. Compliance wants specific risks and specific evidence.","Generica. La conformità vuole rischi precisi e prove precise.",
+        "That is not an answer.","Questa non è una risposta."),
+      O("Because with Sigillo you'll be certified for the AI Act.","Perché con Sigillo sarete certificati per l'AI Act.",
+        -14,"\"Certified\" is forbidden and false. A compliance head stops trusting you immediately.","\"Certificati\" è vietato e falso. Una responsabile conformità smette subito di fidarsi.",
+        "Certified by whom, exactly?","Certificati da chi, esattamente?", {red:true}),
+      O("Because the AI Act asks to keep records of AI systems.","Perché l'AI Act chiede di tenere registrazioni dei sistemi AI.",
+        5,"Right direction, but connect it to her daily risk: a questioned claim.","Direzione giusta, ma collegala al suo rischio di tutti i giorni: un sinistro contestato.",
+        "I know what the AI Act says. What do you add?","So cosa dice l'AI Act. Voi cosa aggiungete?")
+    ]},
+  { say:_("You are a small company. Who guarantees that you don't change the records yourselves?","Siete una realtà piccola. Chi garantisce che non modifichiate voi i registri?"),
+    tip:_("Turn \"trust us\" into \"check us\": outside hourly stamp + independent verifier.","Trasforma \"fidatevi\" in \"controllateci\": marca oraria esterna + verificatore indipendente."),
+    opts:[
+      O("Good question, and the design answers it: you don't have to trust us. Every hour an outside company stamps the diary, and your auditor checks the proof file with a free, independent program. If we changed even one line afterwards, the check would fail.",
+        "Ottima domanda, e la risposta è nel progetto: non dovete fidarvi di noi. Ogni ora un'azienda esterna timbra il diario, e il vostro revisore controlla il fascicolo con un programma gratuito e indipendente. Se cambiassimo anche una sola riga dopo, il controllo fallirebbe.",
+        14,"Turns \"trust us\" into \"check us\". The core of Sigillo.","Trasforma \"fidatevi\" in \"controllateci\". Il cuore di Sigillo.",
+        "Hm. That is a better answer than I expected.","Mmh. È una risposta migliore di quanto mi aspettassi."),
+      O("We are honest people, you can trust us.","Siamo persone oneste, può fidarsi.",
+        -12,"Trust is exactly what she doesn't want to give. Sigillo's point is you don't need to.","La fiducia è proprio ciò che non vuole dare. Il punto di Sigillo è che non serve.",
+        "Everyone says that.","Lo dicono tutti."),
+      O("We use very strong cryptography.","Usiamo una crittografia molto forte.",
+        4,"True but abstract. Say what she can do: her auditor checks it alone, with a free tool.","Vero ma astratto. Di' cosa può fare lei: il suo revisore controlla da solo, con uno strumento gratuito.",
+        "Meaning what, for me?","Che per me significa?"),
+      O("Nobody can change anything, the system is tamper-proof.","Nessuno può cambiare niente, il sistema è tamper-proof.",
+        -10,"Forbidden word. Say \"tamper-evident\": any change shows.","Parola vietata. Di' \"tamper-evident\": ogni modifica si vede.",
+        "Nothing is tamper-proof.","Niente è tamper-proof.", {red:true})
+    ]},
+  { say:_("Is your time stamp valid in court? Is it eIDAS qualified?","La vostra marca temporale vale in tribunale? È qualificata eIDAS?"),
+    tip:_("Today: not qualified (still evidence, judge weighs it). Planned for paid plans. No date.","Oggi: non qualificata (comunque prova, la valuta il giudice). Prevista nei piani a pagamento. Nessuna data."),
+    opts:[
+      O("Today our hourly stamp comes from outside companies, but it's not the qualified eIDAS kind: it is still evidence, but a judge weighs it freely. We plan to include a qualified eIDAS stamp in the paid plans; then date and integrity get the legal presumption in the whole EU. I'll confirm timing with our technical lead before promising anything.",
+        "Oggi la nostra marca oraria viene da aziende esterne, ma non è di tipo qualificato eIDAS: è comunque una prova, che il giudice valuta liberamente. Prevediamo di includere una marca qualificata eIDAS nei piani a pagamento; allora data e integrità avranno la presunzione legale in tutta l'UE. Confermo i tempi con il nostro responsabile tecnico prima di promettere qualcosa.",
+        14,"Exactly honest: what exists, what is planned, no date promised. She respects this.","Esattamente onesta: cosa c'è, cosa è previsto, nessuna data promessa. Lei lo rispetta.",
+        "Thank you for being precise. Most vendors are not.","Grazie della precisione. Molti fornitori non lo sono."),
+      O("Yes, it's fully eIDAS qualified and valid in every court.","Sì, è pienamente qualificata eIDAS e vale in ogni tribunale.",
+        -16,"False today. She can check it in five minutes, and then everything you said is doubted.","Falso oggi. Lo verifica in cinque minuti, e poi tutto quello che hai detto è in dubbio.",
+        "Which qualified provider, please? I will check.","Quale prestatore qualificato, prego? Controllerò.", {red:true}),
+      O("I think so, I'll check.","Credo di sì, verifico.",
+        2,"You know the answer: today it's not qualified. \"I think so\" sounds like hiding.","La risposta la sai: oggi non è qualificata. \"Credo di sì\" sembra nascondere.",
+        "You think so?","Crede?"),
+      O("Courts don't really care about eIDAS.","Ai tribunali eIDAS non interessa molto.",
+        -7,"Wrong. A qualified stamp gives a legal presumption: that's exactly why she asks.","Sbagliato. Una marca qualificata dà una presunzione legale: è proprio per questo che chiede.",
+        "I'm afraid our lawyers disagree.","Temo che i nostri avvocati non siano d'accordo.")
+    ]},
+  { say:_("Our agents decide on claims. If the agent pays a claim it shouldn't, does your system block it?","I nostri agenti decidono sui sinistri. Se l'agente paga un sinistro che non dovrebbe, il vostro sistema lo blocca?"),
+    tip:_("Records, doesn't control. Controls stay with the supplier. Value: proof afterwards.","Registra, non controlla. I controlli restano al fornitore. Valore: la prova dopo."),
+    opts:[
+      O("No. Sigillo records, it doesn't control, and it never blocks or slows the agent. Controls stay in your supplier's system. Sigillo gives you the proof afterwards: what was decided, when, and by which version of the agent.",
+        "No. Sigillo registra, non controlla, e non blocca né rallenta mai l'agente. I controlli restano nel sistema del vostro fornitore. Sigillo vi dà la prova dopo: cosa è stato deciso, quando e da quale versione dell'agente.",
+        12,"Clear limit and clear value. Compliance likes clear roles.","Limite chiaro e valore chiaro. La conformità ama i ruoli chiari.",
+        "Clear. (She writes: \"evidence, not control\".)","Chiaro. (Scrive: \"prova, non controllo\".)"),
+      O("Yes, it stops wrong payments.","Sì, ferma i pagamenti sbagliati.",
+        -14,"Overpromise. Never say Sigillo controls or blocks.","Promessa eccessiva. Non dire mai che Sigillo controlla o blocca.",
+        "How does it know a payment is wrong?","Come fa a sapere che un pagamento è sbagliato?", {red:true}),
+      O("That depends on your supplier.","Dipende dal vostro fornitore.",
+        3,"True, but add what Sigillo does: proof afterwards.","Vero, ma aggiungi cosa fa Sigillo: la prova dopo.",
+        "And you do what, then?","E voi cosa fate?")
+    ]},
+  { say:_("We have several claims agents, very similar. If there's a problem, how does the auditor know the proof is from the right agent?","Abbiamo diversi agenti per i sinistri, molto simili. Se c'è un problema, come sa il revisore che la prova è dell'agente giusto?"),
+    tip:_("Program fingerprint + reviewer link. Be honest: it stops confusion, it doesn't make cheating impossible.","Impronta del programma + link per il revisore. Onestà: elimina la confusione, non rende impossibile barare."),
+    opts:[
+      O("Each agent's diary records a fingerprint of its program, at every start and every code change. On the agent's computer, a short command prints that fingerprint without showing the code; the auditor compares it with the proof. And with the reviewer link, the auditor gets the proof directly from Sigillo, not from a copy someone sent.",
+        "Il diario di ogni agente registra un'impronta del suo programma, a ogni avvio e a ogni cambio di codice. Sul computer dell'agente un breve comando stampa quell'impronta senza mostrare il codice; il revisore la confronta con la prova. E con il link per il revisore, la prova arriva direttamente da Sigillo, non da una copia mandata da qualcuno.",
+        14,"Fingerprint + reviewer link, explained without technical words.","Impronta + link per il revisore, spiegati senza parole tecniche.",
+        "That addresses my question directly.","Questo risponde direttamente alla mia domanda."),
+      O("Each agent has a different name.","Ogni agente ha un nome diverso.",
+        -6,"Names are chosen by the company and can be confused. That's the problem the fingerprint solves.","I nomi li sceglie l'azienda e si possono confondere. È il problema che l'impronta risolve.",
+        "Names can be mixed up.","I nomi si possono confondere."),
+      O("It's impossible to fake, ever.","È impossibile da falsificare, sempre.",
+        -10,"Overpromise. A company that wants to cheat on its own machine could fake it; Sigillo makes confusion visible and cheating hard, not impossible.","Promessa eccessiva. Un'azienda che vuole barare sulla sua macchina potrebbe falsificarla; Sigillo rende visibile la confusione e difficile l'imbroglio, non impossibile.",
+        "\"Impossible\" is a word I never accept.","\"Impossibile\" è una parola che non accetto mai.", {red:true}),
+      O("The proof file has the agent's name and all its records.","Il fascicolo ha il nome dell'agente e tutte le sue ricevute.",
+        5,"True, but the fingerprint is the strong answer to \"the right agent\".","Vero, ma l'impronta è la risposta forte a \"l'agente giusto\".",
+        "The name again.","Di nuovo il nome.")
+    ]},
+  { hardOnly:true,
+    say:_("Where is the data stored, and do you sign a DPA?","Dove sono conservati i dati, e firmate un DPA?"),
+    tip:_("No texts, only fingerprints. Server in Italy. Signed DPA in Regulated.","Niente testi, solo impronte. Server in Italia. DPA firmato nel Regolato."),
+    opts:[
+      O("We never store the texts, only fingerprints. Our server is in Italy, in the EU. The Regulated plan includes a signed DPA, and a dedicated server or key. I'll have our team send you the DPA to review with your legal office.",
+        "Non conserviamo mai i testi, solo impronte. Il server è in Italia, nell'UE. Il piano Regolato include un DPA firmato, e un server o una chiave dedicati. Faccio mandare il DPA dal nostro team, da rivedere con il vostro ufficio legale.",
+        12,"Facts, the right plan, and her legal team checks.","Fatti, il piano giusto, e il suo ufficio legale controlla.",
+        "Please do.","Lo mandi, grazie."),
+      O("We don't need a DPA, we don't touch personal data.","Non serve un DPA, non tocchiamo dati personali.",
+        -12,"Always offer the DPA to an insurer. \"We don't need it\" is a red flag for compliance.","Offri sempre il DPA a un'assicurazione. \"Non serve\" è un campanello d'allarme per la conformità.",
+        "That is for our DPO to decide, not you.","Questo lo decide il nostro DPO, non lei.", {red:true}),
+      O("Everything is in the cloud, it's safe.","È tutto nel cloud, è sicuro.",
+        3,"Vague. Say: server in Italy, only fingerprints, signed DPA in Regulated.","Vago. Di': server in Italia, solo impronte, DPA firmato nel Regolato.",
+        "Which cloud? Where?","Quale cloud? Dove?")
+    ]},
+  { say:_("What would this cost us?","Quanto ci costerebbe?"),
+    tip:_("Regulated: from €390 a MONTH, billed yearly. Not a year!","Regolato: da 390 € al MESE, pagato all'anno. Non all'anno!"),
+    opts:[
+      O("For an insurer, the Regulated plan: from €390 a month, billed yearly. Unlimited agents up to one million records a month, dedicated server or key, a service agreement, a signed DPA, and our help during an audit.",
+        "Per un'assicurazione, il piano Regolato: da 390 € al mese, pagato all'anno. Agenti illimitati fino a un milione di ricevute al mese, server o chiave dedicati, accordo di servizio, DPA firmato e il nostro aiuto durante un audit.",
+        12,"Right plan, with what compliance actually buys: contract, DPA, audit support.","Il piano giusto, con ciò che la conformità compra davvero: contratto, DPA, aiuto negli audit.",
+        "That is a reasonable figure.","È una cifra ragionevole."),
+      O("Starter, €49 a month.","Starter, 49 € al mese.",
+        -7,"Too small for an insurer: no DPA, no SLA. It also sounds unserious to her.","Troppo piccolo per un'assicurazione: niente DPA, niente SLA. E le sembra poco serio.",
+        "Forty-nine euros? For an insurer?","Quarantanove euro? Per un'assicurazione?"),
+      O("I'll prepare a custom quote.","Preparo un preventivo su misura.",
+        3,"OK, but give the starting price: she needs a number for her budget.","Va bene, ma di' il prezzo di partenza: le serve un numero per il budget.",
+        "Give me an order of magnitude.","Mi dia un ordine di grandezza."),
+      O("€390 a year, very cheap!","390 € all'anno, pochissimo!",
+        -9,"Wrong: it's from €390 a MONTH, billed yearly. A wrong price now becomes a problem in the contract.","Sbagliato: è da 390 € al MESE, pagato all'anno. Un prezzo sbagliato ora diventa un problema nel contratto.",
+        "A year? (She writes it down. Now you'll have to correct it in writing.)","All'anno? (Lo scrive. Ora dovrai correggerlo per iscritto.)")
+    ]},
+  { closing:true,
+    say:_("I need to discuss this internally. What do you propose?","Devo parlarne internamente. Cosa propone?"),
+    tip:_("For a slow buyer, a defined pilot IS the sale. Give her documents for the internal discussion.","Per una cliente lenta, un pilota definito È la vendita. Dalle documenti per la discussione interna."),
+    opts:[
+      O("A pilot: one claims agent for 2-3 months, with your supplier. At the end your auditor tests the reviewer link and the proof file. I'll send you a one-page summary and the DPA for your legal office.",
+        "Un pilota: un agente dei sinistri per 2-3 mesi, con il vostro fornitore. Alla fine il vostro revisore prova il link e il fascicolo. Le mando un riassunto di una pagina e il DPA per il vostro ufficio legale.",
+        8,"A defined pilot plus documents for her internal discussion.","Un pilota definito più i documenti per la discussione interna.",
+        "Send me both. I'll bring it to the committee.","Mi mandi entrambi. Lo porto al comitato.", {c:"ask"}),
+      O("Can we sign today? The price may go up next month.","Possiamo firmare oggi? Il mese prossimo il prezzo potrebbe salire.",
+        -12,"Fake urgency. Compliance people hate pressure.","Urgenza finta. Chi fa conformità odia la pressione.",
+        "I don't sign anything under pressure.","Non firmo niente sotto pressione.", {c:"push"}),
+      O("Call me when you've decided.","Mi chiami quando avete deciso.",
+        2,"You lose control of the next step. Propose a pilot with a date.","Perdi il controllo del passo successivo. Proponi un pilota con una data.",
+        "Of course.","Certo.", {c:"soft"}),
+      O("Let's book a technical demo with your supplier and our technical lead.","Fissiamo una demo tecnica con il vostro fornitore e il nostro responsabile tecnico.",
+        5,"Good, but propose the pilot too.","Bene, ma proponi anche il pilota.",
+        "Fine. Send me dates.","Va bene. Mi mandi delle date.", {c:"soft"})
+    ]}
+  ]},
+
+/* ======================= STEFANO (boss) ======================= */
+{ id:"stefano", name:"Stefano Gatti", initials:"SG", color:"#263238", stars:5, adj:-10, flag:"🇮🇹", boss:true,
+  role:_("Head of Innovation, Banca Collinare (regional bank)","Responsabile Innovazione, Banca Collinare (banca regionale)"),
+  icp:_("End client · bank (later target, hardest)","Cliente finale · banca (obiettivo futuro, il più difficile)"),
+  plan:_("Regulated, from €390/month (pilot first)","Regolato, da 390 €/mese (prima un pilota)"),
+  personality:_("Sharp, impatient, tests you with traps. Has seen 50 AI startups this year.","Acuto, impaziente, ti mette alla prova con trabocchetti. Ha visto 50 start-up AI quest'anno."),
+  fears:_("The regulator, reputation, being sold hype.","L'autorità di vigilanza, la reputazione, comprare fumo."),
+  wants:_("Someone who knows the limits of their own product.","Qualcuno che conosca i limiti del proprio prodotto."),
+  intro:_("Stefano's bank is testing an AI agent that pre-checks loan applications. He gave you 15 minutes. He will try to trap you with yes-or-no questions.",
+          "La banca di Stefano sta provando un agente AI che fa i primi controlli sulle richieste di prestito. Ti ha dato 15 minuti. Proverà a farti cadere con domande secche."),
+  outcomes:{ sale:_("Stefano agrees to a 3-month pilot with his own auditor. The hardest client: well done!","Stefano accetta un pilota di 3 mesi con il suo revisore. Il cliente più difficile: brava!"),
+             demo:_("Stefano says: \"Send me something in writing.\" Not a no.","Stefano dice: \"Mi mandi qualcosa per iscritto.\" Non è un no."),
+             lost:_("Stefano: \"Thank you, we'll be in touch.\" You know you won't.","Stefano: \"Grazie, ci sentiamo.\" Sai che non succederà.") },
+  lesson:_("With a skeptic, every honest \"no\" is a point for you. He was testing whether you know your limits.","Con uno scettico, ogni \"no\" onesto è un punto per te. Stava controllando se conosci i tuoi limiti."),
+  nodes:[
+  { say:_("So, another AI startup. Tell me: is your product tamper-proof, yes or no?","Allora, un'altra start-up AI. Mi dica: il vostro prodotto è tamper-proof, sì o no?"),
+    tip:_("Trap! \"Tamper-evident\", not \"tamper-proof\".","Trabocchetto! \"Tamper-evident\", non \"tamper-proof\"."),
+    opts:[
+      O("No. It's tamper-evident: nobody can change the record without it showing, not the client, not us. \"Tamper-proof\" is a promise nobody can honestly make.",
+        "No. È tamper-evident: nessuno può cambiare il registro senza che si veda, né il cliente né noi. \"Tamper-proof\" è una promessa che nessuno può fare onestamente.",
+        14,"You passed the trap with the right word and a reason.","Hai superato il trabocchetto con la parola giusta e un motivo.",
+        "(He raises an eyebrow.) Interesting. Most say yes.","(Alza un sopracciglio.) Interessante. Quasi tutti dicono sì."),
+      O("Yes, 100% tamper-proof.","Sì, tamper-proof al 100%.",
+        -16,"He set a trap and you fell in. Forbidden word.","Ha teso una trappola e ci sei cascata. Parola vietata.",
+        "Nothing is 100%. Next.","Niente è al 100%. Avanti.", {red:true}),
+      O("It's very secure.","È molto sicuro.",
+        2,"Dodges. He asked yes or no: say no, and say what it is.","Eviti. Ha chiesto sì o no: di' no, e di' cos'è.",
+        "That's not what I asked.","Non è quello che ho chiesto."),
+      O("What do you mean by tamper-proof?","Cosa intende per tamper-proof?",
+        -6,"Answering a question with a question looks like you don't know.","Rispondere a una domanda con una domanda sembra che tu non sappia.",
+        "I mean what the word means.","Intendo quello che vuol dire la parola.")
+    ]},
+  { say:_("Our regulator will ask about the AI Act. Are you AI Act ready?","La nostra autorità ci chiederà dell'AI Act. Siete AI Act ready?"),
+    tip:_("Second trap. Evidence for Art. 12 and 14; never \"ready\" or \"compliant\".","Secondo trabocchetto. Prove per gli art. 12 e 14; mai \"ready\" o \"conforme\"."),
+    opts:[
+      O("Nobody honest can say \"AI Act ready\" for you. Sigillo gives evidence for record-keeping (Article 12) and human oversight (Article 14): what the agent did and when, checkable by your auditors. Compliance is your bank's process; we give you proof for it.",
+        "Nessuno di onesto può dirle \"AI Act ready\". Sigillo dà prove per le registrazioni (articolo 12) e la sorveglianza umana (articolo 14): cosa ha fatto l'agente e quando, controllabile dai vostri revisori. La conformità è un percorso della vostra banca; noi diamo le prove.",
+        13,"Second trap passed, with the right articles and a clear role.","Secondo trabocchetto superato, con gli articoli giusti e un ruolo chiaro.",
+        "OK. You've done your homework.","Ok. Ha fatto i compiti."),
+      O("Yes, we are AI Act ready.","Sì, siamo AI Act ready.",
+        -15,"Forbidden phrase. He's testing you.","Frase vietata. Ti sta mettendo alla prova.",
+        "Ready for what, exactly? The rules aren't even all final.","Pronti a cosa, esattamente? Le regole non sono nemmeno tutte definitive.", {red:true}),
+      O("Partially.","In parte.",
+        2,"Vague. Explain what you give: evidence for record-keeping.","Vago. Spiega cosa date: prove per le registrazioni.",
+        "Which part?","Quale parte?"),
+      O("The AI Act doesn't apply to banks yet.","L'AI Act non si applica ancora alle banche.",
+        -7,"You don't know that, and a bank checks statements like this.","Non lo sai, e una banca controlla affermazioni così.",
+        "Our legal department would be surprised.","Il nostro ufficio legale sarebbe sorpreso.")
+    ]},
+  { say:_("Can your system stop our agent from approving a bad loan?","Il vostro sistema può impedire al nostro agente di approvare un prestito sbagliato?"),
+    tip:_("No. One product: the proof, not the control.","No. Un solo prodotto: la prova, non il controllo."),
+    opts:[
+      O("No. Sigillo records; it doesn't control or block. Your controls stay in your systems. Sigillo gives proof afterwards of what the agent did, which version did it, and when.",
+        "No. Sigillo registra; non controlla e non blocca. I controlli restano nei vostri sistemi. Sigillo dà la prova dopo di cosa ha fatto l'agente, quale versione e quando.",
+        12,"Clear, honest, and it keeps the product focused.","Chiara, onesta, e tiene il prodotto concentrato.",
+        "Good. I don't want another control layer anyway.","Bene. Tanto non voglio un altro livello di controllo."),
+      O("Yes, it blocks risky decisions.","Sì, blocca le decisioni rischiose.",
+        -14,"Overpromise. Sigillo never blocks.","Promessa eccessiva. Sigillo non blocca mai.",
+        "Based on what rules? Yours?","In base a quali regole? Le vostre?", {red:true}),
+      O("Maybe in the future.","Forse in futuro.",
+        -3,"Don't promise future features. Sigillo is one product: the proof.","Non promettere funzioni future. Sigillo è un solo prodotto: la prova.",
+        "I don't buy futures.","Non compro il futuro.")
+    ]},
+  { say:_("If one of our developers removes your code from the agent, your \"proof\" is worthless. Right?","Se uno dei nostri sviluppatori toglie il vostro codice dall'agente, la vostra \"prova\" non vale niente. Giusto?"),
+    tip:_("Agree with the true part, then show what's still protected.","Dai ragione sulla parte vera, poi mostra cosa resta protetto."),
+    opts:[
+      O("You're right that Sigillo can't prove the agent recorded everything if someone removes it on purpose. But it doesn't happen silently: we see when an agent goes quiet, and every code change leaves a new program fingerprint in the diary. The gap is visible, and everything recorded before stays proven.",
+        "Ha ragione: Sigillo non può provare che l'agente abbia registrato tutto se qualcuno lo toglie apposta. Ma non succede di nascosto: vediamo quando un agente tace, e ogni cambio di codice lascia una nuova impronta del programma nel diario. Il buco si vede, e tutto quello registrato prima resta provato.",
+        14,"You agreed with the true part, then showed what stays protected. Best answer for a skeptic.","Hai dato ragione sulla parte vera, poi hai mostrato cosa resta protetto. La risposta migliore per uno scettico.",
+        "That's the first honest answer I've had on this from a vendor.","È la prima risposta onesta che ricevo su questo da un fornitore."),
+      O("It's impossible to remove.","È impossibile toglierlo.",
+        -15,"False. Anyone who controls the code can remove it.","Falso. Chiunque controlli il codice lo può togliere.",
+        "Our developers would enjoy proving you wrong.","I nostri sviluppatori si divertirebbero a smentirla.", {red:true}),
+      O("Your developers wouldn't do that.","I vostri sviluppatori non lo farebbero.",
+        -6,"He's thinking about risk, not about his people. Answer the risk.","Lui pensa al rischio, non alle persone. Rispondi sul rischio.",
+        "You don't know my developers.","Lei non conosce i miei sviluppatori."),
+      O("Then you'd have a bigger problem than Sigillo.","Allora avreste un problema più grande di Sigillo.",
+        3,"Clever, but it dodges.","Furba, ma evita la domanda.",
+        "Nice line. Not an answer.","Bella frase. Non è una risposta.")
+    ]},
+  { say:_("Other companies do signed receipts for AI agents too. Why you?","Anche altre aziende fanno ricevute firmate per agenti AI. Perché voi?"),
+    tip:_("Facts, no attacks, invite comparison.","Fatti, nessun attacco, invita al confronto."),
+    opts:[
+      O("Yes, some do similar things. Our differences: it records your agent as it is, with three lines; your agent never holds the signing key; any auditor checks the proof with a free independent tool; and we're European, with the server in Italy. Compare us in a pilot.",
+        "Sì, alcune fanno cose simili. Le nostre differenze: registriamo il vostro agente così com'è, con tre righe; l'agente non tiene mai la chiave di firma; qualsiasi revisore controlla la prova con uno strumento gratuito e indipendente; e siamo europei, con il server in Italia. Ci confronti in un pilota.",
+        12,"Facts, no attacks, and an invitation to test.","Fatti, nessun attacco, e un invito a provare.",
+        "Fair. I'll note that.","Giusto. Me lo segno."),
+      O("They're all bad copies of us.","Sono tutte brutte copie di noi.",
+        -6,"Never attack competitors. It sounds insecure and he may know them.","Non attaccare mai i concorrenti. Sembri insicura e lui potrebbe conoscerli.",
+        "I've met two of them. They seemed competent.","Ne ho incontrati due. Mi sono sembrati competenti."),
+      O("We're cheaper.","Costiamo meno.",
+        2,"You don't know their prices. Talk about your strengths.","Non conosci i loro prezzi. Parla dei tuoi punti forti.",
+        "How do you know?","Come lo sa?")
+    ]},
+  { hardOnly:true,
+    say:_("Your time stamps. Qualified eIDAS or not? Don't lie to me.","Le vostre marche temporali. Qualificate eIDAS o no? Non mi menta."),
+    tip:_("Not today. Planned. No date.","Oggi no. Prevista. Nessuna data."),
+    opts:[
+      O("Not today. Our hourly stamp is from outside companies, not qualified: valid evidence, weighed by a judge. A qualified eIDAS stamp in the paid plans is planned; I won't give you a date until our technical lead confirms it.",
+        "Oggi no. La nostra marca oraria viene da aziende esterne, non qualificata: prova valida, valutata dal giudice. Una marca qualificata eIDAS nei piani a pagamento è prevista; non le do una data finché il nostro responsabile tecnico non la conferma.",
+        14,"Straight, honest, no date promised.","Diretta, onesta, nessuna data promessa.",
+        "Good. I already knew. I wanted to see if you'd say it.","Bene. Lo sapevo già. Volevo vedere se me lo diceva."),
+      O("Yes, qualified.","Sì, qualificate.",
+        -16,"False. And he told you he'd check.","Falso. E ti ha detto che controllerà.",
+        "I checked before this call. They are not.","Ho controllato prima della chiamata. Non lo sono.", {red:true}),
+      O("I'll check and get back to you.","Verifico e le faccio sapere.",
+        1,"You know the answer. Say it.","La risposta la sai. Dilla.",
+        "You don't know?","Non lo sa?")
+    ]},
+  { say:_("Price, for a bank?","Il prezzo, per una banca?"),
+    tip:_("Regulated, from €390 a month, billed yearly.","Regolato, da 390 € al mese, pagato all'anno."),
+    opts:[
+      O("Regulated plan: from €390 a month, billed yearly. Unlimited agents up to one million records a month, dedicated server or key, SLA, signed DPA, help during audits. The final quote depends on your setup; our team prepares it.",
+        "Piano Regolato: da 390 € al mese, pagato all'anno. Agenti illimitati fino a un milione di ricevute al mese, server o chiave dedicati, SLA, DPA firmato, aiuto negli audit. Il preventivo finale dipende dalla vostra configurazione; lo prepara il nostro team.",
+        12,"Right plan, what a bank needs, honest about the final quote.","Il piano giusto, ciò che serve a una banca, onesta sul preventivo finale.",
+        "Within budget for a pilot.","Nel budget per un pilota."),
+      O("€49 a month.","49 € al mese.",
+        -9,"Underselling to a bank looks unserious, and Starter has no SLA or DPA.","Svendersi a una banca sembra poco serio, e lo Starter non ha SLA né DPA.",
+        "For a bank? Then what's the catch?","Per una banca? Allora dov'è il trucco?"),
+      O("Let's discuss after the pilot.","Ne parliamo dopo il pilota.",
+        2,"Banks need a budget number early.","Le banche hanno bisogno presto di un numero per il budget.",
+        "I need a number to get a pilot approved.","Mi serve un numero per far approvare un pilota.")
+    ]},
+  { closing:true,
+    say:_("Convince me in one sentence why I should spend more time on this.","Mi convinca in una frase perché dovrei perderci altro tempo."),
+    tip:_("Invite him to test it: skeptics want to try to break things.","Invitalo a provarlo: gli scettici vogliono provare a rompere le cose."),
+    opts:[
+      O("Because you can test it with no risk: one agent, a 3-month pilot, and at the end your own auditor tries to break the proof. If they can't, you have your answer.",
+        "Perché può provarlo senza rischi: un agente, un pilota di 3 mesi, e alla fine il vostro revisore prova a rompere la prova. Se non ci riesce, ha la sua risposta.",
+        8,"Invites him to test, which is exactly what a skeptic wants.","Lo inviti a provare, che è esattamente ciò che vuole uno scettico.",
+        "(He almost smiles.) Send me the pilot terms.","(Quasi sorride.) Mi mandi le condizioni del pilota.", {c:"ask"}),
+      O("Because if you don't, your competitors will.","Perché se non lo fate voi, lo faranno i vostri concorrenti.",
+        -10,"Fear and pressure don't work on him.","Paura e pressione con lui non funzionano.",
+        "I've heard that sentence fifty times this year.","Ho sentito questa frase cinquanta volte quest'anno.", {c:"push"}),
+      O("Because it's a great product.","Perché è un ottimo prodotto.",
+        1,"Empty. Give him a reason he can test.","Vuota. Dagli un motivo che può verificare.",
+        "They all are.","Lo sono tutti.", {c:"soft"})
+    ]}
+  ]}
+];
+</script>
+<script>
+"use strict";
+/* ================= ENGINE ================= */
+var $ = function(s, r){ return (r||document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i]; a[i]=a[j]; a[j]=x; } return a; }
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+/* ---------- saved progress (stays in this browser only) ---------- */
+var STORE = "sigilloSalesCoach.v1";
+var PROG = { learn:{}, best:{}, quizBest:null, printed:false, calls:0, lang:null };
+try { var saved = JSON.parse(localStorage.getItem(STORE) || "null"); if (saved) for (var k in saved) PROG[k] = saved[k]; } catch(e){}
+function save(){ try { localStorage.setItem(STORE, JSON.stringify(PROG)); } catch(e){} }
+if (PROG.lang) LANG = PROG.lang;
+var RANK = {lost:0, demo:1, sale:2};
+var ICON = {sale:"🏆", demo:"📅", lost:"✖️"};
+
+/* ---------- navigation ---------- */
+var VIEW = "home";
+function go(v){
+  VIEW = v;
+  ["home","learn","practice","quiz","cheat"].forEach(function(id){ $("#"+id).classList.toggle("hidden", id !== v); });
+  $$("#tabs button").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-go") === v); });
+  render();
+  window.scrollTo(0,0);
+}
+function render(){
+  document.documentElement.lang = LANG;
+  $$("[data-i]").forEach(function(el){ el.textContent = t(UI[el.getAttribute("data-i")]); });
+  $$(".lang button").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-lang") === LANG); });
+  if (VIEW === "home") renderHome();
+  if (VIEW === "learn") renderLearn();
+  if (VIEW === "practice") renderPractice();
+  if (VIEW === "quiz") renderQuiz();
+  if (VIEW === "cheat") renderCheat();
+}
+document.addEventListener("click", function(e){
+  var g = e.target.closest("[data-go]"); if (g){ go(g.getAttribute("data-go")); return; }
+  var l = e.target.closest("[data-lang]"); if (l){ LANG = l.getAttribute("data-lang"); PROG.lang = LANG; save(); render(); }
+});
+
+/* ---------- HOME ---------- */
+function pathState(){
+  var allLearn = CHAPTERS.every(function(c){ return PROG.learn[c.id]; });
+  var b = PROG.best;
+  function res(p,d){ return b[p] && b[p][d]; }
+  var lucia = ["easy","normal","hard"].some(function(d){ return res("lucia",d); });
+  var allNormal = PERSONAS.every(function(p){ var r = res(p.id,"normal") || res(p.id,"hard"); return r && r !== "lost"; });
+  var boss = res("stefano","hard") && res("stefano","hard") !== "lost";
+  return [allLearn, lucia, PROG.quizBest !== null && PROG.quizBest >= 8, allNormal, !!boss, PROG.printed];
+}
+function renderHome(){
+  var st = pathState();
+  var steps = [["path1","path1d","learn"],["path2","path2d","practice:lucia:easy"],["path3","path3d","quiz"],["path4","path4d","practice"],["path5","path5d","practice:stefano:hard"],["path6","path6d","cheat"]];
+  var h = '<div class="hero"><div class="bigseal"></div><h1>'+t(UI.hello)+'</h1><p>'+t(UI.heroP)+'</p></div>';
+  h += '<div class="card" style="margin-top:14px"><div class="oneline" style="margin:0">'+t(UI.golden)+'</div></div>';
+  h += '<div class="grid g2" style="margin-top:14px"><div><h2 style="margin-top:6px">'+t(UI.pathTitle)+'</h2><div class="path">';
+  steps.forEach(function(s,i){
+    h += '<div class="st'+(st[i]?' done':'')+'" data-path="'+s[2]+'"><div class="num">'+(st[i]?'✓':(i+1))+'</div><div><b>'+t(UI[s[0]])+'</b><span class="small muted">'+t(UI[s[1]])+'</span></div></div>';
+  });
+  h += '</div></div><div><h2 style="margin-top:6px">'+t(UI.stats)+'</h2><div class="card" style="padding:12px"><table class="t"><tr><th></th><th>'+t(UI.easy)+'</th><th>'+t(UI.normal)+'</th><th>'+t(UI.hard)+'</th></tr>';
+  PERSONAS.forEach(function(p){
+    h += '<tr><td><b>'+esc(p.name.replace("Dott.ssa ",""))+'</b></td>';
+    ["easy","normal","hard"].forEach(function(d){ var r = PROG.best[p.id] && PROG.best[p.id][d]; h += '<td title="'+(r?t(UI[r]):"")+'">'+(r?ICON[r]:'<span class="muted">·</span>')+'</td>'; });
+    h += '</tr>';
+  });
+  h += '</table><p class="small muted" style="margin:8px 0 0">🏆 '+t(UI.sale)+' · 📅 '+t(UI.demo)+' · ✖️ '+t(UI.lost)+'</p>';
+  h += '<p class="small" style="margin:8px 0 0">'+t(UI.quizTitle)+': <b>'+(PROG.quizBest===null?'–':PROG.quizBest+'/10')+'</b> · '+t(_("Calls made","Chiamate fatte"))+': <b>'+PROG.calls+'</b></p>';
+  h += '<div class="btnrow"><button class="btn ghost sm" id="resetBtn">'+t(UI.reset)+'</button></div></div></div></div>';
+  $("#home").innerHTML = h;
+  $$("#home [data-path]").forEach(function(el){ el.onclick = function(){
+    var p = el.getAttribute("data-path").split(":");
+    if (p[0] === "practice" && p[1]){ SIM.diff = p[2]; go("practice"); startCall(p[1]); } else go(p[0]);
+  };});
+  $("#resetBtn").onclick = function(){ PROG = { learn:{}, best:{}, quizBest:null, printed:false, calls:0, lang:LANG }; save(); renderHome(); };
+}
+
+/* ---------- LEARN ---------- */
+var CH = 0;
+function renderLearn(){
+  var c = CHAPTERS[CH]; PROG.learn[c.id] = true; save();
+  var h = '<h1>'+t(UI.learnTitle)+'</h1><div class="learnnav">';
+  CHAPTERS.forEach(function(x,i){ h += '<button data-ch="'+i+'" class="'+(i===CH?'on ':'')+(PROG.learn[x.id]?'seen':'')+'">'+t(x.title)+'</button>'; });
+  h += '</div><div class="card"><h2>'+t(c.title)+'</h2>'+c.body()+'<div class="btnrow">';
+  if (CH > 0) h += '<button class="btn ghost" id="chPrev">← '+t(UI.prev)+'</button>';
+  if (CH < CHAPTERS.length-1) h += '<button class="btn" id="chNext">'+t(UI.next)+' →</button>';
+  else h += '<span class="pill good" style="align-self:center">'+t(UI.learnDone)+'</span><button class="btn wax" data-go="practice">'+t(UI.goPractice)+' →</button>';
+  h += '</div></div>';
+  $("#learn").innerHTML = h;
+  $$("#learn [data-ch]").forEach(function(b){ b.onclick = function(){ CH = +b.getAttribute("data-ch"); renderLearn(); window.scrollTo(0,0); }; });
+  if ($("#chPrev")) $("#chPrev").onclick = function(){ CH--; renderLearn(); window.scrollTo(0,0); };
+  if ($("#chNext")) $("#chNext").onclick = function(){ CH++; renderLearn(); window.scrollTo(0,0); };
+}
+
+/* ---------- PRACTICE ---------- */
+var SIM = { diff:"normal", p:null };
+var BASE = {easy:55, normal:45, hard:38};
+var NEG = {easy:0.6, normal:1, hard:1.4};
+function quality(d){ return d >= 8 ? "best" : d >= 1 ? "okk" : d > -9 ? "weak" : "bad"; }
+function qTitle(q){ return t({best:UI.fbBest, okk:UI.fbOk, weak:UI.fbWeak, bad:UI.fbBad}[q]); }
+function mood(v){ return v < 30 ? "😠" : v < 45 ? "😒" : v < 60 ? "😐" : v < 75 ? "🙂" : "😀"; }
+function personaById(id){ for (var i=0;i<PERSONAS.length;i++) if (PERSONAS[i].id===id) return PERSONAS[i]; }
+function nodeById(p,id){ for (var i=0;i<p.nodes.length;i++) if (p.nodes[i].id===id) return p.nodes[i]; }
+function bestOpt(n){ var b = n.opts[0]; n.opts.forEach(function(o){ if (o.d > b.d) b = o; }); return b; }
+
+function renderPractice(){
+  if (SIM.p) { renderCall(); return; }
+  var h = '<h1>'+t(UI.nav_practice)+'</h1><h3>'+t(UI.pickDiff)+'</h3><div class="diff">';
+  ["easy","normal","hard"].forEach(function(d){ h += '<button data-diff="'+d+'" class="'+(SIM.diff===d?'on':'')+'"><b>'+t(UI[d])+'</b><span class="small muted">'+t(UI[d+"D"])+'</span></button>'; });
+  h += '</div><h3>'+t(UI.pickPersona)+'</h3><div class="grid g2">';
+  PERSONAS.forEach(function(p){
+    var b = PROG.best[p.id] || {};
+    h += '<div class="card persona" data-persona="'+p.id+'"><div class="phead"><div class="av" style="background:'+p.color+'">'+p.initials+'</div><div><b>'+esc(p.name)+' '+p.flag+'</b><span class="small muted">'+t(p.role)+'</span></div></div>'+
+      '<div><span class="pill">'+t(p.icp)+'</span> <span class="stars" title="difficulty">'+"★★★★★".slice(0,p.stars)+'<span style="color:#ddd">'+"★★★★★".slice(p.stars)+'</span></span>'+(p.boss?' <span class="pill wax">BOSS</span>':'')+'</div>'+
+      '<div class="small">'+t(p.personality)+'</div>'+
+      '<div class="fear"><b>'+t(UI.fears)+':</b> '+t(p.fears)+'</div>'+
+      '<div class="fear"><b>'+t(UI.target)+':</b> '+t(p.plan)+'</div>'+
+      '<div class="res muted">'+t(UI.best)+': '+["easy","normal","hard"].map(function(d){ return t(UI[d])+' '+(b[d]?ICON[b[d]]:'·'); }).join(' &nbsp; ')+'</div>'+
+      '<div><button class="btn sm">'+t(UI.start)+' →</button></div></div>';
+  });
+  h += '</div>';
+  $("#practice").innerHTML = h;
+  $$("#practice [data-diff]").forEach(function(b){ b.onclick = function(){ SIM.diff = b.getAttribute("data-diff"); renderPractice(); }; });
+  $$("#practice [data-persona]").forEach(function(c){ c.onclick = function(){ startCall(c.getAttribute("data-persona")); }; });
+}
+
+function startCall(id){
+  var p = personaById(id);
+  SIM.p = p;
+  SIM.queue = p.nodes.filter(function(n){ return !n.branch && (!n.hardOnly || SIM.diff === "hard"); });
+  SIM.idx = 0;
+  SIM.trust = clamp(BASE[SIM.diff] + p.adj, 10, 90);
+  SIM.hist = [SIM.trust];
+  SIM.log = [];
+  SIM.red = 0;
+  SIM.phase = "choose";
+  SIM.order = shuffle(SIM.queue[0].opts.map(function(_o,i){ return i; }));
+  SIM.outcome = null;
+  PROG.calls++; save();
+  if (VIEW !== "practice") go("practice"); else renderPractice();
+}
+
+function meterHTML(){
+  var blind = SIM.diff === "hard" && !SIM.outcome;
+  var v = SIM.trust;
+  return '<div class="'+(blind?'blind':'')+'"><div style="display:flex;align-items:center;gap:10px"><div class="mood">'+(blind?'🤔':mood(v))+'</div><div><div class="small muted">'+t(UI.trust)+'</div><div class="trustnum">'+(blind?'?':Math.round(v))+'</div></div></div>'+
+   '<div class="meter"><div class="meterbar"><div class="lines"><i style="flex:45"></i><i style="flex:30"></i><i style="flex:25"></i></div><div class="mask" style="width:'+(100-v)+'%"></div></div>'+
+   '<div class="meterlbl"><span>'+t(UI.lost)+'</span><span>'+t(_("Demo","Demo"))+'</span><span>'+t(UI.sale)+'</span></div></div></div>'+
+   (blind?'<p class="small muted">'+t(UI.trustHidden)+'</p>':'');
+}
+
+function sideHTML(){
+  var p = SIM.p;
+  var h = '<div class="card side"><div class="phead"><div class="av" style="background:'+p.color+'">'+p.initials+'</div><div><span class="small muted">'+t(UI.callWith)+'</span><b>'+esc(p.name)+' '+p.flag+'</b></div></div>'+
+    '<p class="small muted" style="margin:8px 0">'+t(p.role)+'</p>'+meterHTML();
+  h += '<div class="sideextra"><div class="flags">'+(SIM.diff!=="hard"||SIM.outcome ? '🚩 '+SIM.red+' / 2 · <span class="muted small">'+t(UI.redflagInfo)+'</span>' : '')+'</div>';
+  h += '<p class="small" style="margin-top:10px"><b>'+t(UI.fears)+':</b> '+t(p.fears)+'</p><p class="small"><b>'+t(UI.wants)+':</b> '+t(p.wants)+'</p>';
+  h += '</div><p class="small"><span class="pill">'+t(UI[SIM.diff])+'</span>'+(SIM.diff!=="hard"||SIM.outcome?' <span class="small">🚩 '+SIM.red+'/2</span>':'')+'</p>';
+  h += '<button class="btn ghost sm" id="quitCall">'+t(UI.quit)+'</button></div>';
+  return h;
+}
+
+function bubble(who, text){
+  var p = SIM.p;
+  if (who === "me") return '<div class="msg me"><div class="av">'+t(UI.you).charAt(0)+'</div><div class="bubble">'+esc(text)+'</div></div>';
+  return '<div class="msg"><div class="av" style="background:'+p.color+'">'+p.initials+'</div><div class="bubble">'+esc(text)+'</div></div>';
+}
+function feedbackHTML(entry){
+  var o = entry.opt, q = quality(o.d);
+  if (SIM.diff === "hard" && !SIM.outcome) return '<div class="sys">'+t(UI.noted)+'</div>';
+  var d = entry.applied;
+  var h = '<div class="fb '+q+'"><h4>'+qTitle(q)+'<span class="delta '+(d>=0?'up':'down')+'">'+(d>=0?'+':'')+d+'</span>'+(o.red?'<span class="redflag">🚩 '+t(UI.redflag)+'</span>':'')+'</h4><div>'+t(o.f)+'</div>';
+  if (q !== "best"){ var b = bestOpt(entry.node); h += '<div class="better"><b>'+t(UI.betterWas)+'</b> '+esc(t(b.t))+'</div>'; }
+  return h + '</div>';
+}
+
+function renderCall(){
+  if (SIM.outcome){ renderOutcome(); return; }
+  var p = SIM.p;
+  var h = '<div class="sim">'+sideHTML()+'<div class="card"><div class="chat" id="chat">';
+  h += '<div class="sys">📞 '+t(p.intro)+'</div>';
+  SIM.log.forEach(function(e, i){
+    h += bubble("p", t(e.node.say));
+    if (SIM.phase !== "choose" && i === SIM.log.length-1) h += '<div id="anchor"></div>';
+    h += bubble("me", t(e.opt.t));
+    if (e.opt.r) h += bubble("p", t(e.opt.r));
+    if (SIM.diff !== "hard" || i === SIM.log.length-1) h += feedbackHTML(e);
+  });
+  if (SIM.phase === "choose"){
+    var n = SIM.queue[SIM.idx];
+    h += '<div id="anchor"></div>' + bubble("p", t(n.say));
+    if (SIM.diff === "easy" && n.tip) h += '<div class="tip">💡 <b>'+t(UI.coach)+':</b> '+t(n.tip)+'</div>';
+    h += '<div class="opts">';
+    SIM.order.forEach(function(oi, k){ h += '<button class="opt" data-opt="'+oi+'"><span class="k">'+"ABCD".charAt(k)+'</span>'+esc(t(n.opts[oi].t))+'</button>'; });
+    h += '</div>';
+  } else {
+    h += '<div class="btnrow"><button class="btn" id="contBtn">'+t(UI.cont)+' →</button></div>';
+  }
+  h += '</div></div></div>';
+  $("#practice").innerHTML = h;
+  $("#quitCall").onclick = function(){ SIM.p = null; renderPractice(); };
+  $$("#practice [data-opt]").forEach(function(b){ b.onclick = function(){ choose(+b.getAttribute("data-opt")); }; });
+  if ($("#contBtn")) { $("#contBtn").onclick = advance; }
+  var a = $("#anchor"); if (a && SIM.log.length) a.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function choose(oi){
+  var n = SIM.queue[SIM.idx], o = n.opts[oi];
+  var d = o.d > 0 ? (SIM.diff === "hard" ? Math.round(o.d * 0.85) : o.d) : Math.round(o.d * NEG[SIM.diff]);
+  SIM.trust = clamp(SIM.trust + d, 0, 100);
+  SIM.hist.push(SIM.trust);
+  if (o.red) SIM.red++;
+  SIM.log.push({node:n, opt:o, applied:d});
+  if (o.next){ var b = nodeById(SIM.p, o.next); if (b) SIM.queue.splice(SIM.idx+1, 0, b); }
+  SIM.phase = "feedback";
+  if (SIM.diff !== "hard"){
+    var f = document.createElement("div"); f.className = "float"; f.style.color = d >= 0 ? "#1d7a46" : "#b3261e";
+    f.textContent = (d>=0?"+":"") + d; document.body.appendChild(f); setTimeout(function(){ f.remove(); }, 1200);
+  }
+  renderCall();
+}
+
+function advance(){
+  var last = SIM.log[SIM.log.length-1];
+  if (SIM.red >= 2 || last.node.closing || SIM.idx >= SIM.queue.length-1){ finish(); return; }
+  SIM.idx++;
+  SIM.order = shuffle(SIM.queue[SIM.idx].opts.map(function(_o,i){ return i; }));
+  SIM.phase = "choose";
+  renderCall();
+}
+
+function finish(){
+  var T = SIM.trust, last = SIM.log[SIM.log.length-1], c = last.node.closing ? last.opt.c : null, out, note = null;
+  if (SIM.red >= 2){ out = "lost"; note = UI.lostFlags; }
+  else if (T >= 75){
+    if (c === "ask") out = "sale";
+    else if (c === "push"){ out = "demo"; note = UI.closeTipPush; }
+    else { out = "demo"; note = UI.closeTipSoft; }
+  }
+  else if (T >= 45){ if (c === "push"){ out = "lost"; note = UI.closeTipPush; } else out = "demo"; }
+  else out = "lost";
+  SIM.outcome = out; SIM.note = note;
+  var b = PROG.best[SIM.p.id] = PROG.best[SIM.p.id] || {};
+  if (!b[SIM.diff] || RANK[out] > RANK[b[SIM.diff]]) b[SIM.diff] = out;
+  save();
+  renderOutcome();
+  window.scrollTo(0,0);
+}
+
+function sparkSVG(){
+  var H = SIM.hist, w = 600, h = 80, n = H.length;
+  var pts = H.map(function(v,i){ return [(n===1?0:i*(w-20)/(n-1))+10, h-6-(v/100)*(h-12)]; });
+  var y = function(v){ return h-6-(v/100)*(h-12); };
+  var s = '<svg class="spark" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">';
+  s += '<line x1="0" x2="'+w+'" y1="'+y(75)+'" y2="'+y(75)+'" stroke="#3a9b5f" stroke-dasharray="4 4" stroke-width="1"/>';
+  s += '<line x1="0" x2="'+w+'" y1="'+y(45)+'" y2="'+y(45)+'" stroke="#e3a33a" stroke-dasharray="4 4" stroke-width="1"/>';
+  s += '<polyline fill="none" stroke="#2e4290" stroke-width="3" stroke-linejoin="round" points="'+pts.map(function(p){return p.join(",");}).join(" ")+'"/>';
+  pts.forEach(function(p){ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="#2e4290"/>'; });
+  return s + '</svg>';
+}
+
+function renderOutcome(){
+  var p = SIM.p, out = SIM.outcome;
+  var h = '<div class="sim">'+sideHTML()+'<div>';
+  h += '<div class="outcome '+out+'"><div class="big">'+ICON[out]+'</div><h2>'+t(UI[out])+'</h2><p style="margin:0">'+t(p.outcomes[out])+'</p><p style="margin:8px 0 0;opacity:.9">'+t(UI.finalTrust)+': <b>'+Math.round(SIM.trust)+'</b>/100</p></div>';
+  h += '<div class="card" style="margin-top:14px">';
+  if (SIM.note) h += '<div class="note warn">'+t(SIM.note)+'</div>';
+  h += '<h3>'+t(UI.lesson)+'</h3><p>'+t(p.lesson)+'</p>'+sparkSVG();
+  h += '<div class="btnrow"><button class="btn" id="againBtn">↻ '+t(UI.again)+'</button>'+(SIM.diff!=="hard"?'<button class="btn wax" id="harderBtn">'+t(UI.harder)+'</button>':'')+'<button class="btn ghost" id="otherBtn">'+t(UI.other)+'</button></div></div>';
+  h += '<div class="card review"><h3>'+t(UI.review)+'</h3>';
+  SIM.log.forEach(function(e){
+    var q = quality(e.opt.d), b = bestOpt(e.node);
+    h += '<div class="ri"><div class="q">'+esc(t(e.node.say))+'</div><div style="margin:4px 0"><span class="pill '+(q==="best"?"good":q==="bad"?"wax":"gold")+'">'+qTitle(q)+' '+(e.applied>=0?'+':'')+e.applied+'</span>'+(e.opt.red?'<span class="redflag">🚩</span>':'')+'</div>'+
+      '<div class="small"><b>'+t(UI.yourAns)+':</b> '+esc(t(e.opt.t))+'</div><div class="small muted" style="margin-top:3px">'+t(e.opt.f)+'</div>'+
+      (q!=="best"?'<div class="small" style="margin-top:4px;color:#1d7a46"><b>'+t(UI.betterWas)+'</b> '+esc(t(b.t))+'</div>':'')+'</div>';
+  });
+  h += '</div></div></div>';
+  $("#practice").innerHTML = h;
+  $("#quitCall").onclick = function(){ SIM.p = null; renderPractice(); };
+  $("#againBtn").onclick = function(){ startCall(p.id); };
+  if ($("#harderBtn")) $("#harderBtn").onclick = function(){ SIM.diff = SIM.diff === "easy" ? "normal" : "hard"; startCall(p.id); };
+  $("#otherBtn").onclick = function(){ SIM.p = null; renderPractice(); };
+}
+
+/* ---------- QUIZ ---------- */
+var QZ = null;
+function renderQuiz(){
+  var h = '<h1>'+t(UI.quizTitle)+'</h1>';
+  if (!QZ){
+    h += '<div class="card"><p>'+t(UI.quizIntro)+'</p>'+(PROG.quizBest!==null?'<p>'+t(UI.qBest)+': <b>'+PROG.quizBest+'/10</b></p>':'')+'<button class="btn" id="qStart">'+t(UI.quizStart)+'</button></div>';
+    $("#quiz").innerHTML = h; $("#qStart").onclick = function(){
+      QZ = { qs: shuffle(QUIZ).slice(0,10).map(function(q){ return {q:q, order:shuffle(q.o.map(function(_x,i){return i;}))}; }), i:0, score:0, ans:null, missed:[] };
+      renderQuiz(); };
+    return;
+  }
+  if (QZ.i >= QZ.qs.length){
+    var s = QZ.score, msg = s===10?UI.q10:s>=8?UI.q8:s>=5?UI.q5:UI.q0;
+    if (PROG.quizBest === null || s > PROG.quizBest){ PROG.quizBest = s; save(); }
+    h += '<div class="card" style="text-align:center"><div style="font-size:3rem">'+(s>=8?'🏆':s>=5?'👍':'📚')+'</div><h2>'+t(UI.score)+': '+s+'/10</h2><p>'+t(msg)+'</p></div>';
+    if (QZ.missed.length){
+      h += '<div class="card review" style="margin-top:14px">';
+      QZ.missed.forEach(function(q){ h += '<div class="ri"><b>'+esc(t(q.q))+'</b><div class="small" style="color:#1d7a46">✓ '+esc(t(q.o[q.a]))+'</div><div class="small muted">'+t(q.e)+'</div></div>'; });
+      h += '</div>';
+    }
+    h += '<div class="btnrow"><button class="btn" id="qAgain">↻ '+t(UI.again)+'</button><button class="btn ghost" data-go="learn">'+t(UI.nav_learn)+'</button></div>';
+    $("#quiz").innerHTML = h; $("#qAgain").onclick = function(){ QZ = null; renderQuiz(); $("#qStart").click(); };
+    return;
+  }
+  var cur = QZ.qs[QZ.i], q = cur.q;
+  h += '<div class="card"><div class="small muted">'+t(UI.qOf)+' '+(QZ.i+1)+' '+t(UI.of)+' 10</div><div class="qprog"><i style="width:'+(QZ.i*10)+'%"></i></div><h2>'+esc(t(q.q))+'</h2>';
+  cur.order.forEach(function(oi){
+    var cls = "";
+    if (QZ.ans !== null){ if (oi === q.a) cls = "right"; else if (oi === QZ.ans) cls = "wrong"; }
+    h += '<button class="qopt '+cls+'" data-q="'+oi+'"'+(QZ.ans!==null?' disabled':'')+'>'+esc(t(q.o[oi]))+'</button>';
+  });
+  if (QZ.ans !== null){
+    var ok = QZ.ans === q.a;
+    h += '<div class="fb '+(ok?'best':'bad')+'" style="margin-top:10px"><h4>'+t(ok?UI.correct:UI.wrong)+'</h4>'+t(q.e)+'</div><div class="btnrow"><button class="btn" id="qNext">'+t(QZ.i===9?UI.qEnd:UI.qNext)+' →</button></div>';
+  }
+  h += '</div>';
+  $("#quiz").innerHTML = h;
+  $$("#quiz [data-q]").forEach(function(b){ b.onclick = function(){ if (QZ.ans!==null) return; QZ.ans = +b.getAttribute("data-q"); if (QZ.ans === q.a) QZ.score++; else QZ.missed.push(q); renderQuiz(); }; });
+  if ($("#qNext")) $("#qNext").onclick = function(){ QZ.i++; QZ.ans = null; renderQuiz(); window.scrollTo(0,0); };
+}
+
+/* ---------- CHEAT SHEET ---------- */
+var FLASH = null;
+function renderCheat(){
+  var h = '<div class="noprint" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px"><h1 style="margin:0;flex:1">'+t(UI.cheatTitle)+'</h1>'+
+    '<button class="btn wax" id="printBtn">🖨 '+t(UI.print)+'</button><button class="btn ghost" id="flashBtn">'+t(FLASH?UI.tableBtn:UI.flashBtn)+'</button></div>';
+  if (FLASH){
+    var o = OBJ[FLASH.order[FLASH.i]];
+    h += '<p class="muted noprint">'+t(UI.flashTap)+' ('+(FLASH.i+1)+'/'+OBJ.length+')</p><div class="card flash" id="flashCard"><div class="fq">'+esc(t(o.q))+'</div>';
+    if (FLASH.show) h += '<div class="fa"><div class="say"><b>'+t(UI.colAns)+'</b>'+esc(t(o.a))+'</div><div class="never"><b>'+t(UI.colNever)+'</b>'+esc(t(o.n))+'</div></div>';
+    h += '</div><div class="btnrow"><button class="btn" id="flashNext">'+t(UI.flashNext)+' →</button></div>';
+    $("#cheat").innerHTML = h;
+    $("#flashCard").onclick = function(){ FLASH.show = !FLASH.show; renderCheat(); };
+    $("#flashNext").onclick = function(){ FLASH.i = (FLASH.i+1) % OBJ.length; FLASH.show = false; renderCheat(); };
+  } else {
+    h += '<div class="card cheat"><div class="printonly"><h1>Sigillo · '+t(UI.cheatTitle)+'</h1></div>';
+    h += '<h2>'+t(UI.pitchTitle)+'</h2><div class="oneline">'+t(PITCH)+'</div>';
+    h += '<table class="t"><tr><th>'+t(UI.colObj)+'</th><th>'+t(UI.colAns)+'</th><th>'+t(UI.colNever)+'</th></tr>';
+    OBJ.forEach(function(o){ h += '<tr><td>'+esc(t(o.q))+'</td><td>'+esc(t(o.a))+'</td><td>'+esc(t(o.n))+'</td></tr>'; });
+    h += '</table><h2 style="margin-top:18px">'+t(UI.pricesTitle)+'</h2>'+plansHTML();
+    PLAN_NOTES.forEach(function(n){ h += '<div class="note small">'+t(n)+'</div>'; });
+    h += '<h2 style="margin-top:18px">'+t(UI.wordsTitle)+'</h2>'+wordsHTML();
+    h += '<div class="note" style="margin-top:12px">'+t(_("<b>Don't know?</b> \"Good question. I'll check with our technical lead and get back to you by tomorrow.\" Then ask Giovanni.","<b>Non sai?</b> \"Bella domanda. Verifico con il nostro responsabile tecnico e vi rispondo entro domani.\" Poi chiedi a Giovanni."))+'</div></div>';
+    $("#cheat").innerHTML = h;
+  }
+  $("#printBtn").onclick = function(){ if (FLASH){ FLASH = null; renderCheat(); } PROG.printed = true; save(); setTimeout(function(){ window.print(); }, 50); };
+  $("#flashBtn").onclick = function(){ FLASH = FLASH ? null : { order: shuffle(OBJ.map(function(_x,i){return i;})), i:0, show:false }; renderCheat(); };
+}
+
+/* ---------- start ---------- */
+go("home");
+</script>
+</body>
+</html>

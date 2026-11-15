@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-15: creato il simulatore di vendita per allenare Polina (file HTML unico, senza internet, inglese + italiano): 9 capitoli, 5 clienti tipo con chiamate a scelte e misuratore di fiducia, 3 livelli, quiz di 24 domande, scheda obiezioni stampabile. Nota [[Simulatore di vendita]]; file anche in `polina/` dei file del progetto. Provato nel browser (computer e telefono).
 - 2026-11-15: preparato il messaggio finale per Polina sui nuovi prezzi (Prova 5.000 ricevute, Starter 49 €, Professionale 149 €, Regolato da 390 €, eIDAS incluso in tutti i piani a pagamento con marca unica oraria); lo manda Giovanni. Prezzi da decidere con lei alla riunione, sito non cambiato. Nota [[Prezzo giusto dei piani]].
 - 2026-11-15: su richiesta di Giovanni realizzati impronta del programma nelle ricevute di collegamento, comando `python -m sigillo impronta`, `sigillo-verify program` e link per il revisore («Verifica qui» e «Scarica»): PR sigillo #155, **unita su `main` il 2026-11-15**; produzione non aggiornata (servono anche il Caddyfile nuovo e l'immagine del server). Test verdi. Nota [[Quale agente ha fatto il danno]].
 - 2026-11-15: spiegato a Giovanni come funzionano le marche qualificate eIDAS e perché uno standard nostro non avrebbe valore legale da solo; idea: licenza a un prestatore qualificato (InfoCert, Namirial, Aruba) e registri elettronici qualificati di eIDAS 2. Nota [[Legal and compliance]]. Solo spiegazione.

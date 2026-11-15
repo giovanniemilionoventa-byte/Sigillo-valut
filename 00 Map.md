@@ -43,7 +43,7 @@ flowchart TB
 [[Deployment]] · [[Backups and updates]] · [[Configuration]] · [[Limits and throttling]] · [[CI and release]] · [[Security model]] · [[Data protection]]
 
 ## Business (Italian)
-[[Business model and prices]] · [[Prezzo giusto dei piani]] · [[Legal and compliance]] · [[Partners and market]] · [[Working rules]] · [[Status and open items]]
+[[Business model and prices]] · [[Prezzo giusto dei piani]] · [[Simulatore di vendita]] · [[Legal and compliance]] · [[Partners and market]] · [[Working rules]] · [[Status and open items]]
 
 ## Reports and history
 [[Code defects]] · [[Cosa vede un attaccante sul server]] · [[L'agente può mentire a Sigillo]] · [[Quale agente ha fatto il danno]] · [[Proposta passaggio obbligato]] · [[Riprogettazione]] · [[registro-lavori]]
