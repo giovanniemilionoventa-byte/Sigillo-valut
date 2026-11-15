@@ -18,7 +18,7 @@ Tappe M1-M9, N1-N6 e fasi pilota 1-11 fatte. 1713 test Node. Formato ricevuta v4
 6. Quali difetti di [[Code defects]] correggere.
 7. Rischi se un hacker entra nel server: quali raccomandazioni di [[Cosa vede un attaccante sul server]] fare (prima di tutto `customer_key` obbligatoria negli SDK).
 
-8. **Quale agente ha fatto il danno** (2026-11-15; realizzato in PR #155 da unire, manca solo la chiave per installazione del passo 2): come legare il pacchetto all'agente giusto quando ci sono più agenti simili. Proposta: impronta del programma nella ricevuta "collegato", timbro per installazione, apertura del risultato (email, pagamento) nel verificatore, link per il revisore. Libreria `cryptography` solo se Giovanni dice sì. Vedi [[Quale agente ha fatto il danno]].
+8. **Quale agente ha fatto il danno** (2026-11-15; realizzato in PR #155, unita il 2026-11-15, manca solo la chiave per installazione del passo 2): come legare il pacchetto all'agente giusto quando ci sono più agenti simili. Proposta: impronta del programma nella ricevuta "collegato", timbro per installazione, apertura del risultato (email, pagamento) nel verificatore, link per il revisore. Libreria `cryptography` solo se Giovanni dice sì. Vedi [[Quale agente ha fatto il danno]].
 
 ## Aperto: solo Giovanni può farlo
 Revocare la chiave di prova dell'agente di audit; SSH solo con chiave; togliere l'aggiornamento automatico come root; copie fuori sede non cancellabili; provare un ripristino del backup; avvocato per DPA e contratto di licenza.

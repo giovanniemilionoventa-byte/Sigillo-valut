@@ -2,7 +2,7 @@
 tags: [report, identity, design]
 lang: it
 source: domanda di Giovanni del 2026-11-15; codice letto su main dopo la PR #154 (apps/server/src/connection/watch.ts, packages/core/src/manifest.ts). Solo progettazione: codice fermo, nessuna PR.
-stato: in parte realizzato (PR sigillo #155, da unire); chiave per installazione nel passo 2
+stato: in parte realizzato (PR sigillo #155, unita il 2026-11-15); chiave per installazione nel passo 2
 ---
 # Quale agente ha fatto il danno? Collegare il pacchetto all'agente giusto
 
@@ -98,7 +98,7 @@ Con 1 + 3 si risponde già alla domanda di Giovanni per il caso normale (errore 
 
 Collegati: [[Riprogettazione]] · [[L'agente può mentire a Sigillo]] · [[Evidence pack]] · [[Salted digests and openings]] · [[Heartbeat and guard]] · [[Verifier]].
 
-## Realizzato (2026-11-15, PR sigillo #155, da unire; produzione non aggiornata)
+## Realizzato (2026-11-15, PR sigillo #155 unita; produzione non aggiornata)
 Giovanni ha chiesto di implementarlo. Fatto, per tutti gli account:
 - **Impronta del programma nella catena**: le ricevute "collegato" e "script cambiato" portano l'impronta del file principale dell'agente (artifact `agent program`). Formato delle ricevute invariato.
 - **`python -m sigillo impronta agente.py`** (o `fingerprint`): stampa solo l'impronta, niente del file.
