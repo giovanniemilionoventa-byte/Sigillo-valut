@@ -2,7 +2,7 @@
 tags: [report, identity, design]
 lang: it
 source: domanda di Giovanni del 2026-11-15; codice letto su main dopo la PR #154 (apps/server/src/connection/watch.ts, packages/core/src/manifest.ts). Solo progettazione: codice fermo, nessuna PR.
-stato: proposta, aspetta la scelta di Giovanni
+stato: in parte realizzato (PR sigillo #155, da unire); chiave per installazione nel passo 2
 ---
 # Quale agente ha fatto il danno? Collegare il pacchetto all'agente giusto
 
@@ -97,3 +97,12 @@ In ordine di costo, tutto compatibile con lo scheletro:
 Con 1 + 3 si risponde già alla domanda di Giovanni per il caso normale (errore o confusione tra agenti); 2 serve per i clienti che chiedono di più (banche).
 
 Collegati: [[Riprogettazione]] · [[L'agente può mentire a Sigillo]] · [[Evidence pack]] · [[Salted digests and openings]] · [[Heartbeat and guard]] · [[Verifier]].
+
+## Realizzato (2026-11-15, PR sigillo #155, da unire; produzione non aggiornata)
+Giovanni ha chiesto di implementarlo. Fatto, per tutti gli account:
+- **Impronta del programma nella catena**: le ricevute "collegato" e "script cambiato" portano l'impronta del file principale dell'agente (artifact `agent program`). Formato delle ricevute invariato.
+- **`python -m sigillo impronta agente.py`** (o `fingerprint`): stampa solo l'impronta, niente del file.
+- **`sigillo-verify program pacchetto.zip <impronta>`**: dice da quando a quando quel programma ha scritto la catena.
+- **Link per il revisore**: pulsante «Condividi con il revisore» nel modulo del pacchetto; pagina `/revisione/<codice>` con azienda e agente, **«Verifica qui»** (controllo nel browser, elenco dei programmi registrati, campo per confrontare un'impronta) e **«Scarica»**. Scade dopo 30 giorni, revocabile, salvato solo come hash; la creazione scrive `sigillo.review.shared` nella catena.
+- Per il deploy serve anche il Caddyfile nuovo (`connect-src 'self'`, per «Verifica qui»).
+- Non fatto: chiave per installazione (passo 2). Screenshot nei file del progetto, cartella `revisore/`.
