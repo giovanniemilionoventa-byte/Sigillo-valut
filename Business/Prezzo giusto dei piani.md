@@ -70,6 +70,9 @@ Numeri ufficiali precisi non trovati: sono **stime a ordine di grandezza**.
 
 Onestamente: con il mercato che c'è oggi (250-500 aziende in Italia e Spagna) Sigillo può essere un buon reddito extra, non un'azienda grande, a meno di allargarsi a tutta l'UE o di vendere molti piani Regolati. Questo si collega al dubbio di Giovanni sul valore di Sigillo (decisione del 2026-11-13): i prezzi non cambiano la dimensione del mercato.
 
+## Come procedere (consiglio del 2026-11-15)
+Mandare la proposta a Polina prima della riunione come idea da decidere insieme (messaggio in inglese semplice); decidere alla riunione; cambiare il sito (`site-v2.ts`, via PR) solo dopo l'accordo e quando si aggiorna la produzione.
+
 ## 6. Cosa manca per vendere questi piani [codice]
 Oggi nel codice c'è solo la quota di 10.000 ricevute al mese per organizzazione ([[Limits and throttling]]). Mancano: limiti per piano e per numero di sistemi, conservazione automatica a 12 mesi, fatturazione, link per il revisore ([[Quale agente ha fatto il danno]]). Il codice è fermo, quindi all'inizio i piani si gestiscono a mano (fattura annuale, limiti impostati dall'amministratore).
 
