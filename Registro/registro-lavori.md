@@ -2,6 +2,7 @@
 
 Una riga per ogni cosa **realizzata** (non idee). Più recente in alto. Formato: data, cosa, dove (PR o file), esito.
 
+- 2026-11-15: ricerca sul prezzo giusto dei piani, rifatto da zero (mercato stimato 250-500 aziende in Italia e Spagna, 2.000-4.000 nell'UE; confronto con Langfuse, LangSmith, Helicone, Braintrust, Vanta). Proposta: Prova gratis, Starter 49 €, Professionale 149 €, Regolato da 390 € al mese. Nota [[Prezzo giusto dei piani]]. Solo ricerca, sito e codice non toccati.
 - 2026-11-15: chiarito a Giovanni come funzionerebbe il link per il revisore (solo lettura, un agente e un periodo, scade, revocabile, ricevuta nella catena) e che il revisore non riceve mai il file Python, solo la sua impronta calcolata sulla macchina dell'agente. Nota [[Quale agente ha fatto il danno]]. Solo progettazione.
 - 2026-11-15: su richiesta di Giovanni tolta dal riquadro del registro di esempio la frase «Prova così: apri una ricevuta…»; PR #153 aggiornata con main (dopo la riorganizzazione dell'architettura), **unita su `main` il 2026-11-15**.
 - 2026-11-15: proposta (solo progettazione, codice fermo, nessuna PR) per la domanda di Giovanni "come sa il revisore che il pacchetto è dell'agente che ha fatto il danno?": oggi si distingue solo dal nome; proposti tre anelli (pacchetto autentico, impronta del programma e timbro per installazione, apertura del risultato). Nota [[Quale agente ha fatto il danno]]; aperto in [[Status and open items]] e punto 18 della [[Riprogettazione]].

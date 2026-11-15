@@ -12,6 +12,8 @@ source: documenti + decisioni di Giovanni (non nel codice, salvo i prezzi del si
 Software house e consulenti che costruiscono agenti AI in Python per finanza, assicurazioni, risorse umane. Prima Italia e Spagna.
 
 ## Prezzi (dal sito, `site-v2.ts`) [codice]
+**Proposta nuova del 2026-11-15**, rifatta da zero: Prova gratis, Starter 49 €/mese, Professionale 149 €/mese, Regolato da 390 €/mese. Ragionamento in [[Prezzo giusto dei piani]]. I prezzi qui sotto sono quelli ancora sul sito.
+
 | piano | prezzo | contenuto |
 |---|---|---|
 | Pilot | gratis | 10.000 ricevute al mese, in cambio di caso di studio e feedback |
