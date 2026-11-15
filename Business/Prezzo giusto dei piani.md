@@ -10,7 +10,7 @@ Richiesta di Giovanni: rifare i prezzi **da zero**, ignorando quelli attuali del
 ## In breve
 | piano | prezzo (IVA esclusa) | per chi | cosa include |
 |---|---|---|---|
-| **Prova** | gratis | chi sta provando | 1 sistema, 10.000 ricevute al mese, dati tenuti 30 giorni |
+| **Prova** | gratis, senza scadenza | chi sta provando | 1 sistema, **5.000 ricevute al mese** (scelta di Giovanni del 2026-11-15), dati tenuti 30 giorni, marca gratuita |
 | **Starter** | **49 €/mese** (490 €/anno) | freelance o piccolo team con 1 agente da un cliente | 1 sistema in produzione, 50.000 ricevute, dati tenuti 12 mesi, fascicolo prove |
 | **Professionale** | **149 €/mese** (1.490 €/anno) | software house con più clienti | fino a 5 sistemi, 250.000 ricevute, link per il revisore, supporto email; sistema in più 25 €/mese |
 | **Regolato** | **da 390 €/mese**, solo annuale (~4.700 €/anno) | banca, assicurazione, cliente finale grande | sistemi illimitati fino a 1 milione di ricevute, server o chiave dedicati, SLA, DPA firmato, aiuto durante un audit |
@@ -79,6 +79,8 @@ Oggi ogni ora, se ci sono ricevute nuove, il riassunto della catena di ogni sist
 - **Quante ne servono**: al massimo 1 all'ora per sistema, cioè circa 720 al mese se l'agente lavora sempre, di solito molte meno (solo le ore con attività). Costo per sistema: circa 7-70 € al mese nel caso peggiore con i fornitori economici, pochi euro nel caso normale. Alternativa più economica (richiede codice): una sola marca all'ora per tutti i sistemi insieme, circa 720 marche al mese in totale.
 - **Proposta**: non nello Starter (resta la marca gratuita); **inclusa nel Regolato**, ogni ora; per il Professionale come **aggiunta a 29 €/mese** per sistema.
 - **Ostacoli**: i fornitori qualificati di solito vogliono un contratto con un'azienda (decisione del 2026-09-21: aspettare la società); il codice è fermo e oggi parla solo con FreeTSA e DigiCert; va scelta un'autorità e provata. Era tra i punti sospesi ([[Working rules]], regola 10): è Giovanni a riaprirlo il 2026-11-15, solo come idea di prezzo.
+
+**Scelta di Giovanni (2026-11-15)**: si usa la strada semplice, marche qualificate comprate da un prestatore (non uno standard nostro). Prova gratuita: 1 agente, 5.000 ricevute al mese. Oggi il limite mensile si imposta con `SIGILLO_ORG_MONTHLY_RECEIPTS` (predefinito 10.000), uguale per tutte le organizzazioni.
 
 ## 6. Cosa manca per vendere questi piani [codice]
 Oggi nel codice c'è solo la quota di 10.000 ricevute al mese per organizzazione ([[Limits and throttling]]). Mancano: limiti per piano e per numero di sistemi, conservazione automatica a 12 mesi, fatturazione, link per il revisore ([[Quale agente ha fatto il danno]]). Il codice è fermo, quindi all'inizio i piani si gestiscono a mano (fattura annuale, limiti impostati dall'amministratore).
