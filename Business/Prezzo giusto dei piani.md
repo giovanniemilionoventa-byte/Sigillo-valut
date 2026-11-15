@@ -82,6 +82,18 @@ Oggi ogni ora, se ci sono ricevute nuove, il riassunto della catena di ogni sist
 
 **Scelta di Giovanni (2026-11-15)**: si usa la strada semplice, marche qualificate comprate da un prestatore (non uno standard nostro). Prova gratuita: 1 agente, 5.000 ricevute al mese. Oggi il limite mensile si imposta con `SIGILLO_ORG_MONTHLY_RECEIPTS` (predefinito 10.000), uguale per tutte le organizzazioni.
 
+## Simulazione: eIDAS incluso in tutti i piani a pagamento (2026-11-15)
+Ipotesi: 1 marca all'ora per agente solo nelle ore con attività. Tipico: agente attivo 10 ore al giorno per 22 giorni = 220 marche al mese; massimo 720. Regolato con 10 agenti. Prezzo marca 0,03 € (fornitori europei economici) o 0,10 € (pacchetti piccoli). Margine = metà del prezzo dopo la quota della partner.
+
+| piano | marche al mese (tipico / massimo) | costo a 0,03 € | costo a 0,10 € | margine nostro |
+|---|---|---|---|---|
+| Starter 49 € | 220 / 720 | 7 € / 22 € | 22 € / 72 € | 24,50 € |
+| Professionale 149 € (5 agenti) | 1.100 / 3.600 | 33 € / 108 € | 110 € / 360 € | 74,50 € |
+| Regolato 390 € (10 agenti) | 2.200 / 7.200 | 66 € / 216 € | 220 € / 720 € | 195 € |
+
+Con una marca per agente i costi mangiano troppo (fino a superare il margine). **Soluzione**: una sola marca all'ora per **tutti** i clienti insieme (i riassunti di tutte le catene messi in un unico albero, ogni cliente riceve la prova di inclusione): 720 marche al mese in totale, circa 22-72 € al mese fissi, qualunque sia il numero di clienti. Con 10 clienti è circa 2-7 € a cliente, poi scende. Richiede una modifica al codice e al verificatore (codice fermo). Senza modifica: una marca ogni 4 ore per Starter e Professionale (massimo 180 per agente).
+**Consiglio**: includere eIDAS in tutti i piani a pagamento solo con la marca unica oraria; è anche un buon argomento di vendita.
+
 ## 6. Cosa manca per vendere questi piani [codice]
 Oggi nel codice c'è solo la quota di 10.000 ricevute al mese per organizzazione ([[Limits and throttling]]). Mancano: limiti per piano e per numero di sistemi, conservazione automatica a 12 mesi, fatturazione, link per il revisore ([[Quale agente ha fatto il danno]]). Il codice è fermo, quindi all'inizio i piani si gestiscono a mano (fattura annuale, limiti impostati dall'amministratore).
 
