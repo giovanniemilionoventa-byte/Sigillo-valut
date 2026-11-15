@@ -73,6 +73,13 @@ Onestamente: con il mercato che c'è oggi (250-500 aziende in Italia e Spagna) S
 ## Come procedere (consiglio del 2026-11-15)
 Mandare la proposta a Polina prima della riunione come idea da decidere insieme (messaggio in inglese semplice); decidere alla riunione; cambiare il sito (`site-v2.ts`, via PR) solo dopo l'accordo e quando si aggiorna la produzione.
 
+## Marca temporale qualificata eIDAS (domanda di Giovanni, 2026-11-15)
+Oggi ogni ora, se ci sono ricevute nuove, il riassunto della catena di ogni sistema riceve una marca temporale **non qualificata** (FreeTSA, DigiCert, gratis). Una marca **qualificata eIDAS** ha valore legale in tutta l'UE: si presume vera la data e che i dati non siano cambiati dopo (art. 41 eIDAS). Prova **quando** esisteva il registro, non che l'agente abbia registrato tutto.
+- **Costo di una marca** (listini, da ricontrollare): SK ID Solutions da 0,036 € a 0,006 € con volumi alti; Lleida.net da 0,03 €; Disig circa 0,10-0,12 € in pacchetti; rivenditori italiani (InfoCert, Aruba, Namirial) circa 0,15-0,99 €.
+- **Quante ne servono**: al massimo 1 all'ora per sistema, cioè circa 720 al mese se l'agente lavora sempre, di solito molte meno (solo le ore con attività). Costo per sistema: circa 7-70 € al mese nel caso peggiore con i fornitori economici, pochi euro nel caso normale. Alternativa più economica (richiede codice): una sola marca all'ora per tutti i sistemi insieme, circa 720 marche al mese in totale.
+- **Proposta**: non nello Starter (resta la marca gratuita); **inclusa nel Regolato**, ogni ora; per il Professionale come **aggiunta a 29 €/mese** per sistema.
+- **Ostacoli**: i fornitori qualificati di solito vogliono un contratto con un'azienda (decisione del 2026-09-21: aspettare la società); il codice è fermo e oggi parla solo con FreeTSA e DigiCert; va scelta un'autorità e provata. Era tra i punti sospesi ([[Working rules]], regola 10): è Giovanni a riaprirlo il 2026-11-15, solo come idea di prezzo.
+
 ## 6. Cosa manca per vendere questi piani [codice]
 Oggi nel codice c'è solo la quota di 10.000 ricevute al mese per organizzazione ([[Limits and throttling]]). Mancano: limiti per piano e per numero di sistemi, conservazione automatica a 12 mesi, fatturazione, link per il revisore ([[Quale agente ha fatto il danno]]). Il codice è fermo, quindi all'inizio i piani si gestiscono a mano (fattura annuale, limiti impostati dall'amministratore).
 
